@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { SubscriptionType, UserRole } from 'src/libs/enums';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class User extends Document {
@@ -15,20 +16,20 @@ export class User extends Document {
     @Prop({ required: true })
     phone: string;
 
-    /* @Prop({ required: true, enum: UserRole })
-    role: UserRole; */
+    @Prop({ required: true, enum: UserRole })
+    role: UserRole;
 
-    /* @Prop({ required: function() { return this.role === UserRole.COMPANY; } })
+    @Prop({ required: function() { return this.role === UserRole.COMPANY; } })
     managerName?: string;
 
     @Prop({ required: function() { return this.role === UserRole.COMPANY; } })
     managerEmail?: string;
 
     @Prop({ required: function() { return this.role === UserRole.COMPANY; } })
-    managerPhone?: string; */
+    managerPhone?: string;
 
-    /* @Prop({ required: true, enum: SubscriptionType })
-    subscriptions: SubscriptionType; */
+    @Prop({ required: true, enum: SubscriptionType })
+    subscriptions: SubscriptionType;
 
     @Prop({ default: null })
     deletedAt?: Date;
