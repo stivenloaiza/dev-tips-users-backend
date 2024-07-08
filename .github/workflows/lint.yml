@@ -1,6 +1,12 @@
 name: Lint and Format
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   lint-and-format:
@@ -10,6 +16,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Clear npm cache
+        run: npm cache clean --force
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
