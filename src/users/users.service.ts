@@ -49,7 +49,7 @@ private validateSubscriptionType(subscriptionType: SubscriptionType) {
     async findOne(id: string): Promise<User> {
         const user = await this.userModel.findById(id).exec();
         if (!user) {
-            throw new NotFoundException(`User with id ${id} not found`);
+            throw new NotFoundException(`User with id ${id} not found.`);
         }
         return user;
     }
@@ -73,14 +73,14 @@ private validateSubscriptionType(subscriptionType: SubscriptionType) {
               { new: true }
           ).exec();
           if (!updatedUser) {
-              throw new NotFoundException(`User with id ${id} not found`);
+              throw new NotFoundException(`User with id ${id} not found.`);
           }
           return updatedUser;
       } catch (error) {
           if (error instanceof BadRequestException || error instanceof NotFoundException) {
               throw error; 
           } else {
-              throw new BadRequestException('Error updating user');
+              throw new BadRequestException('Error updating user.');
           }
       }
   }
@@ -94,7 +94,7 @@ private validateSubscriptionType(subscriptionType: SubscriptionType) {
         },
     ).exec();
     if (!deletedUser) {
-        throw new NotFoundException(`User with id ${id} not found`);
+        throw new NotFoundException(`User with id ${id} not found.`);
     }
     return deletedUser;
 }
