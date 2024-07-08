@@ -80,7 +80,7 @@ private validateSubscriptionType(subscriptionType: SubscriptionType) {
           if (error instanceof BadRequestException || error instanceof NotFoundException) {
               throw error; 
           } else {
-              throw new BadRequestException('Error updating user.');
+              throw new BadRequestException('Error updating user');
           }
       }
   }
