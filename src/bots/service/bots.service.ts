@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { BotsSubscription } from '../entities/bots.entity';
@@ -21,14 +21,30 @@ export class BotsSubscriptionService {
   }
 
   async findOne(id: string): Promise<BotsSubscription> {
-    return this.botsSubscriptionModel.findById(id).exec();
+    const botsSubscription = await this.botsSubscriptionModel.findById(id).exec();
+    if (!botsSubscription) {
+      throw new NotFoundException(`BotsSubscription with ID "${id}" not found`);
+    }
+    return botsSubscription;
   }
 
   async update(id: string, updateBotsSubscriptionDto: UpdateBotsSubscriptionDto): Promise<BotsSubscription> {
-    return this.botsSubscriptionModel.findByIdAndUpdate(id, updateBotsSubscriptionDto, { new: true }).exec();
+    const updatedBotsSubscription = await this.botsSubscriptionModel.findByIdAndUpdate(
+      id,
+      updateBotsSubscriptionDto,
+      { new: true },
+    ).exec();
+    if (!updatedBotsSubscription) {
+      throw new NotFoundException(`BotsSubscription with ID "${id}" not found`);
+    }
+    return updatedBotsSubscription;
   }
 
   async remove(id: string): Promise<BotsSubscription> {
-    return this.botsSubscriptionModel.findByIdAndDelete(id).exec();
+    const deletedBotsSubscription = await this.botsSubscriptionModel.findByIdAndDelete(id).exec();
+    if (!deletedBotsSubscription) {
+      throw new NotFoundException(`BotsSubscription with ID "${id}" not found`);
+    }
+    return deletedBotsSubscription;
   }
 }
