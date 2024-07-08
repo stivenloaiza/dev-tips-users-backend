@@ -11,12 +11,15 @@ import { SubscriptionType, UserRole } from 'src/libs/enums';
 export class UsersService {
     constructor(@InjectModel(User.name) private readonly userModel: Model<User>) {}
 
-    async create(createUserDto: CreateUserDto): Promise<User> {
+    async create(createUserDto: CreateUserDto, userId: string): Promise<User> {
       try {
           this.validateUserRole(createUserDto.role);
           this.validateSubscriptionType(createUserDto.subscriptions);
 
-          const createdUser = new this.userModel(createUserDto);
+          const createdUser = new this.userModel({
+              ...createUserDto,
+              createdBy: userId,
+          });
           return await createdUser.save();
       } catch (error) {
           if (error instanceof BadRequestException) {
@@ -51,7 +54,7 @@ private validateSubscriptionType(subscriptionType: SubscriptionType) {
         return user;
     }
 
-    async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    async update(id: string, updateUserDto: UpdateUserDto, userId: string): Promise<User> {
       try {
           if (updateUserDto.role) {
               this.validateUserRole(updateUserDto.role);
@@ -60,7 +63,15 @@ private validateSubscriptionType(subscriptionType: SubscriptionType) {
               this.validateSubscriptionType(updateUserDto.subscriptions);
           }
 
-          const updatedUser = await this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true }).exec();
+          const updatedUser = await this.userModel.findByIdAndUpdate(
+              id,
+              {
+                  ...updateUserDto,
+                  updatedBy: userId,
+                  updatedAt: new Date(),
+              },
+              { new: true }
+          ).exec();
           if (!updatedUser) {
               throw new NotFoundException(`User with id ${id} not found`);
           }
@@ -74,11 +85,17 @@ private validateSubscriptionType(subscriptionType: SubscriptionType) {
       }
   }
 
-    async remove(id: string): Promise<User> {
-        const deletedUser = await this.userModel.findByIdAndDelete(id).exec();
-        if (!deletedUser) {
-            throw new NotFoundException(`User with id ${id} not found`);
-        }
-        return deletedUser;
+  async remove(id: string, userId: string): Promise<User> {
+    const deletedUser = await this.userModel.findByIdAndDelete(
+        id,
+        {
+            deletedBy: userId,
+            deletedAt: new Date(),
+        },
+    ).exec();
+    if (!deletedUser) {
+        throw new NotFoundException(`User with id ${id} not found`);
     }
+    return deletedUser;
+}
 }
