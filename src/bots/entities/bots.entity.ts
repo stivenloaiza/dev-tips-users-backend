@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
 
-@Schema({ timestamps: true })
+@Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class BotsSubscription extends Document {
   @Prop({ required: true })
   frequency: string;
@@ -12,26 +12,20 @@ export class BotsSubscription extends Document {
   @Prop({ required: true })
   seniority: string;
 
-  @Prop({ type: Object, required: true })
+  @Prop({ type: MongooseSchema.Types.Mixed, required: true })
   programmingLanguages: Record<string, any>;
 
-  @Prop()
-  createdAt: Date;
+  @Prop({ type: Date, default: null })
+  deletedAt?: Date;
 
-  @Prop()
-  updatedAt: Date;
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
+  createdBy?: string;
 
-  @Prop()
-  deletedAt: Date;
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
+  updatedBy?: string;
 
-  @Prop()
-  createdBy: string;
-
-  @Prop()
-  updatedBy: string;
-
-  @Prop()
-  deletedBy: string;
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
+  deletedBy?: string;
 }
 
 export const BotsSubscriptionSchema = SchemaFactory.createForClass(BotsSubscription);

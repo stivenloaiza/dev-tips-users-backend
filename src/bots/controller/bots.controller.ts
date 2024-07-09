@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, NotFoundException, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, NotFoundException} from '@nestjs/common';
 import { BotsSubscriptionService } from '../service/bots.service';
 import { CreateBotsSubscriptionDto } from '../dto/create-bots-subscription.dto';
 import { UpdateBotsSubscriptionDto } from '../dto/update-bots-subscription.dto';
