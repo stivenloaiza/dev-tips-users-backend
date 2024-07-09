@@ -1,4 +1,5 @@
-name: Pipeline Lint
+name: Lint and Format
+
 on:
   push:
     branches:
