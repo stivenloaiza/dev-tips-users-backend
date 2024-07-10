@@ -15,6 +15,7 @@ export class UsersService {
       try {
           this.validateUserRole(createUserDto.role);
           this.validateSubscriptionType(createUserDto.subscriptions);
+          await this.checkEmailExists(createUserDto.email);
 
           const createdUser = new this.userModel({
               ...createUserDto,
@@ -39,6 +40,13 @@ export class UsersService {
 private validateSubscriptionType(subscriptionType: SubscriptionType) {
     if (!Object.values(SubscriptionType).includes(subscriptionType)) {
         throw new BadRequestException(`Invalid subscription type: ${subscriptionType}. Valid types are: ${Object.values(SubscriptionType).join(', ')}`);
+    }
+}
+
+private async checkEmailExists(email: string) {
+    const existingUser = await this.userModel.findOne({ email }).exec();
+    if (existingUser) {
+        throw new BadRequestException('Email is already in use.');
     }
 }
 
