@@ -12,7 +12,10 @@ import { BotsSubscriptionModule } from '../src/bots/bots.module';
       load: [dbConfig],
       isGlobal: true,
     }),
-    PersistenceModule, UsersModule, BotsSubscriptionModule],
+    PersistenceModule,
+    UsersModule,
+    BotsSubscriptionModule,
+  ],
   controllers: [],
   providers: [],
 })

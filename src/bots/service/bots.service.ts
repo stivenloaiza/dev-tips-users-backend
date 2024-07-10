@@ -5,24 +5,34 @@ import { BotsSubscription } from '../entities/bots.entity';
 import { CreateBotsSubscriptionDto } from '../dto/create-bots-subscription.dto';
 import { UpdateBotsSubscriptionDto } from '../dto/update-bots-subscription.dto';
 import { AuthService } from './auth.service';
-import { BotsSubscriptionNotFoundException, BotsSubscriptionBadRequestException } from '../exception/bots-suscription.exceptions';
+import {
+  BotsSubscriptionNotFoundException,
+  BotsSubscriptionBadRequestException,
+} from '../exception/bots-suscription.exceptions';
 
 @Injectable()
 export class BotsSubscriptionService {
   constructor(
-    @InjectModel(BotsSubscription.name) private readonly botsSubscriptionModel: Model<BotsSubscription>,
+    @InjectModel(BotsSubscription.name)
+    private readonly botsSubscriptionModel: Model<BotsSubscription>,
     private readonly authService: AuthService,
   ) {}
 
-  async create(createBotsSubscriptionDto: CreateBotsSubscriptionDto): Promise<BotsSubscription> {
+  async create(
+    createBotsSubscriptionDto: CreateBotsSubscriptionDto,
+  ): Promise<BotsSubscription> {
     try {
       const apiKey = await this.authService.getBotsApiKey();
       console.log(`API Key obtenida: ${apiKey}`);
 
-      const newBotsSubscription = new this.botsSubscriptionModel(createBotsSubscriptionDto);
+      const newBotsSubscription = new this.botsSubscriptionModel(
+        createBotsSubscriptionDto,
+      );
       return newBotsSubscription.save();
     } catch (error) {
-      throw new BotsSubscriptionBadRequestException('Failed to create bots subscription');
+      throw new BotsSubscriptionBadRequestException(
+        'Failed to create bots subscription',
+      );
     }
   }
 
@@ -32,41 +42,58 @@ export class BotsSubscriptionService {
 
   async findOne(id: string): Promise<BotsSubscription> {
     try {
-      const botsSubscription = await this.botsSubscriptionModel.findById(id).exec();
+      const botsSubscription = await this.botsSubscriptionModel
+        .findById(id)
+        .exec();
       if (!botsSubscription) {
-        throw new BotsSubscriptionNotFoundException(`BotsSubscription with ID "${id}" not found`);
+        throw new BotsSubscriptionNotFoundException(
+          `BotsSubscription with ID "${id}" not found`,
+        );
       }
       return botsSubscription;
     } catch (error) {
-      throw new BotsSubscriptionNotFoundException(`BotsSubscription with ID "${id}" not found`);
+      throw new BotsSubscriptionNotFoundException(
+        `BotsSubscription with ID "${id}" not found`,
+      );
     }
   }
 
-  async update(id: string, updateBotsSubscriptionDto: UpdateBotsSubscriptionDto): Promise<BotsSubscription> {
+  async update(
+    id: string,
+    updateBotsSubscriptionDto: UpdateBotsSubscriptionDto,
+  ): Promise<BotsSubscription> {
     try {
-      const updatedBotsSubscription = await this.botsSubscriptionModel.findByIdAndUpdate(
-        id,
-        updateBotsSubscriptionDto,
-        { new: true },
-      ).exec();
+      const updatedBotsSubscription = await this.botsSubscriptionModel
+        .findByIdAndUpdate(id, updateBotsSubscriptionDto, { new: true })
+        .exec();
       if (!updatedBotsSubscription) {
-        throw new BotsSubscriptionNotFoundException(`BotsSubscription with ID "${id}" not found`);
+        throw new BotsSubscriptionNotFoundException(
+          `BotsSubscription with ID "${id}" not found`,
+        );
       }
       return updatedBotsSubscription;
     } catch (error) {
-      throw new BotsSubscriptionBadRequestException('Failed to update bots subscription');
+      throw new BotsSubscriptionBadRequestException(
+        'Failed to update bots subscription',
+      );
     }
   }
 
   async remove(id: string): Promise<BotsSubscription> {
     try {
-      const deletedBotsSubscription = await this.botsSubscriptionModel.findByIdAndDelete(id).exec();
+      const deletedBotsSubscription = await this.botsSubscriptionModel
+        .findByIdAndDelete(id)
+        .exec();
       if (!deletedBotsSubscription) {
-        throw new BotsSubscriptionNotFoundException(`BotsSubscription with ID "${id}" not found`);
+        throw new BotsSubscriptionNotFoundException(
+          `BotsSubscription with ID "${id}" not found`,
+        );
       }
       return deletedBotsSubscription;
     } catch (error) {
-      throw new BotsSubscriptionBadRequestException('Failed to delete bots subscription');
+      throw new BotsSubscriptionBadRequestException(
+        'Failed to delete bots subscription',
+      );
     }
   }
 }
