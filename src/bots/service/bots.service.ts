@@ -4,14 +4,19 @@ import { Model } from 'mongoose';
 import { BotsSubscription } from '../entities/bots.entity';
 import { CreateBotsSubscriptionDto } from '../dto/create-bots-subscription.dto';
 import { UpdateBotsSubscriptionDto } from '../dto/update-bots-subscription.dto';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class BotsSubscriptionService {
   constructor(
     @InjectModel(BotsSubscription.name) private readonly botsSubscriptionModel: Model<BotsSubscription>,
+    private readonly authService: AuthService,
   ) {}
 
   async create(createBotsSubscriptionDto: CreateBotsSubscriptionDto): Promise<BotsSubscription> {
+    const apiKey = await this.authService.getBotsApiKey();
+    console.log(`API Key obtenida: ${apiKey}`);
+
     const newBotsSubscription = new this.botsSubscriptionModel(createBotsSubscriptionDto);
     return newBotsSubscription.save();
   }
