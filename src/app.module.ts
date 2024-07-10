@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import dbConfig from './libs/persistence/db-config';
 import { User, UserSchema } from './users/entities/user.entity';
 import { MongooseModule } from '@nestjs/mongoose';
+import { BotsSubscriptionModule } from '../src/bots/bots.module';
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import { MongooseModule } from '@nestjs/mongoose';
       load: [dbConfig],
       isGlobal: true,
     }),
-    PersistenceModule, UsersModule],
+    PersistenceModule, UsersModule, BotsSubscriptionModule],
   controllers: [],
   providers: [],
 })
