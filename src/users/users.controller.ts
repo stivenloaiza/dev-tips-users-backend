@@ -21,14 +21,13 @@ export class UsersController {
           }
       }
   }
-
   @Get()
   async findAll(): Promise<User[]> {
       return this.usersService.findAll();
   }
-
   @Get(':id')
-    async findOne(@Param('id') id: string): Promise<User> {
+
+  async findOne(@Param('id') id: string): Promise<User> {
         const user = await this.usersService.findOne(id);
         if (!user) {
             throw new NotFoundException(`User with id ${id} not found`);
@@ -63,4 +62,5 @@ async remove(@Param('id') id: string): Promise<User> {
         }
     }
 }
+
 }
