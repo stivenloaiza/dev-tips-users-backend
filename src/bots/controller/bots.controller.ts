@@ -1,25 +1,44 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, NotFoundException} from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+  NotFoundException,
+} from '@nestjs/common';
 import { BotsSubscriptionService } from '../service/bots.service';
 import { CreateBotsSubscriptionDto } from '../dto/create-bots-subscription.dto';
 import { UpdateBotsSubscriptionDto } from '../dto/update-bots-subscription.dto';
+import {
+  BotsSubscriptionNotFoundException,
+  BotsSubscriptionBadRequestException,
+} from '../exception/bots-suscription.exceptions';
 
 @Controller('bots-subscriptions')
 export class BotsSubscriptionController {
-  constructor(private readonly botsSubscriptionService: BotsSubscriptionService) {}
+  constructor(
+    private readonly botsSubscriptionService: BotsSubscriptionService,
+  ) {}
 
   @Post()
   async create(@Body() createDto: CreateBotsSubscriptionDto) {
     try {
-      const createdSubscription = await this.botsSubscriptionService.create(createDto);
+      const createdSubscription =
+        await this.botsSubscriptionService.create(createDto);
       return {
         message: 'Bots subscription created successfully',
         data: createdSubscription,
       };
     } catch (error) {
-      return {
-        message: 'Failed to create bots subscription',
-        error: error.message,
-      };
+      if (error instanceof BotsSubscriptionBadRequestException) {
+        return {
+          message: error.message,
+          error: error.message,
+        };
+      }
+      throw error;
     }
   }
 
@@ -41,23 +60,35 @@ export class BotsSubscriptionController {
         data: subscription,
       };
     } catch (error) {
-      throw new NotFoundException(error.message);
+      if (error instanceof BotsSubscriptionNotFoundException) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
     }
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() updateDto: UpdateBotsSubscriptionDto) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateDto: UpdateBotsSubscriptionDto,
+  ) {
     try {
-      const updatedSubscription = await this.botsSubscriptionService.update(id, updateDto);
+      const updatedSubscription = await this.botsSubscriptionService.update(
+        id,
+        updateDto,
+      );
       return {
         message: 'Bots subscription updated successfully',
         data: updatedSubscription,
       };
     } catch (error) {
-      return {
-        message: 'Failed to update bots subscription',
-        error: error.message,
-      };
+      if (error instanceof BotsSubscriptionBadRequestException) {
+        return {
+          message: error.message,
+          error: error.message,
+        };
+      }
+      throw error;
     }
   }
 
@@ -70,10 +101,13 @@ export class BotsSubscriptionController {
         data: deletedSubscription,
       };
     } catch (error) {
-      return {
-        message: 'Failed to delete bots subscription',
-        error: error.message,
-      };
+      if (error instanceof BotsSubscriptionBadRequestException) {
+        return {
+          message: error.message,
+          error: error.message,
+        };
+      }
+      throw error;
     }
   }
 }
