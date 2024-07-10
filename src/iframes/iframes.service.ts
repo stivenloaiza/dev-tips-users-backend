@@ -1,26 +1,63 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateIframeDto } from './dto/create-iframe.dto';
 import { UpdateIframeDto } from './dto/update-iframe.dto';
+import { IframeSuscription } from './entities/iframe.entity';
+import { User } from 'src/users/entities/user.entity';
+
 
 @Injectable()
 export class IframesService {
-  create(createIframeDto: CreateIframeDto) {
-    return 'This action adds a new iframe';
-  }
+    constructor(
+        @InjectModel(IframeSuscription.name) private readonly iframeModel: Model<IframeSuscription>,
+        @InjectModel(User.name) private readonly userModel: Model<User>,
+    ) {}
 
-  findAll() {
-    return `This action returns all iframes`;
-  }
+    async create(createIframeDto: CreateIframeDto): Promise<IframeSuscription> {
+        const user = await this.userModel.findById(createIframeDto.userId).exec();
+        if (!user) {
+            throw new NotFoundException(`User with id ${createIframeDto.userId} not found`);
+        }
 
-  findOne(id: number) {
-    return `This action returns a #${id} iframe`;
-  }
+        const createdIframe = new this.iframeModel(createIframeDto);
+        return await createdIframe.save();
+    }
 
-  update(id: number, updateIframeDto: UpdateIframeDto) {
-    return `This action updates a #${id} iframe`;
-  }
+    async findAll(): Promise<IframeSuscription[]> {
+        return this.iframeModel.find().populate('userId').exec();
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} iframe`;
-  }
+    async findOne(id: string): Promise<IframeSuscription> {
+        const iframe = await this.iframeModel.findById(id).populate('userId').exec();
+        if (!iframe) {
+            throw new NotFoundException(`Iframe with id ${id} not found`);
+        }
+        return iframe;
+    }
+
+    async update(id: string, updateIframeDto: UpdateIframeDto): Promise<IframeSuscription> {
+        const iframe = await this.iframeModel.findById(id).exec();
+        if (!iframe) {
+            throw new NotFoundException(`Iframe with id ${id} not found`);
+        }
+
+        if (updateIframeDto.userId) {
+            const user = await this.userModel.findById(updateIframeDto.userId).exec();
+            if (!user) {
+                throw new NotFoundException(`User with id ${updateIframeDto.userId} not found`);
+            }
+        }
+
+        Object.assign(iframe, updateIframeDto);
+        return await iframe.save();
+    }
+
+    async remove(id: string): Promise<IframeSuscription> {
+        const iframe = await this.iframeModel.findByIdAndDelete(id).exec();
+        if (!iframe) {
+            throw new NotFoundException(`Iframe with id ${id} not found`);
+        }
+        return iframe;
+    }
 }
