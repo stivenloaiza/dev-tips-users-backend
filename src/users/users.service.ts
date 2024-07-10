@@ -16,10 +16,11 @@ export class UsersService {
     @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto, userId: string): Promise<User> {
-    try {
-      this.validateUserRole(createUserDto.role);
-      this.validateSubscriptionType(createUserDto.subscriptions);
+    async create(createUserDto: CreateUserDto, userId: string): Promise<User> {
+      try {
+          this.validateUserRole(createUserDto.role);
+          this.validateSubscriptionType(createUserDto.subscriptions);
+          await this.checkEmailExists(createUserDto.email);
 
       const createdUser = new this.userModel({
         ...createUserDto,
@@ -51,9 +52,16 @@ export class UsersService {
     }
   }
 
-  async findAll(): Promise<User[]> {
-    return this.userModel.find().exec();
-  }
+private async checkEmailExists(email: string) {
+    const existingUser = await this.userModel.findOne({ email }).exec();
+    if (existingUser) {
+        throw new BadRequestException('Email is already in use.');
+    }
+}
+
+    async findAll(): Promise<User[]> {
+        return this.userModel.find().exec();
+    }
 
   async findOne(id: string): Promise<User> {
     const user = await this.userModel.findById(id).exec();
