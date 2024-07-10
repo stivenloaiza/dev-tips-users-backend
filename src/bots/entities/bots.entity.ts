@@ -28,4 +28,5 @@ export class BotsSubscription extends Document {
   deletedBy?: string;
 }
 
-export const BotsSubscriptionSchema = SchemaFactory.createForClass(BotsSubscription);
+export const BotsSubscriptionSchema =
+  SchemaFactory.createForClass(BotsSubscription);
