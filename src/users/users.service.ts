@@ -20,7 +20,9 @@ export class UsersService {
       try {
           this.validateUserRole(createUserDto.role);
           this.validateSubscriptionType(createUserDto.subscriptions);
+          this.validateEmail(createUserDto.email);
           await this.checkEmailExists(createUserDto.email);
+
 
       const createdUser = new this.userModel({
         ...createUserDto,
@@ -56,6 +58,13 @@ private async checkEmailExists(email: string) {
     const existingUser = await this.userModel.findOne({ email }).exec();
     if (existingUser) {
         throw new BadRequestException('Email is already in use.');
+    }
+}
+
+private validateEmail(email: string) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        throw new BadRequestException('Invalid email format.');
     }
 }
 

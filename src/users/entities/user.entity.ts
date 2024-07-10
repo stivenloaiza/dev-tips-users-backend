@@ -4,11 +4,9 @@ import { SubscriptionType, UserRole } from 'src/libs/enums';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class User extends Document {
-  @Prop({ required: true })
-  apiKey: string;
-
-  @Prop({ required: true })
-  name: string;
+  
+   @Prop({ required: true })
+   name: string;
 
   @Prop({ required: true, unique: true })
   email: string;
