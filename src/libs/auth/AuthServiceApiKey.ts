@@ -6,7 +6,7 @@ import { lastValueFrom } from 'rxjs';
 export class AuthService {
   constructor(private readonly httpService: HttpService) {}
 
-  async getBotsApiKey(): Promise<string> {
+  async getApiKey(): Promise<string> {
     try {
       const response = await lastValueFrom(
         this.httpService.get<{ apiKey: string }>('URL_DE_LA_API_DE_AUTHS_KEYS'),

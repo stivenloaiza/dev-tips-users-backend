@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { language, programmingLanguage, senority } from 'src/libs/enums';
+import { language, level, programmingLanguage } from 'src/libs/enums';
 import { User } from 'src/users/entities/user.entity';
 
 @Schema({ timestamps: true })
@@ -11,8 +11,8 @@ export class IframeSuscription extends Document {
   @Prop({ required: true })
   communication: string;
 
-  @Prop({ required: true, enum: senority })
-  seniority: senority;
+  @Prop({ required: true, enum: level })
+  level: level;
 
   @Prop({ required: true, enum: programmingLanguage })
   programmingLanguage: programmingLanguage;
