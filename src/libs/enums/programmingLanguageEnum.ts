@@ -3,5 +3,5 @@ export enum programmingLanguage {
   JAVASCRIPT = 'javascript',
   TYPESCRIPT = 'typescript',
   JAVA = 'java',
-  C_SHARP = 'csharp',
+  C_SHARP = 'c-sharp',
 }
