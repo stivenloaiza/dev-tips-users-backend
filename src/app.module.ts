@@ -4,7 +4,8 @@ import { PersistenceModule } from './libs/persistence';
 import { ConfigModule } from '@nestjs/config';
 import { IframesModule } from './iframes/iframes.module';
 import dbConfig from './libs/persistence/db-config';
-import { BotsSubscriptionModule } from '../src/bots/bots.module';
+import { TvsModule } from './tvs/tvs.module';
+import { BotsSubscriptionModule } from './bots/bots.module';
 
 @Module({
   imports: [
@@ -13,8 +14,13 @@ import { BotsSubscriptionModule } from '../src/bots/bots.module';
       load: [dbConfig],
       isGlobal: true,
     }),
-    PersistenceModule, UsersModule, IframesModule, BotsSubscriptionModule],
-   controllers: [],
-   providers: [],
+    PersistenceModule,
+    UsersModule,
+    IframesModule,
+    BotsSubscriptionModule,
+    TvsModule,
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
