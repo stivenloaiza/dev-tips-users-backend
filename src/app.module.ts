@@ -6,6 +6,7 @@ import dbConfig from './libs/persistence/db-config';
 import { BotsSubscriptionModule } from './bots/bots.module';
 import { HttpModule } from '@nestjs/axios';
 import { TvsModule } from './tvs/tvs.module';
+import { IframesModule } from './iframes/iframes.module';
 
 @Module({
   imports: [
