@@ -1,10 +1,5 @@
-import {
-  IsString,
-  IsNotEmpty,
-  IsObject,
-  IsOptional,
-  IsEnum,
-} from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsEnum } from 'class-validator';
+import { programmingLanguage, senority } from 'src/libs/enums';
 
 export class CreateBotsSubscriptionDto {
   @IsString()
@@ -16,13 +11,13 @@ export class CreateBotsSubscriptionDto {
   @IsEnum(['Telegram', 'Discord'])
   channel: string;
 
-  @IsString()
+  @IsEnum(senority)
   @IsNotEmpty()
-  seniority: string;
+  seniority: senority;
 
-  @IsObject()
+  @IsEnum(programmingLanguage)
   @IsNotEmpty()
-  programmingLanguages: Record<string, any>;
+  programmingLanguage: programmingLanguage;
 
   @IsString()
   @IsNotEmpty()
