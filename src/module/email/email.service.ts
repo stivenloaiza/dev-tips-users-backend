@@ -21,6 +21,6 @@ export class EmailService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} email`;
+    return `This action removes a #${id}`;
   }
 }
