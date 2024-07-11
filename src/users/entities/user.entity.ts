@@ -37,8 +37,8 @@ export class User extends Document {
   })
   managerPhone?: string;
 
-  @Prop({ required: true, enum: SubscriptionType })
-  subscriptions: SubscriptionType;
+  @Prop({ required: true })
+  subscriptions: string[] = [];
 
   @Prop({ default: null })
   deletedAt?: Date;
