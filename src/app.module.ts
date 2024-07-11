@@ -11,7 +11,9 @@ import dbConfig from './libs/persistence/db-config';
       load: [dbConfig],
       isGlobal: true,
     }),
-    PersistenceModule, UsersModule],
+    PersistenceModule,
+    UsersModule,
+  ],
   controllers: [],
   providers: [],
 })
