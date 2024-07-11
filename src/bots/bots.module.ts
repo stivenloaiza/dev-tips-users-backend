@@ -15,6 +15,7 @@ import { AuthService } from 'src/libs/auth/AuthServiceApiKey';
       { name: BotsSubscription.name, schema: BotsSubscriptionSchema },
     ]),
     HttpModule,
+    UsersModule,
   ],
   controllers: [BotsSubscriptionController],
   providers: [BotsSubscriptionService, AuthService],
