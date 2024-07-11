@@ -1,6 +1,26 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmail, IsEnum, IsOptional, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  IsArray,
+  IsEmail,
+  IsEnum,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
+import { CreateBotsSubscriptionDto } from 'src/bots/dto/create-bots-subscription.dto';
+import { CreateIframeDto } from 'src/iframes/dto/create-iframe.dto';
 import { UserRole, SubscriptionType } from 'src/libs/enums';
+import { CreateTvDto } from 'src/tvs/dto/create-tv.dto';
+
+export class SubscriptionDto {
+  @IsEnum(SubscriptionType)
+  type: SubscriptionType;
+
+  @ValidateNested()
+  @Type(() => Object)
+  data: CreateBotsSubscriptionDto | CreateTvDto | CreateIframeDto;
+}
 
 export class CreateUserDto {
   @ApiProperty()
@@ -38,9 +58,10 @@ export class CreateUserDto {
   @IsString()
   managerPhone?: string;
 
-  @ApiProperty({ enum: SubscriptionType, enumName: 'SubscriptionType' })
-  @IsEnum(SubscriptionType)
-  subscriptions: SubscriptionType;
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => SubscriptionDto)
+  subscriptions: SubscriptionDto[];
 
   @ApiProperty({ type: Date, default: null })
   deletedAt?: Date;

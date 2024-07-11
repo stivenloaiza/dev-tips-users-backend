@@ -1,7 +1,11 @@
-import { IsString, IsNotEmpty, IsOptional, IsEnum } from 'class-validator';
+import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
 import { programmingLanguage, senority } from 'src/libs/enums';
 
 export class CreateBotsSubscriptionDto {
+  @IsNotEmpty()
+  @IsString()
+  userId?: string;
+
   @IsString()
   @IsNotEmpty()
   frequency: string;
@@ -18,16 +22,4 @@ export class CreateBotsSubscriptionDto {
   @IsEnum(programmingLanguage)
   @IsNotEmpty()
   programmingLanguage: programmingLanguage;
-
-  @IsString()
-  @IsNotEmpty()
-  createdBy: string;
-
-  @IsString()
-  @IsOptional()
-  updatedBy?: string;
-
-  @IsString()
-  @IsOptional()
-  deletedBy?: string;
 }
