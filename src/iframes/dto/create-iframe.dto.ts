@@ -1,13 +1,12 @@
 import { language, level, programmingLanguage } from 'src/libs/enums';
 import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateIframeDto {
-  @IsNotEmpty()
   @IsString()
-  userId: string;
+  userId?: string;
 
   @IsString()
-  @IsNotEmpty()
   communication: string;
 
   @IsEnum(level)
@@ -33,4 +32,16 @@ export class CreateIframeDto {
   @IsEnum(language)
   @IsNotEmpty()
   language: language;
+
+  @ApiProperty({ type: Date, default: null })
+  deletedAt?: Date;
+
+  @ApiProperty({ default: null })
+  createdBy?: string;
+
+  @ApiProperty({ default: null })
+  updatedBy?: string;
+
+  @ApiProperty({ default: null })
+  deletedBy?: string;
 }

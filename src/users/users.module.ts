@@ -12,6 +12,9 @@ import {
   IframeSchema,
   IframeSuscription,
 } from 'src/iframes/entities/iframe.entity';
+import { IframesService } from 'src/iframes/iframes.service';
+import { BotsSubscriptionService } from 'src/bots/service/bots.service';
+import { TvsService } from 'src/tvs/tvs.service';
 
 @Module({
   imports: [
@@ -25,7 +28,12 @@ import {
     ]),
   ],
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [
+    UsersService,
+    IframesService,
+    BotsSubscriptionService,
+    TvsService,
+  ],
   exports: [MongooseModule],
 })
 export class UsersModule {}

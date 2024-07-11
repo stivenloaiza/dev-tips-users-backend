@@ -1,28 +1,6 @@
-import { IsString, IsOptional, IsObject, IsEnum } from 'class-validator';
+import { PartialType } from '@nestjs/swagger';
+import { CreateBotsSubscriptionDto } from './create-bots-subscription.dto';
 
-export class UpdateBotsSubscriptionDto {
-  @IsString()
-  @IsOptional()
-  frequency?: string;
-
-  @IsString()
-  @IsOptional()
-  @IsEnum(['Telegram', 'Discord'])
-  channel?: string;
-
-  @IsString()
-  @IsOptional()
-  seniority?: string;
-
-  @IsObject()
-  @IsOptional()
-  programmingLanguages?: Record<string, any>;
-
-  @IsString()
-  @IsOptional()
-  updatedBy?: string;
-
-  @IsString()
-  @IsOptional()
-  deletedBy?: string;
-}
+export class UpdateBotsSubscriptionDto extends PartialType(
+  CreateBotsSubscriptionDto,
+) {}

@@ -14,19 +14,18 @@ export class TvsService {
     @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
   async create(createTvDto: CreateTvDto): Promise<TvSuscription> {
-    const user = await this.userModel.findById(createTvDto.userId).exec();
-    if (!user) {
-      throw new NotFoundException(
-        `User with id ${createTvDto.userId} not found`,
-      );
-    }
-
-    const createdTv = new this.tvModel(createTvDto);
-    return await createdTv.save();
+    const createdTvSuscription = new this.tvModel(createTvDto);
+    return await createdTvSuscription.save();
   }
 
   async findAll(): Promise<TvSuscription[]> {
-    return this.tvModel.find().populate('userId').exec();
+    return this.tvModel
+      .find()
+      .populate({
+        path: 'userId',
+        select: 'name email phone role managerName managerEmail managerPhone',
+      })
+      .exec();
   }
 
   async findOne(id: string): Promise<TvSuscription> {

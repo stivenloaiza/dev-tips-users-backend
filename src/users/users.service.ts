@@ -9,23 +9,20 @@ import { CreateUserDto, SubscriptionDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { SubscriptionType, UserRole } from 'src/libs/enums';
-import { BotsSubscription } from 'src/bots/entities/bots.entity';
-import { TvSuscription } from 'src/tvs/entities/tv.entity';
-import { IframeSuscription } from 'src/iframes/entities/iframe.entity';
 import { CreateBotsSubscriptionDto } from 'src/bots/dto/create-bots-subscription.dto';
 import { CreateTvDto } from 'src/tvs/dto/create-tv.dto';
 import { CreateIframeDto } from 'src/iframes/dto/create-iframe.dto';
+import { IframesService } from 'src/iframes/iframes.service';
+import { BotsSubscriptionService } from 'src/bots/service/bots.service';
+import { TvsService } from 'src/tvs/tvs.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>,
-    @InjectModel(BotsSubscription.name)
-    private readonly botModel: Model<BotsSubscription>,
-    @InjectModel(TvSuscription.name)
-    private readonly tvModel: Model<TvSuscription>,
-    @InjectModel(IframeSuscription.name)
-    private readonly iframeModel: Model<IframeSuscription>,
+    private readonly tvsService: TvsService,
+    private readonly iframesService: IframesService,
+    private readonly botsSubscriptionService: BotsSubscriptionService,
   ) {}
 
   async create(createUserDto: CreateUserDto, userId: string): Promise<User> {
@@ -42,11 +39,12 @@ export class UsersService {
 
       const savedUser = await createdUser.save();
 
-      const userIdString = String(savedUser._id);
+      const userIdString = savedUser._id.toString();
       await this.createSubscriptions(userIdString, createUserDto.subscriptions);
 
       return savedUser;
     } catch (error) {
+      console.error('Error creating user:', error);
       if (error instanceof BadRequestException) {
         throw error;
       } else {
@@ -107,24 +105,19 @@ export class UsersService {
           const botSubscriptionDto = new CreateBotsSubscriptionDto();
           botSubscriptionDto.userId = userId;
           Object.assign(botSubscriptionDto, data);
-          const botSubscription = new this.botModel(botSubscriptionDto);
-          await botSubscription.save();
+          await this.botsSubscriptionService.create(botSubscriptionDto);
           break;
         case 'tv':
           const tvSubscriptionDto = new CreateTvDto();
           tvSubscriptionDto.userId = userId;
           Object.assign(tvSubscriptionDto, data);
-          const tvSubscription = new this.tvModel(tvSubscriptionDto);
-          await tvSubscription.save();
+          await this.tvsService.create(tvSubscriptionDto);
           break;
         case 'iframe':
           const iframeSubscriptionDto = new CreateIframeDto();
           iframeSubscriptionDto.userId = userId;
           Object.assign(iframeSubscriptionDto, data);
-          const iframeSubscription = new this.iframeModel(
-            iframeSubscriptionDto,
-          );
-          await iframeSubscription.save();
+          await this.iframesService.create(iframeSubscriptionDto);
           break;
         default:
           throw new BadRequestException(`Unknown subscription type: ${type}`);

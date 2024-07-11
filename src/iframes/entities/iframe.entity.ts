@@ -8,7 +8,7 @@ export class IframeSuscription extends Document {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   userId: User;
 
-  @Prop({ required: true })
+  @Prop({ default: null })
   communication: string;
 
   @Prop({ required: true, enum: level })
