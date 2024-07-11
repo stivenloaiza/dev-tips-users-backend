@@ -1,18 +1,18 @@
-import { language, programmingLanguage, senority } from 'src/libs/enums';
+import { language, level, programmingLanguage } from 'src/libs/enums';
 import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
-import { Types } from 'mongoose';
 
 export class CreateIframeDto {
   @IsNotEmpty()
-  userId: Types.ObjectId;
+  @IsString()
+  userId: string;
 
   @IsString()
   @IsNotEmpty()
   communication: string;
 
-  @IsEnum(senority)
+  @IsEnum(level)
   @IsNotEmpty()
-  seniority: senority;
+  level: level;
 
   @IsEnum(programmingLanguage)
   @IsNotEmpty()

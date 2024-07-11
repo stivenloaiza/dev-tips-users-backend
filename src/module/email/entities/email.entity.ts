@@ -1,18 +1,21 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
-export class Email extends Document {
+export class EmailSubscription extends Document {
   @Prop()
   apikey: string;
 
-  @Prop()
+  @Prop({required:true})
   frequency: string;
 
-  @Prop()
+  @Prop({required:true})
   seniority: string;
 
-  @Prop()
-  programmingLanguages: Object;
+  @Prop({required:true})
+  devLanguage: string;
+
+  @Prop({required:true})
+  language: string
 
   @Prop()
   createdAt: Date;
@@ -33,4 +36,4 @@ export class Email extends Document {
   deletedBy?: string;
 }
 
-export const email = SchemaFactory.createForClass(Email);
+export const email = SchemaFactory.createForClass(EmailSubscription);

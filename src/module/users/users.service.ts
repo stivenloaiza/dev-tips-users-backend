@@ -5,15 +5,27 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto, SubscriptionDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { SubscriptionType, UserRole } from 'src/libs/enums';
+import { BotsSubscription } from 'src/bots/entities/bots.entity';
+import { TvSuscription } from 'src/tvs/entities/tv.entity';
+import { IframeSuscription } from 'src/iframes/entities/iframe.entity';
+import { CreateBotsSubscriptionDto } from 'src/bots/dto/create-bots-subscription.dto';
+import { CreateTvDto } from 'src/tvs/dto/create-tv.dto';
+import { CreateIframeDto } from 'src/iframes/dto/create-iframe.dto';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel(User.name) private readonly userModel: Model<User>,
+    @InjectModel(BotsSubscription.name)
+    private readonly botModel: Model<BotsSubscription>,
+    @InjectModel(TvSuscription.name)
+    private readonly tvModel: Model<TvSuscription>,
+    @InjectModel(IframeSuscription.name)
+    private readonly iframeModel: Model<IframeSuscription>,
   ) {}
 
   async create(createUserDto: CreateUserDto, userId: string): Promise<User> {
@@ -27,7 +39,13 @@ export class UsersService {
         ...createUserDto,
         createdBy: userId,
       });
-      return await createdUser.save();
+
+      const savedUser = await createdUser.save();
+
+      const userIdString = String(savedUser._id);
+      await this.createSubscriptions(userIdString, createUserDto.subscriptions);
+
+      return savedUser;
     } catch (error) {
       if (error instanceof BadRequestException) {
         throw error;
@@ -45,11 +63,14 @@ export class UsersService {
     }
   }
 
-  private validateSubscriptionType(subscriptionType: SubscriptionType) {
-    if (!Object.values(SubscriptionType).includes(subscriptionType)) {
-      throw new BadRequestException(
-        `Invalid subscription type: ${subscriptionType}. Valid types are: ${Object.values(SubscriptionType).join(', ')}`,
-      );
+  validateSubscriptionType(subscriptions: SubscriptionDto[]) {
+    for (const subscription of subscriptions) {
+      if (
+        !subscription.type ||
+        !Object.values(SubscriptionType).includes(subscription.type)
+      ) {
+        throw new Error('Invalid subscription type.');
+      }
     }
   }
 
@@ -64,6 +85,50 @@ export class UsersService {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       throw new BadRequestException('Invalid email format.');
+    }
+  }
+
+  private async createSubscriptions(
+    userId: string,
+    subscriptions: any[],
+  ): Promise<void> {
+    for (const subscription of subscriptions) {
+      const { type, data } = subscription;
+
+      switch (type) {
+        /* case 'email':
+                  const emailSubscriptionDto = new CreateEmailSubscriptionDto();
+                  emailSubscriptionDto.userId = userId;
+                  Object.assign(emailSubscriptionDto, data);
+                  const emailSubscription = new this.emailSubscriptionModel(emailSubscriptionDto);
+                  await emailSubscription.save();
+                  break; */
+        case 'bot':
+          const botSubscriptionDto = new CreateBotsSubscriptionDto();
+          botSubscriptionDto.userId = userId;
+          Object.assign(botSubscriptionDto, data);
+          const botSubscription = new this.botModel(botSubscriptionDto);
+          await botSubscription.save();
+          break;
+        case 'tv':
+          const tvSubscriptionDto = new CreateTvDto();
+          tvSubscriptionDto.userId = userId;
+          Object.assign(tvSubscriptionDto, data);
+          const tvSubscription = new this.tvModel(tvSubscriptionDto);
+          await tvSubscription.save();
+          break;
+        case 'iframe':
+          const iframeSubscriptionDto = new CreateIframeDto();
+          iframeSubscriptionDto.userId = userId;
+          Object.assign(iframeSubscriptionDto, data);
+          const iframeSubscription = new this.iframeModel(
+            iframeSubscriptionDto,
+          );
+          await iframeSubscription.save();
+          break;
+        default:
+          throw new BadRequestException(`Unknown subscription type: ${type}`);
+      }
     }
   }
 

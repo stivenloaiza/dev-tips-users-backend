@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { SubscriptionType, UserRole } from 'src/libs/enums';
+import { UserRole } from 'src/libs/enums';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class User extends Document {
@@ -37,8 +37,8 @@ export class User extends Document {
   })
   managerPhone?: string;
 
-  @Prop({ required: true, enum: SubscriptionType })
-  subscriptions: SubscriptionType;
+  @Prop({ required: true })
+  subscriptions: string[] = [];
 
   @Prop({ default: null })
   deletedAt?: Date;

@@ -4,11 +4,11 @@ import { Model } from 'mongoose';
 import { BotsSubscription } from '../entities/bots.entity';
 import { CreateBotsSubscriptionDto } from '../dto/create-bots-subscription.dto';
 import { UpdateBotsSubscriptionDto } from '../dto/update-bots-subscription.dto';
-import { AuthService } from './auth.service';
 import {
   BotsSubscriptionNotFoundException,
   BotsSubscriptionBadRequestException,
 } from '../exception/bots-suscription.exceptions';
+import { AuthService } from 'src/libs/auth/AuthServiceApiKey';
 
 @Injectable()
 export class BotsSubscriptionService {
@@ -22,7 +22,7 @@ export class BotsSubscriptionService {
     createBotsSubscriptionDto: CreateBotsSubscriptionDto,
   ): Promise<BotsSubscription> {
     try {
-      const apiKey = await this.authService.getBotsApiKey();
+      const apiKey = await this.authService.getApiKey();
       console.log(`API Key obtenida: ${apiKey}`);
 
       const newBotsSubscription = new this.botsSubscriptionModel(

@@ -2,10 +2,11 @@ import { UsersModule } from './module/users/users.module';
 import { Module } from '@nestjs/common';
 import { PersistenceModule } from './libs/persistence';
 import { ConfigModule } from '@nestjs/config';
-import { IframesModule } from './iframes/iframes.module';
 import dbConfig from './libs/persistence/db-config';
-import { TvsModule } from './tvs/tvs.module';
 import { BotsSubscriptionModule } from './bots/bots.module';
+import { HttpModule } from '@nestjs/axios';
+import { TvsModule } from './tvs/tvs.module';
+import { IframesModule } from './iframes/iframes.module';
 
 @Module({
   imports: [
@@ -16,8 +17,9 @@ import { BotsSubscriptionModule } from './bots/bots.module';
     }),
     PersistenceModule,
     UsersModule,
-    IframesModule,
     BotsSubscriptionModule,
+    HttpModule,
+    IframesModule,
     TvsModule,
   ],
   controllers: [],
