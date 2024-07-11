@@ -5,7 +5,7 @@ import { SubscriptionType, UserRole } from 'src/libs/enums';
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class User extends Document {
     @Prop({ required: true })
-    apiKey: string;
+    apiKey?: string;
 
     @Prop({ required: true })
     name: string;
@@ -29,7 +29,7 @@ export class User extends Document {
     managerPhone?: string;
 
     @Prop({ required: true, enum: SubscriptionType })
-    subscriptions: SubscriptionType;
+    subscriptions?: SubscriptionType;
 
     @Prop({ default: null })
     deletedAt?: Date;

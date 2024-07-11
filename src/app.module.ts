@@ -1,5 +1,5 @@
+import { UsersModule } from './module/users/users.module';
 import { Module } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
 import { PersistenceModule } from './libs/persistence';
 import { ConfigModule } from '@nestjs/config';
 import dbConfig from './libs/persistence/db-config';
