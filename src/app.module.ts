@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import dbConfig from './libs/persistence/db-config';
 import { BotsSubscriptionModule } from './bots/bots.module';
 import { HttpModule } from '@nestjs/axios';
+import { TvsModule } from './tvs/tvs.module';
 
 @Module({
   imports: [
@@ -17,6 +18,8 @@ import { HttpModule } from '@nestjs/axios';
     UsersModule,
     BotsSubscriptionModule,
     HttpModule,
+    IframesModule,
+    TvsModule,
   ],
   controllers: [],
   providers: [],

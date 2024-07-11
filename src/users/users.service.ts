@@ -16,13 +16,12 @@ export class UsersService {
     @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
 
-    async create(createUserDto: CreateUserDto, userId: string): Promise<User> {
-      try {
-          this.validateUserRole(createUserDto.role);
-          this.validateSubscriptionType(createUserDto.subscriptions);
-          this.validateEmail(createUserDto.email);
-          await this.checkEmailExists(createUserDto.email);
-
+  async create(createUserDto: CreateUserDto, userId: string): Promise<User> {
+    try {
+      this.validateUserRole(createUserDto.role);
+      this.validateSubscriptionType(createUserDto.subscriptions);
+      this.validateEmail(createUserDto.email);
+      await this.checkEmailExists(createUserDto.email);
 
       const createdUser = new this.userModel({
         ...createUserDto,
@@ -54,23 +53,23 @@ export class UsersService {
     }
   }
 
-private async checkEmailExists(email: string) {
+  private async checkEmailExists(email: string) {
     const existingUser = await this.userModel.findOne({ email }).exec();
     if (existingUser) {
-        throw new BadRequestException('Email is already in use.');
+      throw new BadRequestException('Email is already in use.');
     }
-}
+  }
 
-private validateEmail(email: string) {
+  private validateEmail(email: string) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-        throw new BadRequestException('Invalid email format.');
+      throw new BadRequestException('Invalid email format.');
     }
-}
+  }
 
-    async findAll(): Promise<User[]> {
-        return this.userModel.find().exec();
-    }
+  async findAll(): Promise<User[]> {
+    return this.userModel.find().exec();
+  }
 
   async findOne(id: string): Promise<User> {
     const user = await this.userModel.findById(id).exec();
