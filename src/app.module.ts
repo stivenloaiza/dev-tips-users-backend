@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { PersistenceModule } from './libs/persistence';
 import { ConfigModule } from '@nestjs/config';
-import { IframesModule } from './iframes/iframes.module';
 import dbConfig from './libs/persistence/db-config';
-import { BotsSubscriptionModule } from '../src/bots/bots.module';
+import { BotsSubscriptionModule } from './bots/bots.module';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -13,8 +13,12 @@ import { BotsSubscriptionModule } from '../src/bots/bots.module';
       load: [dbConfig],
       isGlobal: true,
     }),
-    PersistenceModule, UsersModule, IframesModule, BotsSubscriptionModule],
-   controllers: [],
-   providers: [],
+    PersistenceModule,
+    UsersModule,
+    BotsSubscriptionModule,
+    HttpModule,
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
