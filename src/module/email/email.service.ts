@@ -17,7 +17,7 @@ export class EmailService {
   }
 
   update(id: number, updateEmailDto: UpdateEmailDto) {
-    return `This action updates a #${id} email`;
+    return `This action updates a #${id}`;
   }
 
   remove(id: number) {
