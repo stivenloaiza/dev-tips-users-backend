@@ -8,12 +8,6 @@ export class BotsSubscription extends Document {
   @Prop({ required: true })
   communication: string;
 
-  @Prop({ required: true, enum: level })
-  level: level;
-
-  @Prop({ required: true, enum: programmingLanguage })
-  programmingLanguage: programmingLanguage;
-
   @Prop({ required: true })
   frequency: frecuencyType;
 

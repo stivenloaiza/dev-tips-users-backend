@@ -12,6 +12,17 @@ import {
   IframeSchema,
   IframeSuscription,
 } from '../iframes/entities/iframe.entity';
+import { IframesService } from '../iframes/iframes.service';
+import { BotsSubscriptionService } from '../bots/service/bots.service';
+import { TvsService } from '../tvs/tvs.service';
+import { EmailService } from '../email/email.service';
+import { AuthService } from 'src/tvs/service/auth.service';
+
+import {
+  EmailSubscription,
+  EmailSubscriptionSchema,
+} from '../email/entities/email.entity';
+import { HttpModule, HttpService } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -23,6 +34,11 @@ import {
     MongooseModule.forFeature([
       { name: IframeSuscription.name, schema: IframeSchema },
     ]),
+    MongooseModule.forFeature([
+      { name: EmailSubscription.name, schema: EmailSubscriptionSchema },
+    ]),
+    HttpModule
+
   ],
   controllers: [UsersController],
   providers: [
@@ -30,6 +46,8 @@ import {
     IframesService,
     BotsSubscriptionService,
     TvsService,
+    EmailService,
+    AuthService,
   ],
   exports: [MongooseModule],
 })
