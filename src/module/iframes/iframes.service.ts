@@ -4,7 +4,7 @@ import { Model } from 'mongoose';
 import { CreateIframeDto } from './dto/create-iframe.dto';
 import { UpdateIframeDto } from './dto/update-iframe.dto';
 import { IframeSuscription } from './entities/iframe.entity';
-import { User } from 'src/users/entities/user.entity';
+import { User } from '../users/entities/user.entity';
 
 @Injectable()
 export class IframesService {

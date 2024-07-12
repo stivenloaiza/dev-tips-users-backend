@@ -1,5 +1,5 @@
 import { IsString, IsNotEmpty, IsOptional, IsEnum } from 'class-validator';
-import { level, programmingLanguage } from 'src/libs/enums';
+import { devLanguageType, seniorityType } from 'src/libs/enums';
 
 export class CreateBotsSubscriptionDto {
   @IsNotEmpty()
@@ -15,13 +15,13 @@ export class CreateBotsSubscriptionDto {
   @IsEnum(['Telegram', 'Discord'])
   channel: string;
 
-  @IsEnum(level)
+  @IsEnum(seniorityType)
   @IsNotEmpty()
-  level: level;
+  level: seniorityType;
 
-  @IsEnum(programmingLanguage)
+  @IsEnum(devLanguageType)
   @IsNotEmpty()
-  programmingLanguage: programmingLanguage;
+  devLanguage: devLanguageType;
 
   @IsString()
   @IsNotEmpty()

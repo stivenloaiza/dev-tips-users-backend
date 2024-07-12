@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { channel, level } from 'src/libs/enums';
+import { channelType, seniorityType } from 'src/libs/enums';
+import { frecuencyType } from 'src/libs/enums/frecuency.enum';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class BotsSubscription extends Document {
@@ -9,13 +10,13 @@ export class BotsSubscription extends Document {
   communication: string;
 
   @Prop({ required: true })
-  frequency: string;
+  frequency: frecuencyType;
 
-  @Prop({ required: true, enum: channel })
-  channel: channel;
+  @Prop({ required: true, enum: channelType })
+  channel: channelType;
 
-  @Prop({ required: true, enum: level })
-  level: level;
+  @Prop({ required: true, enum: seniorityType })
+  seniority: seniorityType;
 
   @Prop({ type: MongooseSchema.Types.Mixed, required: true })
   programmingLanguages: Record<string, any>;

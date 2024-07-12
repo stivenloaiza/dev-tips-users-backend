@@ -8,14 +8,14 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { CreateBotsSubscriptionDto } from 'src/bots/dto/create-bots-subscription.dto';
-import { CreateIframeDto } from 'src/iframes/dto/create-iframe.dto';
+import { CreateBotsSubscriptionDto } from 'src/module/bots/dto/create-bots-subscription.dto';
+import { CreateIframeDto } from 'src/module/iframes/dto/create-iframe.dto';
 import { UserRole, SubscriptionType } from 'src/libs/enums';
-import { CreateTvDto } from 'src/tvs/dto/create-tv.dto';
+import { CreateTvDto } from 'src/module/tvs/dto/create-tv.dto';
 
 export class SubscriptionDto {
   @IsEnum(SubscriptionType)
-  type: SubscriptionType;
+  communication: SubscriptionType;
 
   @ValidateNested()
   @Type(() => Object)

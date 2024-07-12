@@ -1,21 +1,27 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
+import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
+import { frecuencyType } from 'src/libs/enums/frecuency.enum';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class EmailSubscription extends Document {
   @Prop()
   apikey: string;
 
-  @Prop({required:true})
-  frequency: string;
+  @Prop()
+  userId: string;
 
   @Prop({required:true})
-  seniority: string;
+  frequency: frecuencyType;
 
   @Prop({required:true})
-  devLanguage: string;
+  seniority: seniorityType;
 
   @Prop({required:true})
-  language: string
+  devLanguage: devLanguageType;
+
+  @Prop({required:true})
+  language: languageType;
 
   @Prop()
   createdAt: Date;
@@ -36,4 +42,4 @@ export class EmailSubscription extends Document {
   deletedBy?: string;
 }
 
-export const email = SchemaFactory.createForClass(EmailSubscription);
+export const EmailSubscriptionSchema = SchemaFactory.createForClass(EmailSubscription);

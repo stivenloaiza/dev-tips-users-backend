@@ -1,4 +1,4 @@
-export enum programmingLanguage {
+export enum devLanguageType {
   NODE_JS = 'nodejs',
   JAVASCRIPT = 'javascript',
   TYPESCRIPT = 'typescript',

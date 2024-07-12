@@ -8,7 +8,7 @@ import {
 } from './entities/bots.entity';
 import { HttpModule } from '@nestjs/axios';
 import { AuthService } from 'src/libs/auth/AuthServiceApiKey';
-import { UsersModule } from 'src/users/users.module';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   imports: [

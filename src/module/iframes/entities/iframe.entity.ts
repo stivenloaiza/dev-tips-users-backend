@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { language, level, programmingLanguage } from 'src/libs/enums';
-import { User } from 'src/users/entities/user.entity';
+import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
+import { User } from 'src/module/users/entities/user.entity';
 
 @Schema({ timestamps: true })
 export class IframeSuscription extends Document {
@@ -11,11 +11,11 @@ export class IframeSuscription extends Document {
   @Prop({ required: true })
   communication: string;
 
-  @Prop({ required: true, enum: level })
-  level: level;
+  @Prop({ required: true, enum: seniorityType })
+  seniority: seniorityType;
 
-  @Prop({ required: true, enum: programmingLanguage })
-  programmingLanguage: programmingLanguage;
+  @Prop({ required: true, enum: devLanguageType })
+  devLanguage: devLanguageType;
 
   @Prop({ type: String, required: true })
   domains: string;
@@ -26,8 +26,8 @@ export class IframeSuscription extends Document {
   @Prop({ required: true })
   typography: string;
 
-  @Prop({ required: true, enum: language })
-  language: language;
+  @Prop({ required: true, enum: languageType })
+  language: languageType;
 }
 
 export const IframeSchema = SchemaFactory.createForClass(IframeSuscription);

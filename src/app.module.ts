@@ -3,10 +3,11 @@ import { Module } from '@nestjs/common';
 import { PersistenceModule } from './libs/persistence';
 import { ConfigModule } from '@nestjs/config';
 import dbConfig from './libs/persistence/db-config';
-import { BotsSubscriptionModule } from './bots/bots.module';
+import { BotsSubscriptionModule } from './module/bots/bots.module';
 import { HttpModule } from '@nestjs/axios';
-import { TvsModule } from './tvs/tvs.module';
-import { IframesModule } from './iframes/iframes.module';
+import { TvsModule } from './module/tvs/tvs.module';
+import { IframesModule } from './module/iframes/iframes.module';
+import { EmailModule } from './module/email/email.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { IframesModule } from './iframes/iframes.module';
     HttpModule,
     IframesModule,
     TvsModule,
+    EmailModule
   ],
   controllers: [],
   providers: [],

@@ -3,7 +3,7 @@ import { TvsService } from './tvs.service';
 import { TvsController } from './tvs.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TvSchema, TvSuscription } from './entities/tv.entity';
-import { UsersModule } from 'src/users/users.module';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   imports: [

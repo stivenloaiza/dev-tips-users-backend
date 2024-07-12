@@ -5,22 +5,26 @@ export class CreateEmailDto {
 
         @IsString()
         @IsNotEmpty()
-        apikey: string;
+        readonly apikey: string;
 
         @IsString()
         @IsNotEmpty()
-        frequency: string;
+        readonly userId: string
+
+        @IsString()
+        @IsNotEmpty()
+        readonly frequency: string;
         
         @IsString()
         @IsNotEmpty()
-        seniority: string;
+        readonly seniority: string;
 
         @IsString()
         @IsNotEmpty()
-        devLanguage: string;
+        readonly devLanguage: string;
 
         @IsString()
         @IsNotEmpty()
-        language: String;
+        readonly language: String;
       
 }

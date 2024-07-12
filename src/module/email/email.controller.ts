@@ -15,28 +15,31 @@ import { UpdateEmailDto } from './dto/update-email.dto';
 export class EmailController {
   constructor(private readonly emailService: EmailService) {}
 
-  @Post()
+  @Post('/create')
   create(@Body() createEmailDto: CreateEmailDto) {
     return this.emailService.create(createEmailDto);
   }
 
-  @Get()
-  findAll() {
+  @Get('/find/all')
+  findAll() 
+  {
     return this.emailService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.emailService.findOne(+id);
+
+  @Get('/find/field/:field/value/:value')
+  findOne(@Param('field') field: string,
+          @Param('value') value: string) {
+    return this.emailService.findOneByField(field, value);
   }
 
-  @Patch(':id')
+  @Patch('/update/:id')
   update(@Param('id') id: string, @Body() updateEmailDto: UpdateEmailDto) {
     return this.emailService.update(+id, updateEmailDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.emailService.remove(+id);
+  @Delete('/apikey/:apikey')
+  remove(@Param('apikey') apikey: string) {
+    return this.emailService.remove(apikey);
   }
 }

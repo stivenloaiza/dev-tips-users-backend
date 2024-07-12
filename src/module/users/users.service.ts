@@ -6,15 +6,15 @@ import {
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateUserDto, SubscriptionDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUserDto } from './dto/update-user-dto';
 import { User } from './entities/user.entity';
 import { SubscriptionType, UserRole } from 'src/libs/enums';
-import { BotsSubscription } from 'src/bots/entities/bots.entity';
-import { TvSuscription } from 'src/tvs/entities/tv.entity';
-import { IframeSuscription } from 'src/iframes/entities/iframe.entity';
-import { CreateBotsSubscriptionDto } from 'src/bots/dto/create-bots-subscription.dto';
-import { CreateTvDto } from 'src/tvs/dto/create-tv.dto';
-import { CreateIframeDto } from 'src/iframes/dto/create-iframe.dto';
+import { BotsSubscription } from '../bots/entities/bots.entity';
+import { TvSuscription } from '../tvs/entities/tv.entity';
+import { IframeSuscription } from '../iframes/entities/iframe.entity';
+import { CreateBotsSubscriptionDto } from '../bots/dto/create-bots-subscription.dto';
+import { CreateTvDto } from '../tvs/dto/create-tv.dto';
+import { CreateIframeDto } from '../iframes/dto/create-iframe.dto';
 
 @Injectable()
 export class UsersService {
@@ -50,7 +50,7 @@ export class UsersService {
       if (error instanceof BadRequestException) {
         throw error;
       } else {
-        throw new BadRequestException('Error creating user.');
+        throw new BadRequestException('Error creating user');
       }
     }
   }
@@ -66,8 +66,8 @@ export class UsersService {
   validateSubscriptionType(subscriptions: SubscriptionDto[]) {
     for (const subscription of subscriptions) {
       if (
-        !subscription.type ||
-        !Object.values(SubscriptionType).includes(subscription.type)
+        !subscription.communication ||
+        !Object.values(SubscriptionType).includes(subscription.communication)
       ) {
         throw new Error('Invalid subscription type.');
       }
