@@ -10,8 +10,10 @@ async function bootstrap() {
     allowedHeaders: 'Content-Type, Accept',
   });
 
-  const port = 3000;
-  console.log(`Application is running on: http://localhost:${port}`);
+  const port = process.env.PORT || 3000;
+
+  app.setGlobalPrefix('/v1/api');
   await app.listen(port);
+  console.log(`Application is running on: http://localhost:${port}/v1/api`);
 }
 bootstrap();

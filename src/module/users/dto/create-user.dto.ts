@@ -12,14 +12,15 @@ import { CreateBotsSubscriptionDto } from 'src/module/bots/dto/create-bots-subsc
 import { CreateIframeDto } from 'src/module/iframes/dto/create-iframe.dto';
 import { UserRole, SubscriptionType } from 'src/libs/enums';
 import { CreateTvDto } from 'src/module/tvs/dto/create-tv.dto';
+import { CreateEmailDto } from 'src/module/email/dto/create-email.dto';
 
 export class SubscriptionDto {
   @IsEnum(SubscriptionType)
-  communication: SubscriptionType;
+  type: SubscriptionType;
 
   @ValidateNested()
   @Type(() => Object)
-  data: CreateBotsSubscriptionDto | CreateTvDto | CreateIframeDto;
+  data: CreateBotsSubscriptionDto | CreateTvDto | CreateIframeDto | CreateEmailDto;
 }
 
 export class CreateUserDto {

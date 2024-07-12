@@ -20,16 +20,16 @@ export class BotsSubscription extends Document {
   @Prop({ type: MongooseSchema.Types.Mixed, required: true })
   programmingLanguages: Record<string, any>;
 
-  @Prop({ type: Date, default: null })
+  @Prop({ default: null })
   deletedAt?: Date;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
+  @Prop({ default: null })
   createdBy?: string;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
+  @Prop({ default: null })
   updatedBy?: string;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User' })
+  @Prop({ default: null })
   deletedBy?: string;
 }
 

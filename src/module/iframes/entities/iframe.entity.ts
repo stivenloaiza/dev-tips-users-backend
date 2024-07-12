@@ -28,6 +28,18 @@ export class IframeSuscription extends Document {
 
   @Prop({ required: true, enum: languageType })
   language: languageType;
+
+  @Prop({ default: null })
+  deletedAt?: Date;
+
+  @Prop({ default: null })
+  createdBy?: string;
+
+  @Prop({ default: null })
+  updatedBy?: string;
+
+  @Prop({ default: null })
+  deletedBy?: string;
 }
 
 export const IframeSchema = SchemaFactory.createForClass(IframeSuscription);

@@ -15,6 +15,8 @@ import { CreateIframeDto } from '../iframes/dto/create-iframe.dto';
 import { TvsService } from '../tvs/tvs.service';
 import { IframesService } from '../iframes/iframes.service';
 import { BotsSubscriptionService } from '../bots/service/bots.service';
+import { EmailService } from '../email/email.service';
+import { CreateEmailDto } from '../email/dto/create-email.dto';
 
 @Injectable()
 export class UsersService {
@@ -23,7 +25,8 @@ export class UsersService {
     private readonly tvsService: TvsService,
     private readonly iframesService: IframesService,
     private readonly botsSubscriptionService: BotsSubscriptionService,
-  ) {}
+    private readonly emailService: EmailService
+  ) { }
 
   async create(createUserDto: CreateUserDto, userId: string): Promise<User> {
     try {
@@ -63,11 +66,13 @@ export class UsersService {
 
   validateSubscriptionType(subscriptions: SubscriptionDto[]) {
     for (const subscription of subscriptions) {
+      console.log(subscription);
+      
       if (
-        !subscription.communication ||
-        !Object.values(SubscriptionType).includes(subscription.communication)
+        !subscription.type ||
+        !Object.values(SubscriptionType).includes(subscription.type)
       ) {
-        throw new Error('Invalid subscription type.');
+         throw new Error('Invalid subscription type.');
       }
     }
   }
@@ -92,15 +97,14 @@ export class UsersService {
   ): Promise<void> {
     for (const subscription of subscriptions) {
       const { type, data } = subscription;
-
+    
       switch (type) {
-        /* case 'email':
-                  const emailSubscriptionDto = new CreateEmailSubscriptionDto();
-                  emailSubscriptionDto.userId = userId;
-                  Object.assign(emailSubscriptionDto, data);
-                  const emailSubscription = new this.emailSubscriptionModel(emailSubscriptionDto);
-                  await emailSubscription.save();
-                  break; */
+        case 'email':
+          const emailSubscriptionDto = new CreateEmailDto();
+          emailSubscriptionDto.userId = userId;
+          Object.assign(emailSubscriptionDto, data);
+          await this.emailService.create(emailSubscriptionDto);
+          break;
         case 'bot':
           const botSubscriptionDto = new CreateBotsSubscriptionDto();
           botSubscriptionDto.userId = userId;

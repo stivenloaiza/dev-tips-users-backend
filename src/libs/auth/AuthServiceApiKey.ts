@@ -23,7 +23,7 @@ export class AuthService {
       return response.data.apiKey;
     } catch (error) {
       throw new HttpException(
-        'Failed to fetch Bots API Key',
+        'Failed to fetch API Key',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

@@ -1,26 +1,30 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
 import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
 import { frecuencyType } from 'src/libs/enums/frecuency.enum';
+import { User } from 'src/module/users/entities/user.entity';
+import { Document, Schema as MongooseSchema } from 'mongoose';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class EmailSubscription extends Document {
   @Prop()
-  apikey: string;
+  apikey?: string;
 
-  @Prop()
-  userId: string;
+  @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
+  userId: User;
+
+  @Prop({ default: null })
+  communication: string;
 
   @Prop({ required: true })
   frequency: frecuencyType;
 
-  @Prop({ required: true })
+  @Prop({ required: true, enum: seniorityType })
   seniority: seniorityType;
 
-  @Prop({ required: true })
+  @Prop({ required: true, enum: devLanguageType })
   devLanguage: devLanguageType;
 
-  @Prop({ required: true })
+  @Prop({ required: true, enum: languageType })
   language: languageType;
 
   @Prop()
