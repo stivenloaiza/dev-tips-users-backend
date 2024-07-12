@@ -1,10 +1,14 @@
-import { IsString, IsNotEmpty, IsOptional, IsEnum } from 'class-validator';
-import { level, programmingLanguage } from 'src/libs/enums';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
+import { channel, language, level, programmingLanguage } from 'src/libs/enums';
 
 export class CreateBotsSubscriptionDto {
-  @IsNotEmpty()
   @IsString()
   userId?: string;
+
+  @IsNotEmpty()
+  @IsString()
+  communication?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -12,8 +16,8 @@ export class CreateBotsSubscriptionDto {
 
   @IsString()
   @IsNotEmpty()
-  @IsEnum(['Telegram', 'Discord'])
-  channel: string;
+  @IsEnum(channel)
+  channel: channel;
 
   @IsEnum(level)
   @IsNotEmpty()
@@ -23,15 +27,19 @@ export class CreateBotsSubscriptionDto {
   @IsNotEmpty()
   programmingLanguage: programmingLanguage;
 
-  @IsString()
+  @IsEnum(language)
   @IsNotEmpty()
+  language: language;
+
+  @ApiProperty({ type: Date, default: null })
+  deletedAt?: Date;
+
+  @ApiProperty({ default: null })
   createdBy?: string;
 
-  @IsString()
-  @IsOptional()
+  @ApiProperty({ default: null })
   updatedBy?: string;
 
-  @IsString()
-  @IsOptional()
+  @ApiProperty({ default: null })
   deletedBy?: string;
 }

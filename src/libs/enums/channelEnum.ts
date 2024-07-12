@@ -1,4 +1,4 @@
 export enum channel {
-    TELEGRAM = 'Telegram',
-    DISCORD = 'Discord',
-  }
+  TELEGRAM = 'Telegram',
+  DISCORD = 'Discord',
+}

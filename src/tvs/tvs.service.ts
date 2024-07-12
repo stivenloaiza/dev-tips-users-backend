@@ -17,6 +17,7 @@ export class TvsService {
   ) {}
 
   async create(createTvDto: CreateTvDto): Promise<TvSuscription> {
+
     const user = await this.userModel.findById(createTvDto.userId).exec();
     if (!user) {
       throw new NotFoundException(
@@ -32,7 +33,13 @@ export class TvsService {
   }
 
   async findAll(): Promise<TvSuscription[]> {
-    return this.tvModel.find().populate('userId').exec();
+    return this.tvModel
+      .find()
+      .populate({
+        path: 'userId',
+        select: 'name email phone role managerName managerEmail managerPhone',
+      })
+      .exec();
   }
 
   async findOne(id: string): Promise<TvSuscription> {

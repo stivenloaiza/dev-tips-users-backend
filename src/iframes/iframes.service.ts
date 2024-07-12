@@ -15,19 +15,18 @@ export class IframesService {
   ) {}
 
   async create(createIframeDto: CreateIframeDto): Promise<IframeSuscription> {
-    const user = await this.userModel.findById(createIframeDto.userId).exec();
-    if (!user) {
-      throw new NotFoundException(
-        `User with id ${createIframeDto.userId} not found`,
-      );
-    }
-
-    const createdIframe = new this.iframeModel(createIframeDto);
-    return await createdIframe.save();
+    const createdIframeSubscription = new this.iframeModel(createIframeDto);
+    return createdIframeSubscription.save();
   }
 
   async findAll(): Promise<IframeSuscription[]> {
-    return this.iframeModel.find().populate('userId').exec();
+    return this.iframeModel
+      .find()
+      .populate({
+        path: 'userId',
+        select: 'name email phone role managerName managerEmail managerPhone',
+      })
+      .exec();
   }
 
   async findOne(id: string): Promise<IframeSuscription> {
