@@ -1,5 +1,5 @@
-export enum level {
-  junior = 'junior',
-  mid = 'mid',
-  senior = 'senior',
+export enum seniorityType {
+  JUNIOR = 'junior developer',
+  MID = 'mid developer',
+  SENIOR = 'senior developer',
 }
