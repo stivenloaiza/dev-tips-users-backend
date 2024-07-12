@@ -8,17 +8,25 @@ import {
   BotsSubscriptionNotFoundException,
   BotsSubscriptionBadRequestException,
 } from '../exception/bots-suscription.exceptions';
-import { AuthService } from 'src/libs/auth/AuthServiceApiKey';
+/* import { AuthService } from 'src/libs/auth/AuthServiceApiKey'; */
 
 @Injectable()
 export class BotsSubscriptionService {
   constructor(
     @InjectModel(BotsSubscription.name)
     private readonly botsSubscriptionModel: Model<BotsSubscription>,
-    private readonly authService: AuthService,
+    /* private readonly authService: AuthService, */
   ) {}
 
   async create(
+    createBotsSubscriptionDto: CreateBotsSubscriptionDto,
+  ): Promise<BotsSubscription> {
+    const createdBotSubscription = new this.botsSubscriptionModel(
+      createBotsSubscriptionDto,
+    );
+    return createdBotSubscription.save();
+  }
+  /* async create(
     createBotsSubscriptionDto: CreateBotsSubscriptionDto,
   ): Promise<BotsSubscription> {
     try {
@@ -34,10 +42,16 @@ export class BotsSubscriptionService {
         'Failed to create bots subscription',
       );
     }
-  }
+  } */
 
   async findAll(): Promise<BotsSubscription[]> {
-    return this.botsSubscriptionModel.find().exec();
+    return this.botsSubscriptionModel
+      .find()
+      .populate({
+        path: 'userId',
+        select: 'name email phone role managerName managerEmail managerPhone',
+      })
+      .exec();
   }
 
   async findOne(id: string): Promise<BotsSubscription> {

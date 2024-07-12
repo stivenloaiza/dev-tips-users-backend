@@ -25,7 +25,12 @@ import {
     ]),
   ],
   controllers: [UsersController],
-  providers: [UsersService],
+  providers: [
+    UsersService,
+    IframesService,
+    BotsSubscriptionService,
+    TvsService,
+  ],
   exports: [MongooseModule],
 })
 export class UsersModule {}

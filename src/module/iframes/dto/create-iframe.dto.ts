@@ -2,12 +2,10 @@ import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
 import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
 
 export class CreateIframeDto {
-  @IsNotEmpty()
   @IsString()
-  userId: string;
+  userId?: string;
 
   @IsString()
-  @IsNotEmpty()
   communication: string;
 
   @IsEnum(seniorityType)

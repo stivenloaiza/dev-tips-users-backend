@@ -4,11 +4,11 @@ import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
 export class CreateTvDto {
   @IsNotEmpty()
   @IsString()
-  userId: string;
+  userId?: string;
 
   @IsNotEmpty()
   @IsString()
-  communication: string;
+  communication?: string;
 
   @IsNotEmpty()
   @IsEnum(seniorityType)
@@ -22,7 +22,15 @@ export class CreateTvDto {
   @IsEnum(languageType)
   language: languageType;
 
-  @IsOptional()
-  @IsString()
+  @ApiProperty({ type: Date, default: null })
+  deletedAt?: Date;
+
+  @ApiProperty({ default: null })
   createdBy?: string;
+
+  @ApiProperty({ default: null })
+  updatedBy?: string;
+
+  @ApiProperty({ default: null })
+  deletedBy?: string;
 }
