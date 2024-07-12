@@ -9,12 +9,12 @@ import { CreateUserDto, SubscriptionDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { User } from './entities/user.entity';
 import { SubscriptionType, UserRole } from 'src/libs/enums';
-import { BotsSubscription } from '../bots/entities/bots.entity';
-import { TvSuscription } from '../tvs/entities/tv.entity';
-import { IframeSuscription } from '../iframes/entities/iframe.entity';
 import { CreateBotsSubscriptionDto } from '../bots/dto/create-bots-subscription.dto';
 import { CreateTvDto } from '../tvs/dto/create-tv.dto';
 import { CreateIframeDto } from '../iframes/dto/create-iframe.dto';
+import { TvsService } from '../tvs/tvs.service';
+import { IframesService } from '../iframes/iframes.service';
+import { BotsSubscriptionService } from '../bots/service/bots.service';
 
 @Injectable()
 export class UsersService {

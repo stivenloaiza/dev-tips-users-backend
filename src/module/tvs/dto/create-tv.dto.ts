@@ -1,4 +1,4 @@
-import { IsString, IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
+import { IsString, IsEnum, IsNotEmpty } from 'class-validator';
 import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
 
 export class CreateTvDto {
@@ -21,16 +21,4 @@ export class CreateTvDto {
   @IsNotEmpty()
   @IsEnum(languageType)
   language: languageType;
-
-  @ApiProperty({ type: Date, default: null })
-  deletedAt?: Date;
-
-  @ApiProperty({ default: null })
-  createdBy?: string;
-
-  @ApiProperty({ default: null })
-  updatedBy?: string;
-
-  @ApiProperty({ default: null })
-  deletedBy?: string;
 }

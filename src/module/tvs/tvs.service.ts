@@ -5,7 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../users/entities/user.entity';
 import { Model } from 'mongoose';
 import { TvSuscription } from './entities/tv.entity';
-import { AuthService } from './service/auth.service'; 
+import { AuthService } from './service/auth.service';
 
 @Injectable()
 export class TvsService {
@@ -13,11 +13,10 @@ export class TvsService {
     @InjectModel(TvSuscription.name)
     private readonly tvModel: Model<TvSuscription>,
     @InjectModel(User.name) private readonly userModel: Model<User>,
-    private readonly authService: AuthService, 
+    private readonly authService: AuthService,
   ) {}
 
   async create(createTvDto: CreateTvDto): Promise<TvSuscription> {
-
     const user = await this.userModel.findById(createTvDto.userId).exec();
     if (!user) {
       throw new NotFoundException(

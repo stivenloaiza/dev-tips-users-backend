@@ -1,5 +1,10 @@
-import { IsString, IsNotEmpty, IsOptional, IsEnum } from 'class-validator';
-import { devLanguageType, seniorityType } from 'src/libs/enums';
+import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
+import {
+  channelType,
+  devLanguageType,
+  languageType,
+  seniorityType,
+} from 'src/libs/enums';
 
 export class CreateBotsSubscriptionDto {
   @IsString()
@@ -15,8 +20,8 @@ export class CreateBotsSubscriptionDto {
 
   @IsString()
   @IsNotEmpty()
-  @IsEnum(channel)
-  channel: channel;
+  @IsEnum(channelType)
+  channel: channelType;
 
   @IsEnum(seniorityType)
   @IsNotEmpty()
@@ -26,19 +31,7 @@ export class CreateBotsSubscriptionDto {
   @IsNotEmpty()
   devLanguage: devLanguageType;
 
-  @IsEnum(language)
+  @IsEnum(languageType)
   @IsNotEmpty()
-  language: language;
-
-  @ApiProperty({ type: Date, default: null })
-  deletedAt?: Date;
-
-  @ApiProperty({ default: null })
-  createdBy?: string;
-
-  @ApiProperty({ default: null })
-  updatedBy?: string;
-
-  @ApiProperty({ default: null })
-  deletedBy?: string;
+  language: languageType;
 }
