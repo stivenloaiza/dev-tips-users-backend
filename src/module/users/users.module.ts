@@ -22,7 +22,7 @@ import {
   EmailSubscription,
   EmailSubscriptionSchema,
 } from '../email/entities/email.entity';
-import { HttpModule, HttpService } from '@nestjs/axios';
+import { HttpModule} from '@nestjs/axios';
 
 @Module({
   imports: [
