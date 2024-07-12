@@ -21,15 +21,12 @@ export class EmailController {
   }
 
   @Get('/find/all')
-  findAll() 
-  {
+  findAll() {
     return this.emailService.findAll();
   }
 
-
   @Get('/find/field/:field/value/:value')
-  findOne(@Param('field') field: string,
-          @Param('value') value: string) {
+  findOne(@Param('field') field: string, @Param('value') value: string) {
     return this.emailService.findOneByField(field, value);
   }
 

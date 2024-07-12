@@ -5,7 +5,6 @@ import { frecuencyType } from 'src/libs/enums/frecuency.enum';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class BotsSubscription extends Document {
-
   @Prop({ required: true })
   communication: string;
 

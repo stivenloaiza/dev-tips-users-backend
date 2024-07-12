@@ -3,9 +3,15 @@ import { UsersController } from './users.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './entities/user.entity';
 import { UsersService } from './users.service';
-import { BotsSubscription, BotsSubscriptionSchema } from '../bots/entities/bots.entity';
+import {
+  BotsSubscription,
+  BotsSubscriptionSchema,
+} from '../bots/entities/bots.entity';
 import { TvSchema, TvSuscription } from '../tvs/entities/tv.entity';
-import { IframeSchema, IframeSuscription } from '../iframes/entities/iframe.entity';
+import {
+  IframeSchema,
+  IframeSuscription,
+} from '../iframes/entities/iframe.entity';
 
 @Module({
   imports: [

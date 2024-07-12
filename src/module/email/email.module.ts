@@ -7,10 +7,14 @@ import { EmailSubscriptionSchema } from './entities/email.entity';
 import { UsersModule } from '../users/users.module';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: EmailSubscription.name , schema: EmailSubscriptionSchema }]), 
-            UsersModule],
+  imports: [
+    MongooseModule.forFeature([
+      { name: EmailSubscription.name, schema: EmailSubscriptionSchema },
+    ]),
+    UsersModule,
+  ],
   controllers: [EmailController],
   providers: [EmailService],
-  exports: [EmailService]
+  exports: [EmailService],
 })
 export class EmailModule {}

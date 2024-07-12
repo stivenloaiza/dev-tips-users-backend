@@ -11,16 +11,16 @@ export class EmailSubscription extends Document {
   @Prop()
   userId: string;
 
-  @Prop({required:true})
+  @Prop({ required: true })
   frequency: frecuencyType;
 
-  @Prop({required:true})
+  @Prop({ required: true })
   seniority: seniorityType;
 
-  @Prop({required:true})
+  @Prop({ required: true })
   devLanguage: devLanguageType;
 
-  @Prop({required:true})
+  @Prop({ required: true })
   language: languageType;
 
   @Prop()
@@ -42,4 +42,5 @@ export class EmailSubscription extends Document {
   deletedBy?: string;
 }
 
-export const EmailSubscriptionSchema = SchemaFactory.createForClass(EmailSubscription);
+export const EmailSubscriptionSchema =
+  SchemaFactory.createForClass(EmailSubscription);

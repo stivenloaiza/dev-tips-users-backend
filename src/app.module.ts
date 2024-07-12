@@ -22,7 +22,7 @@ import { EmailModule } from './module/email/email.module';
     HttpModule,
     IframesModule,
     TvsModule,
-    EmailModule
+    EmailModule,
   ],
   controllers: [],
   providers: [],
