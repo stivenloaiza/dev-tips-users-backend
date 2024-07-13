@@ -20,7 +20,7 @@ export class EmailController {
     return this.emailService.create(createEmailDto);
   }
 
-  @Get('/find/all')
+  @Get('')
   findAll() {
     return this.emailService.findAll();
   }

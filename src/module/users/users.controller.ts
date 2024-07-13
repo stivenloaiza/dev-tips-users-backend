@@ -13,6 +13,8 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { User } from './entities/user.entity';
+import { ExceptionsHandler } from '@nestjs/core/exceptions/exceptions-handler';
+import { validateHeaderValue } from 'http';
 
 @Controller('users')
 export class UsersController {
@@ -43,6 +45,33 @@ export class UsersController {
       throw new NotFoundException(`User with id ${id} not found`);
     }
     return user;
+  }
+
+  @Get('/:email')
+  async findOneByEmail(
+    @Param('email') email: string,
+    ): Promise<User>{
+
+    try {
+      return await this.usersService.findUserByEmail(email)
+    } catch(error){
+      throw new Error(`There is a isssue with find oen by email: ${error}`)
+    }
+    
+  }
+
+
+  @Get('/:apikey')
+  async findOneByApikey(
+    @Param('apikey') apikey: string,
+    ): Promise<User>{
+
+    try {
+      return await this.usersService.findUserByApikey(apikey)
+    } catch(error){
+      throw new Error(`There is a isssue with find oen by email: ${error}`)
+    }
+    
   }
 
   @Patch(':id')

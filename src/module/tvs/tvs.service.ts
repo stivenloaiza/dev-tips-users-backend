@@ -6,6 +6,7 @@ import { User } from '../users/entities/user.entity';
 import { Model } from 'mongoose';
 import { TvSuscription } from './entities/tv.entity';
 import { AuthService } from 'src/tvs/service/auth.service';
+import path from 'path';
 
 @Injectable()
 export class TvsService {
@@ -31,14 +32,26 @@ export class TvsService {
     return await createdTv.save();
   }
 
-  async findAll(): Promise<TvSuscription[]> {
-    return this.tvModel
-      .find()
-      .populate({
-        path: 'userId',
-        select: 'name email phone role managerName managerEmail managerPhone',
-      })
-      .exec();
+  async findAll(page: number = 1, limit: number = 10): Promise<any> {
+
+    const skip = (page - 1) * limit
+    const items = await this.tvModel.find()
+    .skip(skip)
+    .limit(limit)
+    .populate({path: 'userId', select: 'name email phone role managerName managerEmail managerPhone'})
+    .exec()
+
+    const totalItems = await this.tvModel.countDocuments().exec()
+    const totalPages = Math.ceil(totalItems/limit)
+
+    return {
+      items,
+      totalItems,
+      totalPages,
+      currentPage: page
+    }
+
+    
   }
 
   async findOne(id: string): Promise<TvSuscription> {
