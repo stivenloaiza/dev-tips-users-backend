@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { devLanguageType, langType, levelType } from 'src/libs/enums';
+import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
 
 export class CreateEmailDto {
   @IsString()
@@ -9,21 +9,21 @@ export class CreateEmailDto {
   userId?: string;
 
   @IsString()
-  typeSubscription: string;
+  communication: string;
 
   @IsString()
   @IsNotEmpty()
-  frequency: string;
+   frequency: string;
 
-  @IsEnum(levelType)
+  @IsEnum(seniorityType)
   @IsNotEmpty()
-  levels: levelType;
+  seniority: seniorityType;
 
   @IsEnum(devLanguageType)
   @IsNotEmpty()
-  technology: devLanguageType;
+  devLanguage: devLanguageType;
 
-  @IsEnum(langType)
+  @IsEnum(languageType)
   @IsNotEmpty()
-  lang: langType;
+  language: languageType;
 }
