@@ -1,5 +1,5 @@
 import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
-import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
+import { devLanguageType, langType, levelType } from 'src/libs/enums';
 
 export class CreateIframeDto {
   @IsString()
@@ -8,13 +8,13 @@ export class CreateIframeDto {
   @IsString()
   communication: string;
 
-  @IsEnum(seniorityType)
+  @IsEnum(levelType)
   @IsNotEmpty()
-  seniority: seniorityType;
+  levels: levelType;
 
   @IsEnum(devLanguageType)
   @IsNotEmpty()
-  devLanguage: devLanguageType;
+  technology: devLanguageType;
 
   @IsString()
   @IsNotEmpty()
@@ -28,7 +28,7 @@ export class CreateIframeDto {
   @IsNotEmpty()
   typography: string;
 
-  @IsEnum(languageType)
+  @IsEnum(langType)
   @IsNotEmpty()
-  language: languageType;
+  language: langType;
 }

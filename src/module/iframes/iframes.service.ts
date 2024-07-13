@@ -19,14 +19,31 @@ export class IframesService {
     return createdIframeSubscription.save();
   }
 
-  async findAll(): Promise<IframeSuscription[]> {
-    return this.iframeModel
-      .find()
-      .populate({
+  async findAll(page: number = 1, limit: number = 10): Promise<object> {
+
+    const skip = (page - 1) * limit
+
+    const items = await this.iframeModel.find()
+    .skip(skip)
+    .limit(limit)
+    .populate({
         path: 'userId',
         select: 'name email phone role managerName managerEmail managerPhone',
       })
       .exec();
+
+    const totalItems = await this.iframeModel.countDocuments().exec()
+    const totalPages = Math.ceil(totalItems / limit)
+    
+    return {
+      items,
+      totalItems,
+      totalPages,
+      currentPage: page
+    }
+
+
+
   }
 
   async findOne(id: string): Promise<IframeSuscription> {

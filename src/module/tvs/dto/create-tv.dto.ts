@@ -1,5 +1,5 @@
 import { IsString, IsEnum, IsNotEmpty } from 'class-validator';
-import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
+import { devLanguageType, langType, levelType } from 'src/libs/enums';
 
 export class CreateTvDto {
   @IsNotEmpty()
@@ -11,14 +11,14 @@ export class CreateTvDto {
   communication?: string;
 
   @IsNotEmpty()
-  @IsEnum(seniorityType)
-  seniority: seniorityType;
+  @IsEnum(levelType)
+  seniority: levelType;
 
   @IsNotEmpty()
   @IsEnum(devLanguageType)
-  devLanguage: devLanguageType;
+  technology: devLanguageType;
 
   @IsNotEmpty()
-  @IsEnum(languageType)
-  language: languageType;
+  @IsEnum(langType)
+  language: langType;
 }

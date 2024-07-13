@@ -16,7 +16,7 @@ import {
   BotsSubscriptionBadRequestException,
 } from '../exception/bots-suscription.exceptions';
 
-@Controller('bots-subscriptions')
+@Controller('bots')
 export class BotsSubscriptionController {
   constructor(
     private readonly botsSubscriptionService: BotsSubscriptionService,

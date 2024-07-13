@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
+import { devLanguageType, langType, levelType } from 'src/libs/enums';
 import { User } from 'src/module/users/entities/user.entity';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
@@ -11,11 +11,11 @@ export class IframeSuscription extends Document {
   @Prop({ default: null })
   communication: string;
 
-  @Prop({ required: true, enum: seniorityType })
-  seniority: seniorityType;
+  @Prop({ required: true, enum: levelType })
+  levels: levelType;
 
   @Prop({ required: true, enum: devLanguageType })
-  devLanguage: devLanguageType;
+  technology: devLanguageType;
 
   @Prop({ type: String, required: true })
   domains: string;
@@ -26,8 +26,8 @@ export class IframeSuscription extends Document {
   @Prop({ required: true })
   typography: string;
 
-  @Prop({ required: true, enum: languageType })
-  language: languageType;
+  @Prop({ required: true, enum: langType })
+  lang: langType;
 
   @Prop({ default: null })
   deletedAt?: Date;

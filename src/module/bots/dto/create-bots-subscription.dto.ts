@@ -2,8 +2,8 @@ import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
 import {
   channelType,
   devLanguageType,
-  languageType,
-  seniorityType,
+  langType,
+  levelType,
 } from 'src/libs/enums';
 
 export class CreateBotsSubscriptionDto {
@@ -12,7 +12,7 @@ export class CreateBotsSubscriptionDto {
 
   @IsNotEmpty()
   @IsString()
-  communication?: string;
+  typeSubscription?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -23,15 +23,15 @@ export class CreateBotsSubscriptionDto {
   @IsEnum(channelType)
   channel: channelType;
 
-  @IsEnum(seniorityType)
+  @IsEnum(levelType)
   @IsNotEmpty()
-  level: seniorityType;
+  levels: levelType;
 
   @IsEnum(devLanguageType)
   @IsNotEmpty()
-  devLanguage: devLanguageType;
+  technology: devLanguageType;
 
-  @IsEnum(languageType)
+  @IsEnum(langType)
   @IsNotEmpty()
-  language: languageType;
+  lang: langType;
 }
