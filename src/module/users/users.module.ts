@@ -22,7 +22,7 @@ import {
   EmailSubscription,
   EmailSubscriptionSchema,
 } from '../email/entities/email.entity';
-import { HttpModule} from '@nestjs/axios';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -37,8 +37,7 @@ import { HttpModule} from '@nestjs/axios';
     MongooseModule.forFeature([
       { name: EmailSubscription.name, schema: EmailSubscriptionSchema },
     ]),
-    HttpModule
-
+    HttpModule,
   ],
   controllers: [UsersController],
   providers: [

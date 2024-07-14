@@ -16,7 +16,7 @@ export class CreateEmailDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-   frequency: string;
+  frequency: string;
 
   @ApiProperty()
   @IsEnum(seniorityType)
