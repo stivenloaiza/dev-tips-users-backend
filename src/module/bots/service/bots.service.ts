@@ -44,31 +44,14 @@ export class BotsSubscriptionService {
     }
   } */
 
-  async findAll(page: number = 1, limit: number = 10): Promise<any> {
-
-    const skip = (page - 1) * limit
-
-    const bots = await this.botsSubscriptionModel
-    .find()
-    .skip(skip)
-    .limit(limit)
-    .populate({
-      path: 'userId',
-      select: 'name email phone role managerName managerEmail managerPhone',
-    }).exec()
-
-    const totalBots = await this.botsSubscriptionModel.countDocuments()
-    const totalPages = Math.ceil(totalBots / limit)
-
-    return {
-      bots,
-      totalBots,
-      totalPages,
-      currentPage: page
-    }
-
-    
-     
+  async findAll(): Promise<BotsSubscription[]> {
+    return this.botsSubscriptionModel
+      .find()
+      .populate({
+        path: 'userId',
+        select: 'name email phone role managerName managerEmail managerPhone',
+      })
+      .exec();
   }
 
   async findOne(id: string): Promise<BotsSubscription> {

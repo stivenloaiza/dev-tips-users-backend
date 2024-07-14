@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { devLanguageType, langType, levelType } from 'src/libs/enums';
+import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
 import { User } from 'src/module/users/entities/user.entity';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
@@ -9,16 +9,16 @@ export class TvSuscription extends Document {
   userId: User;
 
   @Prop({ default: null })
-  typeSubscription: string;
+  communication: string;
 
-  @Prop({ required: true, enum: levelType })
-  levels: levelType;
+  @Prop({ required: true, enum: seniorityType })
+  seniority: seniorityType;
 
   @Prop({ required: true, enum: devLanguageType })
-  technology: devLanguageType;
+  programmingLanguage: devLanguageType;
 
-  @Prop({ required: true, enum: langType })
-  lang: langType;
+  @Prop({ required: true, enum: languageType })
+  language: languageType;
 
   @Prop({ default: null })
   deletedAt?: Date;

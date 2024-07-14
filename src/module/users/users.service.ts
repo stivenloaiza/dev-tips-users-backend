@@ -129,24 +129,8 @@ export class UsersService {
     }
   }
 
-  async findAll(page: number = 1, limit: number = 10): Promise<any> {
-    const skip = (page - 1) * limit
-
-    const items = await this.userModel
-    .find()
-    .skip(skip)
-    .limit(limit)
-    .exec()
-
-    const totalUsers = await this.userModel.countDocuments()
-    const totalPages = Math.ceil(totalUsers/limit)
-
-    return {
-      items,
-      totalUsers,
-      totalPages,
-      currentPage: page
-    }
+  async findAll(): Promise<User[]> {
+    return this.userModel.find().exec();
   }
 
   async findOne(id: string): Promise<User> {
@@ -155,31 +139,6 @@ export class UsersService {
       throw new NotFoundException(`User with id ${id} not found.`);
     }
     return user;
-  }
-
-  async findUserByEmail(email: string): Promise<User>{
-
-    const user = await this.userModel.findOne({email})
-    
-    if(!user){
-      throw new NotFoundException(`The user with the email: ${email} wasn't found`)
-    }
-
-    return user; 
-      
-  }
-
-
-  async findUserByApikey(apikey: string): Promise<User>{
-
-    const user = await this.userModel.findOne({apikey})
-    
-    if(!user){
-      throw new NotFoundException(`The user with the email: ${apikey} wasn't found`)
-    }
-
-    return user; 
-      
   }
 
   async update(
