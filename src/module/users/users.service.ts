@@ -25,8 +25,8 @@ export class UsersService {
     private readonly tvsService: TvsService,
     private readonly iframesService: IframesService,
     private readonly botsSubscriptionService: BotsSubscriptionService,
-    private readonly emailService: EmailService
-  ) { }
+    private readonly emailService: EmailService,
+  ) {}
 
   async create(createUserDto: CreateUserDto, userId: string): Promise<User> {
     try {
@@ -67,12 +67,12 @@ export class UsersService {
   validateSubscriptionType(subscriptions: SubscriptionDto[]) {
     for (const subscription of subscriptions) {
       console.log(subscription);
-      
+
       if (
         !subscription.type ||
         !Object.values(SubscriptionType).includes(subscription.type)
       ) {
-         throw new Error('Invalid subscription type.');
+        throw new Error('Invalid subscription type.');
       }
     }
   }
@@ -97,7 +97,7 @@ export class UsersService {
   ): Promise<void> {
     for (const subscription of subscriptions) {
       const { type, data } = subscription;
-    
+
       switch (type) {
         case 'email':
           const emailSubscriptionDto = new CreateEmailDto();

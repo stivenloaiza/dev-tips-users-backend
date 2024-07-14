@@ -20,7 +20,11 @@ export class SubscriptionDto {
 
   @ValidateNested()
   @Type(() => Object)
-  data: CreateBotsSubscriptionDto | CreateTvDto | CreateIframeDto | CreateEmailDto;
+  data:
+    | CreateBotsSubscriptionDto
+    | CreateTvDto
+    | CreateIframeDto
+    | CreateEmailDto;
 }
 
 export class CreateUserDto {

@@ -10,7 +10,9 @@ import {
 import { IframesService } from './iframes.service';
 import { CreateIframeDto } from './dto/create-iframe.dto';
 import { UpdateIframeDto } from './dto/update-iframe.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('iframe-subscriptions')
 @Controller('iframes')
 export class IframesController {
   constructor(private readonly iframesService: IframesService) {}

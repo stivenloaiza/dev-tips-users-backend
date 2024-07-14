@@ -15,7 +15,7 @@ export class EmailService {
     @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
 
- /*  async create(createEmailDto: CreateEmailDto) {
+  /*  async create(createEmailDto: CreateEmailDto) {
     const { userId, apikey } = createEmailDto;
 
     const user = await this.userModel.findOne({ _id: createEmailDto.userId });
@@ -39,10 +39,10 @@ export class EmailService {
     return newSub.save();
   } */
 
-    async create(createEmailDto: CreateEmailDto): Promise<EmailSubscription> {
-      const createdEmailSubscription = new this.emailModel(createEmailDto);
-      return createdEmailSubscription.save();
-    }
+  async create(createEmailDto: CreateEmailDto): Promise<EmailSubscription> {
+    const createdEmailSubscription = new this.emailModel(createEmailDto);
+    return createdEmailSubscription.save();
+  }
 
   async findAll(page: number = 1, limit: number = 10): Promise<any> {
     const skip = (page - 1) * limit;
