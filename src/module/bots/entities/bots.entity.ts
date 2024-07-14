@@ -6,7 +6,6 @@ import { User } from 'src/module/users/entities/user.entity';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class BotsSubscription extends Document {
-
   @Prop()
   apikey?: string;
 
