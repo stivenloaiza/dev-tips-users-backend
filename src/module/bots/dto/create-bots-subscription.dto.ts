@@ -8,11 +8,11 @@ import {
 
 export class CreateBotsSubscriptionDto {
   @IsString()
-  userId?: string;
+  userId: string;
 
   @IsNotEmpty()
   @IsString()
-  typeSubscription?: string;
+  typeSubscription: string;
 
   @IsString()
   @IsNotEmpty()

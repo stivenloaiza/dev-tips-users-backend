@@ -3,7 +3,7 @@ import { devLanguageType, langType, levelType } from 'src/libs/enums';
 
 export class CreateIframeDto {
   @IsString()
-  userId?: string;
+  userId: string;
 
   @IsString()
   communication: string;

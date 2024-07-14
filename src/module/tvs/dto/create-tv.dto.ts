@@ -4,7 +4,7 @@ import { devLanguageType, langType, levelType } from 'src/libs/enums';
 export class CreateTvDto {
   @IsNotEmpty()
   @IsString()
-  userId?: string;
+  userId: string;
 
   @IsNotEmpty()
   @IsString()

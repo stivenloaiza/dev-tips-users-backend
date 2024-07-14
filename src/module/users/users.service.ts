@@ -17,6 +17,7 @@ import { IframesService } from '../iframes/iframes.service';
 import { BotsSubscriptionService } from '../bots/service/bots.service';
 import { EmailService } from '../email/email.service';
 import { CreateEmailDto } from '../email/dto/create-email.dto';
+import { stringify } from 'querystring';
 
 @Injectable()
 export class UsersService {
@@ -28,8 +29,9 @@ export class UsersService {
     private readonly emailService: EmailService
   ) { }
 
-  async create(createUserDto: CreateUserDto, userId: string): Promise<User> {
+  async create(createUserDto: any,): Promise<User> {
     try {
+      console.log(createUserDto)
       this.validateUserRole(createUserDto.role);
       this.validateSubscriptionType(createUserDto.subscriptions);
       this.validateEmail(createUserDto.email);
@@ -37,11 +39,9 @@ export class UsersService {
 
       const createdUser = new this.userModel({
         ...createUserDto,
-        createdBy: userId,
       });
 
       const savedUser = await createdUser.save();
-
       const userIdString = savedUser._id.toString();
       await this.createSubscriptions(userIdString, createUserDto.subscriptions);
 
@@ -54,6 +54,118 @@ export class UsersService {
         throw new BadRequestException('Error creating user');
       }
     }
+  }
+
+  private async createSubscriptions(
+    userId: string,
+    subscriptions: any[],
+  ): Promise<void> {
+    console.log("The user id in create", userId)
+    try {
+      for (const subscription of subscriptions){
+
+        const {type, ...data} = subscription
+        let subscriptionCreate: any; 
+
+        switch(type){
+          case "email" : 
+            subscriptionCreate = new CreateEmailDto();
+            console.log(subscriptionCreate.userId)
+            subscriptionCreate.userId = userId; 
+            console.log("aqui HP", subscriptionCreate.userId)
+            break; 
+          
+          case "bot":
+            subscriptionCreate = new CreateBotsSubscriptionDto();
+            console.log(subscriptionCreate.userId)
+            subscriptionCreate.userId = userId; 
+            console.log("aqui HP", subscriptionCreate.userId)
+            break; 
+          
+          case "tv": 
+            subscriptionCreate = new CreateTvDto();
+            console.log(subscriptionCreate.userId)
+            subscriptionCreate.userId = userId; 
+            console.log("aqui HP", subscriptionCreate.userId)
+            break; 
+          
+          case "iframe": 
+            subscriptionCreate = new CreateIframeDto()
+            subscriptionCreate.userId = userId; 
+            console.log("aqui HP", subscriptionCreate.userId)
+
+            break;
+          
+        }
+
+        Object.assign(subscription, subscriptionCreate)
+        return await this.saveSubscription(type, subscription)
+  
+      }
+    } catch(error){
+      throw new Error(`Error acrossing the subscription array ${error}`)
+    }
+
+    // for (const subscription of subscriptions) {
+    //   const { type, data } = subscription;
+    
+    //   switch (type) {
+    //     case 'email':
+    //       const emailSubscriptionDto = new CreateEmailDto();
+    //       emailSubscriptionDto.userId = userId;
+    //       Object.assign(emailSubscriptionDto, data);
+    //       await this.emailService.create(emailSubscriptionDto);
+    //       break;
+    //     case 'bot':
+    //       const botSubscriptionDto = new CreateBotsSubscriptionDto();
+    //       botSubscriptionDto.userId = userId;
+    //       Object.assign(botSubscriptionDto, data);
+    //       await this.botsSubscriptionService.create(botSubscriptionDto);
+    //       break;
+    //     case 'tv':
+    //       const tvSubscriptionDto = new CreateTvDto();
+    //       tvSubscriptionDto.userId = userId;
+    //       Object.assign(tvSubscriptionDto, data);
+    //       await this.tvsService.create(tvSubscriptionDto);
+    //       break;
+    //     case 'iframe':
+    //       const iframeSubscriptionDto = new CreateIframeDto();
+    //       iframeSubscriptionDto.userId = userId;
+    //       Object.assign(iframeSubscriptionDto, data);
+    //       await this.iframesService.create(iframeSubscriptionDto);
+    //       break;
+    //     default:
+    //       throw new BadRequestException(`Unknown subscription type: ${type}`);
+    //   }
+    // }
+  }
+
+  private async saveSubscription (type:SubscriptionType , subscription: any){
+
+    try {
+      console.log("SUBSCRIPTION", subscription)
+      switch(type){
+        case "email": 
+          await this.emailService.create(subscription)
+          break; 
+  
+        case "bot": 
+          await this.botsSubscriptionService.create(subscription)
+          break; 
+        
+        case "tv": 
+          await this.tvsService.create(subscription)
+          break; 
+        
+        case "iframe": 
+          await this.iframesService.create(subscription)
+          break; 
+      }
+    } catch(error){
+      throw new Error(`There is a issue saving the subscription ${error}`)
+    }
+   
+
   }
 
   private validateUserRole(role: UserRole) {
@@ -88,44 +200,6 @@ export class UsersService {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       throw new BadRequestException('Invalid email format.');
-    }
-  }
-
-  private async createSubscriptions(
-    userId: string,
-    subscriptions: any[],
-  ): Promise<void> {
-    for (const subscription of subscriptions) {
-      const { type, data } = subscription;
-    
-      switch (type) {
-        case 'email':
-          const emailSubscriptionDto = new CreateEmailDto();
-          emailSubscriptionDto.userId = userId;
-          Object.assign(emailSubscriptionDto, data);
-          await this.emailService.create(emailSubscriptionDto);
-          break;
-        case 'bot':
-          const botSubscriptionDto = new CreateBotsSubscriptionDto();
-          botSubscriptionDto.userId = userId;
-          Object.assign(botSubscriptionDto, data);
-          await this.botsSubscriptionService.create(botSubscriptionDto);
-          break;
-        case 'tv':
-          const tvSubscriptionDto = new CreateTvDto();
-          tvSubscriptionDto.userId = userId;
-          Object.assign(tvSubscriptionDto, data);
-          await this.tvsService.create(tvSubscriptionDto);
-          break;
-        case 'iframe':
-          const iframeSubscriptionDto = new CreateIframeDto();
-          iframeSubscriptionDto.userId = userId;
-          Object.assign(iframeSubscriptionDto, data);
-          await this.iframesService.create(iframeSubscriptionDto);
-          break;
-        default:
-          throw new BadRequestException(`Unknown subscription type: ${type}`);
-      }
     }
   }
 
@@ -168,7 +242,6 @@ export class UsersService {
     return user; 
       
   }
-
 
   async findUserByApikey(apikey: string): Promise<User>{
 
