@@ -15,7 +15,9 @@ import {
   BotsSubscriptionNotFoundException,
   BotsSubscriptionBadRequestException,
 } from '../exception/bots-suscription.exceptions';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('bots-subscriptions')
 @Controller('bots-subscriptions')
 export class BotsSubscriptionController {
   constructor(
