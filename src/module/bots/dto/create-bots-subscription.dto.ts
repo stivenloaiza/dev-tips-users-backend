@@ -13,7 +13,7 @@ export class CreateBotsSubscriptionDto {
 
   @ApiProperty()
   @IsString()
-  typeSubscription: string;
+  type: string;
 
   @ApiProperty()
   @IsString()
@@ -29,15 +29,15 @@ export class CreateBotsSubscriptionDto {
   @ApiProperty()
   @IsEnum(seniorityType)
   @IsNotEmpty()
-  level: seniorityType;
+  levels: seniorityType;
 
   @ApiProperty()
   @IsEnum(devLanguageType)
   @IsNotEmpty()
-  devLanguage: devLanguageType;
+  technology: devLanguageType;
 
   @ApiProperty()
   @IsEnum(languageType)
   @IsNotEmpty()
-  language: languageType;
+  lang: languageType;
 }

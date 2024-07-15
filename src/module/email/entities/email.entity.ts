@@ -13,19 +13,19 @@ export class EmailSubscription extends Document {
   userId: User;
 
   @Prop({ default: null })
-  communication: string;
+  type: string;
 
   @Prop({ required: true })
   frequency: frecuencyType;
 
   @Prop({ required: true, enum: seniorityType })
-  seniority: seniorityType;
+  levels: seniorityType;
 
   @Prop({ required: true, enum: devLanguageType })
-  devLanguage: devLanguageType;
+  technology: devLanguageType;
 
   @Prop({ required: true, enum: languageType })
-  language: languageType;
+  lang: languageType;
 
   @Prop()
   createdAt: Date;

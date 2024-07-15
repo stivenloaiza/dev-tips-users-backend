@@ -11,7 +11,7 @@ export class CreateEmailDto {
 
   @ApiProperty()
   @IsString()
-  communication?: string;
+  type: string;
 
   @ApiProperty()
   @IsString()
@@ -21,15 +21,15 @@ export class CreateEmailDto {
   @ApiProperty()
   @IsEnum(seniorityType)
   @IsNotEmpty()
-  seniority: seniorityType;
+  levels: seniorityType;
 
   @ApiProperty()
   @IsEnum(devLanguageType)
   @IsNotEmpty()
-  devLanguage: devLanguageType;
+  technology: devLanguageType;
 
   @ApiProperty()
   @IsEnum(languageType)
   @IsNotEmpty()
-  language: languageType;
+  lang: languageType;
 }
