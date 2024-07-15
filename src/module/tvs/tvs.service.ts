@@ -24,21 +24,34 @@ export class TvsService {
       );
     }
 
-    const tvApiKey = await this.authService.getTvApiKey();
-    console.log(`TV API Key obtained: ${tvApiKey}`);
-
     const createdTv = new this.tvModel(createTvDto);
     return await createdTv.save();
+
+    // const tvApiKey = await this.authService.getTvApiKey();
+    // console.log(`TV API Key obtained: ${tvApiKey}`);
   }
 
-  async findAll(): Promise<TvSuscription[]> {
-    return this.tvModel
+  async findAll(page: number = 1, limit: number = 10): Promise<any> {
+    const skip = (page - 1) * limit;
+    const items = await this.tvModel
       .find()
+      .skip(skip)
+      .limit(limit)
       .populate({
         path: 'userId',
         select: 'name email phone role managerName managerEmail managerPhone',
       })
       .exec();
+
+    const totalItems = await this.tvModel.countDocuments().exec();
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return {
+      items,
+      totalItems,
+      totalPages,
+      currentPage: page,
+    };
   }
 
   async findOne(id: string): Promise<TvSuscription> {
