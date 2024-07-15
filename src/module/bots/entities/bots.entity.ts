@@ -22,10 +22,13 @@ export class BotsSubscription extends Document {
   channel: channelType;
 
   @Prop({ required: true, enum: seniorityType })
-  seniority: seniorityType;
+  levels: seniorityType;
 
   @Prop({ type: MongooseSchema.Types.Mixed, required: true })
-  programmingLanguages: Record<string, any>;
+  technology: Record<string, any>;
+
+  @Prop({ required: true })
+  lang: string;
 
   @Prop({ default: null })
   deletedAt?: Date;
@@ -40,5 +43,4 @@ export class BotsSubscription extends Document {
   deletedBy?: string;
 }
 
-export const BotsSubscriptionSchema =
-  SchemaFactory.createForClass(BotsSubscription);
+export const BotsSubscriptionSchema = SchemaFactory.createForClass(BotsSubscription);

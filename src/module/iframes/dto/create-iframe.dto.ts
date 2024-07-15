@@ -12,17 +12,17 @@ export class CreateIframeDto {
 
   @ApiProperty()
   @IsString()
-  communication: string;
+  type: string;
 
   @ApiProperty()
   @IsEnum(seniorityType)
   @IsNotEmpty()
-  seniority: seniorityType;
+  levels: seniorityType;
 
   @ApiProperty()
   @IsEnum(devLanguageType)
   @IsNotEmpty()
-  devLanguage: devLanguageType;
+  technology: devLanguageType;
 
   @ApiProperty()
   @IsString()
@@ -42,5 +42,5 @@ export class CreateIframeDto {
   @ApiProperty()
   @IsEnum(languageType)
   @IsNotEmpty()
-  language: languageType;
+  lang: languageType;
 }

@@ -9,16 +9,16 @@ export class TvSuscription extends Document {
   userId: User;
 
   @Prop({ default: null })
-  communication: string;
+  type: string;
 
   @Prop({ required: true, enum: seniorityType })
-  seniority: seniorityType;
+  levels: seniorityType;
 
   @Prop({ required: true, enum: devLanguageType })
-  programmingLanguage: devLanguageType;
+  technology: devLanguageType;
 
   @Prop({ required: true, enum: languageType })
-  language: languageType;
+  lang: languageType;
 
   @Prop({ default: null })
   deletedAt?: Date;

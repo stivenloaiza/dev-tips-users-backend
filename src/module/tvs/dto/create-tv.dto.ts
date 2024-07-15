@@ -9,20 +9,20 @@ export class CreateTvDto {
 
   @ApiProperty()
   @IsString()
-  communication?: string;
+  type: string;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsEnum(seniorityType)
-  seniority: seniorityType;
+  levels: seniorityType;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsEnum(devLanguageType)
-  devLanguage: devLanguageType;
+  technology: devLanguageType;
 
   @ApiProperty()
   @IsNotEmpty()
   @IsEnum(languageType)
-  language: languageType;
+  lang: languageType;
 }
