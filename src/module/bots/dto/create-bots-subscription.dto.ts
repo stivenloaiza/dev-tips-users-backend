@@ -15,7 +15,6 @@ export class CreateBotsSubscriptionDto {
   @IsString()
   typeSubscription: string;
 
-
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
