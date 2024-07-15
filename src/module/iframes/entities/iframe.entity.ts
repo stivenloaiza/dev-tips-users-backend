@@ -12,13 +12,13 @@ export class IframeSuscription extends Document {
   userId: User;
 
   @Prop({ default: null })
-  communication: string;
+  type: string;
 
   @Prop({ required: true, enum: seniorityType })
-  seniority: seniorityType;
+  levels: seniorityType;
 
   @Prop({ required: true, enum: devLanguageType })
-  devLanguage: devLanguageType;
+  technology: devLanguageType;
 
   @Prop({ type: String, required: true })
   domains: string;
@@ -30,7 +30,7 @@ export class IframeSuscription extends Document {
   typography: string;
 
   @Prop({ required: true, enum: languageType })
-  language: languageType;
+  lang: languageType;
 
   @Prop({ default: null })
   deletedAt?: Date;

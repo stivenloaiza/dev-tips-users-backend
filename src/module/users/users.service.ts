@@ -99,7 +99,6 @@ export class UsersService {
 
   private async saveSubscription(type: SubscriptionType, subscription: any) {
     try {
-      console.log('SUBSCRIPTION', subscription);
       switch (type) {
         case 'email':
           await this.emailService.create(subscription);
