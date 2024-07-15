@@ -17,6 +17,7 @@ import { IframesService } from '../iframes/iframes.service';
 import { BotsSubscriptionService } from '../bots/service/bots.service';
 import { EmailService } from '../email/email.service';
 import { CreateEmailDto } from '../email/dto/create-email.dto';
+import { AuthServiceIframe } from 'src/libs/auth/AuthServiceIframe';
 
 
 @Injectable()
@@ -27,6 +28,7 @@ export class UsersService {
     private readonly iframesService: IframesService,
     private readonly botsSubscriptionService: BotsSubscriptionService,
     private readonly emailService: EmailService,
+    
 
   ) {}
 
@@ -114,7 +116,10 @@ export class UsersService {
 
         case 'iframe':
           await this.iframesService.create(subscription);
+          
+          
           break;
+
       }
     } catch (error) {
       throw new Error(`There is a issue saving the subscription ${error}`);

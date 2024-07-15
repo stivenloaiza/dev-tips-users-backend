@@ -9,7 +9,6 @@ export class AuthService {
     private readonly httpService: HttpService,
     private readonly configService: ConfigService,
   ) {}
-
   async getApiKey(): Promise<string> {
     try {
       const apiUrl = this.configService.get<string>('AUTH_API_URL');

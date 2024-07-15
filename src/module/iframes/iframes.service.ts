@@ -1,3 +1,4 @@
+import { HttpService } from '@nestjs/axios';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -5,18 +6,30 @@ import { CreateIframeDto } from './dto/create-iframe.dto';
 import { UpdateIframeDto } from './dto/update-iframe.dto';
 import { IframeSuscription } from './entities/iframe.entity';
 import { User } from '../users/entities/user.entity';
+import { AuthServiceIframe } from 'src/libs/auth/AuthServiceIframe';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class IframesService {
+  HttpService: any;
   constructor(
     @InjectModel(IframeSuscription.name)
     private readonly iframeModel: Model<IframeSuscription>,
     @InjectModel(User.name) private readonly userModel: Model<User>,
+    private readonly httpService: HttpService,
   ) {}
 
-  async create(createIframeDto: CreateIframeDto): Promise<IframeSuscription> {
+  async create(createIframeDto: CreateIframeDto) : Promise<void>  {
     const createdIframeSubscription = new this.iframeModel(createIframeDto);
-    return createdIframeSubscription.save();
+    createdIframeSubscription.save();
+    /* const iframeResponse = await firstValueFrom(
+      this.httpService.post('http://localhost:4000/v1/api/iframe/getIframe', createdIframeSubscription.toObject())
+    );
+    console.log("Response:", iframeResponse.data); */
+    
+    return 
+
+   
   }
 
   async findAll(page: number = 1, limit: number = 10): Promise<object> {
@@ -28,7 +41,7 @@ export class IframesService {
       .limit(limit)
       .populate({
         path: 'userId',
-        select: 'name email phone role managerName managerEmail managerPhone',
+        select: 'apikey name email phone role managerName managerEmail managerPhone',
       })
       .exec();
 

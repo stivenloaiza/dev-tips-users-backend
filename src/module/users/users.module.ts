@@ -23,6 +23,7 @@ import {
   EmailSubscriptionSchema,
 } from '../email/entities/email.entity';
 import { HttpModule} from '@nestjs/axios';
+import { AuthServiceIframe } from 'src/libs/auth/AuthServiceIframe';
 
 @Module({
   imports: [
@@ -48,6 +49,7 @@ import { HttpModule} from '@nestjs/axios';
     TvsService,
     EmailService,
     AuthService,
+    AuthServiceIframe
   ],
   exports: [MongooseModule],
 })
