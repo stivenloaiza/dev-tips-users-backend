@@ -7,7 +7,7 @@ export class CreateEmailDto {
   readonly apikey?: string;
 
   @IsString()
-  userId?: string;
+  userId: string;
 
   @ApiProperty()
   @IsString()

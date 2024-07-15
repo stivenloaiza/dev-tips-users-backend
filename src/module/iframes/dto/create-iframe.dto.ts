@@ -3,13 +3,12 @@ import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
 import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
 
 export class CreateIframeDto {
-
   @ApiProperty()
   @IsString()
-  apikey:string;
+  apikey: string;
 
   @IsString()
-  userId?: string;
+  userId: string;
 
   @ApiProperty()
   @IsString()

@@ -5,7 +5,7 @@ import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
 export class CreateTvDto {
   @IsNotEmpty()
   @IsString()
-  userId?: string;
+  userId: string;
 
   @ApiProperty()
   @IsString()

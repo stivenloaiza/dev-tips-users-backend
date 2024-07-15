@@ -9,11 +9,11 @@ import {
 
 export class CreateBotsSubscriptionDto {
   @IsString()
-  userId?: string;
+  userId: string;
 
   @ApiProperty()
   @IsString()
-  communication?: string;
+  typeSubscription: string;
 
   @ApiProperty()
   @IsString()
