@@ -31,6 +31,7 @@ export class TvsService {
     // console.log(`TV API Key obtained: ${tvApiKey}`);
   }
 
+
   async findAll(page: number = 1, limit: number = 10): Promise<any> {
     const skip = (page - 1) * limit;
     const items = await this.tvModel
@@ -52,6 +53,7 @@ export class TvsService {
       totalPages,
       currentPage: page,
     };
+
   }
 
   async findOne(id: string): Promise<TvSuscription> {

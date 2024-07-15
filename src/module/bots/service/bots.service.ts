@@ -44,6 +44,7 @@ export class BotsSubscriptionService {
     }
   } */
 
+
   async findAll(page: number = 1, limit: number = 10): Promise<any> {
     const skip = (page - 1) * limit;
 
@@ -66,6 +67,7 @@ export class BotsSubscriptionService {
       totalPages,
       currentPage: page,
     };
+
   }
 
   async findOne(id: string): Promise<BotsSubscription> {

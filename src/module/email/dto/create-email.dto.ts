@@ -1,5 +1,6 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { devLanguageType, langType, levelType } from 'src/libs/enums';
+import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
 
 export class CreateEmailDto {
   @IsString()
@@ -8,22 +9,27 @@ export class CreateEmailDto {
   @IsString()
   userId: string;
 
+  @ApiProperty()
   @IsString()
-  typeSubscription: string;
+  communication?: string;
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   frequency: string;
 
-  @IsEnum(levelType)
+  @ApiProperty()
+  @IsEnum(seniorityType)
   @IsNotEmpty()
-  levels: levelType;
+  seniority: seniorityType;
 
+  @ApiProperty()
   @IsEnum(devLanguageType)
   @IsNotEmpty()
-  technology: devLanguageType;
+  devLanguage: devLanguageType;
 
-  @IsEnum(langType)
+  @ApiProperty()
+  @IsEnum(languageType)
   @IsNotEmpty()
-  lang: langType;
+  language: languageType;
 }

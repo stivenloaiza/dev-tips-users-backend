@@ -1,21 +1,25 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { devLanguageType, langType, levelType } from 'src/libs/enums';
+import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
 import { User } from 'src/module/users/entities/user.entity';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class IframeSuscription extends Document {
+
+  @Prop({ default: "343rkvdkl454" })
+  apikey:string;
+
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   userId: User;
 
   @Prop({ default: null })
   communication: string;
 
-  @Prop({ required: true, enum: levelType })
-  levels: levelType;
+  @Prop({ required: true, enum: seniorityType })
+  seniority: seniorityType;
 
   @Prop({ required: true, enum: devLanguageType })
-  technology: devLanguageType;
+  devLanguage: devLanguageType;
 
   @Prop({ type: String, required: true })
   domains: string;
@@ -26,8 +30,8 @@ export class IframeSuscription extends Document {
   @Prop({ required: true })
   typography: string;
 
-  @Prop({ required: true, enum: langType })
-  lang: langType;
+  @Prop({ required: true, enum: languageType })
+  language: languageType;
 
   @Prop({ default: null })
   deletedAt?: Date;

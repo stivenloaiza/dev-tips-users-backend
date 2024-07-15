@@ -170,7 +170,45 @@ export class UsersService {
       totalPages,
       currentPage: page,
     };
+=======
+  private async createSubscriptions(
+    userId: string,
+    subscriptions: any[],
+  ): Promise<void> {
+    for (const subscription of subscriptions) {
+      const { type, data } = subscription;
+
+      switch (type) {
+        case 'email':
+          const emailSubscriptionDto = new CreateEmailDto();
+          emailSubscriptionDto.userId = userId;
+          Object.assign(emailSubscriptionDto, data);
+          await this.emailService.create(emailSubscriptionDto);
+          break;
+        case 'bot':
+          const botSubscriptionDto = new CreateBotsSubscriptionDto();
+          botSubscriptionDto.userId = userId;
+          Object.assign(botSubscriptionDto, data);
+          await this.botsSubscriptionService.create(botSubscriptionDto);
+          break;
+        case 'tv':
+          const tvSubscriptionDto = new CreateTvDto();
+          tvSubscriptionDto.userId = userId;
+          Object.assign(tvSubscriptionDto, data);
+          await this.tvsService.create(tvSubscriptionDto);
+          break;
+        case 'iframe':
+          const iframeSubscriptionDto = new CreateIframeDto();
+          iframeSubscriptionDto.userId = userId;
+          Object.assign(iframeSubscriptionDto, data);
+          await this.iframesService.create(iframeSubscriptionDto);
+          break;
+        default:
+          throw new BadRequestException(`Unknown subscription type: ${type}`);
+      }
+    }
   }
+
 
   async findOne(id: string): Promise<User> {
     const user = await this.userModel.findById(id).exec();
@@ -203,7 +241,7 @@ export class UsersService {
 
     return user;
   }
-
+  
   async update(
     id: string,
     updateUserDto: UpdateUserDto,

@@ -1,24 +1,28 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsEnum, IsNotEmpty } from 'class-validator';
-import { devLanguageType, langType, levelType } from 'src/libs/enums';
+import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
 
 export class CreateTvDto {
   @IsNotEmpty()
   @IsString()
   userId: string;
 
-  @IsNotEmpty()
+  @ApiProperty()
   @IsString()
   communication?: string;
 
+  @ApiProperty()
   @IsNotEmpty()
-  @IsEnum(levelType)
-  seniority: levelType;
+  @IsEnum(seniorityType)
+  seniority: seniorityType;
 
+  @ApiProperty()
   @IsNotEmpty()
   @IsEnum(devLanguageType)
-  technology: devLanguageType;
+  devLanguage: devLanguageType;
 
+  @ApiProperty()
   @IsNotEmpty()
-  @IsEnum(langType)
-  language: langType;
+  @IsEnum(languageType)
+  language: languageType;
 }

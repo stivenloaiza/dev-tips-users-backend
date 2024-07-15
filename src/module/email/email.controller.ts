@@ -10,7 +10,9 @@ import {
 import { EmailService } from './email.service';
 import { CreateEmailDto } from './dto/create-email.dto';
 import { UpdateEmailDto } from './dto/update-email.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('email-subscriptions')
 @Controller('email')
 export class EmailController {
   constructor(private readonly emailService: EmailService) {}
@@ -20,7 +22,7 @@ export class EmailController {
     return this.emailService.create(createEmailDto);
   }
 
-  @Get('')
+  @Get('/find/all')
   findAll() {
     return this.emailService.findAll();
   }

@@ -47,6 +47,7 @@ export class EmailService {
   async findAll(page: number = 1, limit: number = 10): Promise<any> {
     const skip = (page - 1) * limit;
 
+
     const items = await this.emailModel
       .find()
       .skip(skip)
@@ -56,6 +57,7 @@ export class EmailService {
         select: 'name email phone role managerName managerEmail managerPhone',
       })
       .exec();
+
     const totalItems = await this.emailModel.countDocuments().exec();
     const totalPages = Math.ceil(totalItems / limit);
 

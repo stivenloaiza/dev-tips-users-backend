@@ -10,7 +10,9 @@ import {
 import { TvsService } from './tvs.service';
 import { CreateTvDto } from './dto/create-tv.dto';
 import { UpdateTvDto } from './dto/update-tv.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('tv-subscriptions')
 @Controller('tvs')
 export class TvsController {
   constructor(private readonly tvsService: TvsService) {}

@@ -1,34 +1,47 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
-import { devLanguageType, langType, levelType } from 'src/libs/enums';
+import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
 
 export class CreateIframeDto {
+
+  @ApiProperty()
+  @IsString()
+  apikey:string;
+
   @IsString()
   userId: string;
 
+  @ApiProperty()
   @IsString()
   communication: string;
 
-  @IsEnum(levelType)
+  @ApiProperty()
+  @IsEnum(seniorityType)
   @IsNotEmpty()
-  levels: levelType;
+  seniority: seniorityType;
 
+  @ApiProperty()
   @IsEnum(devLanguageType)
   @IsNotEmpty()
-  technology: devLanguageType;
+  devLanguage: devLanguageType;
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   domains: string;
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   color: string;
 
+  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   typography: string;
 
-  @IsEnum(langType)
+  @ApiProperty()
+  @IsEnum(languageType)
   @IsNotEmpty()
-  language: langType;
+  language: languageType;
 }

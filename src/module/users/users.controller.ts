@@ -12,7 +12,10 @@ import {
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { User } from './entities/user.entity';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -43,6 +46,7 @@ export class UsersController {
     }
     return user;
   }
+
 
   @Get('/:email')
   async findOneByEmail(@Param('email') email: string): Promise<User> {
