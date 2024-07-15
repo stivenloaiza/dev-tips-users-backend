@@ -18,6 +18,7 @@ import { BotsSubscriptionService } from '../bots/service/bots.service';
 import { EmailService } from '../email/email.service';
 import { CreateEmailDto } from '../email/dto/create-email.dto';
 
+
 @Injectable()
 export class UsersService {
   constructor(
@@ -26,6 +27,7 @@ export class UsersService {
     private readonly iframesService: IframesService,
     private readonly botsSubscriptionService: BotsSubscriptionService,
     private readonly emailService: EmailService,
+
   ) {}
 
   async create(createUserDto: CreateUserDto, userId: string): Promise<User> {
@@ -138,17 +140,8 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException(`User with id ${id} not found.`);
     }
-    return user;
-  }
-
-  async update(
-    id: string,
-    updateUserDto: UpdateUserDto,
-    userId: string,
-  ): Promise<User> {
-    try {
-      if (updateUserDto.role) {
-        this.validateUserRole(updateUserDto.role);
+}
+dateUserDto.role);
       }
       if (updateUserDto.subscriptions) {
         this.validateSubscriptionType(updateUserDto.subscriptions);
