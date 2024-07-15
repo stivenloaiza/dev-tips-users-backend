@@ -5,6 +5,10 @@ import { User } from 'src/module/users/entities/user.entity';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class IframeSuscription extends Document {
+
+  @Prop({ default: "343rkvdkl454" })
+  apikey:string;
+
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   userId: User;
 
