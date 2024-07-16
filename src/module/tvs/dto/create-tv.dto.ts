@@ -16,7 +16,7 @@ export class CreateTvDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsEnum(seniorityType)
-  levels: seniorityType;
+  level: seniorityType;
 
   @ApiProperty()
   @IsNotEmpty()
