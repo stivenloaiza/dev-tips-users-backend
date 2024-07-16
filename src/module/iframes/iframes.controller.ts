@@ -40,7 +40,7 @@ export class IframesController {
     try {
       return await this.iframesService.findIframeByApikey(apikey);
     } catch (error) {
-      throw new Error(`There is a isssue with find oen by apikey: ${error}`);
+      throw new Error(`There is a isssue with find by apikey: ${error}`);
     }
   }
 
@@ -49,8 +49,4 @@ export class IframesController {
     return this.iframesService.update(id, updateIframeDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.iframesService.remove(id);
-  }
 }

@@ -1,3 +1,4 @@
+import { SubscriptionType } from 'src/libs/enums';
 import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { lastValueFrom } from 'rxjs';
@@ -6,9 +7,9 @@ import { lastValueFrom } from 'rxjs';
 export class ApiService {
   constructor(private readonly httpService: HttpService) {}
 
-  async getApiKey(data: string): Promise<string> {
+  async getApiKey(subscriptionType:SubscriptionType): Promise<string> {
     const createApiKeyParams = {
-      type: data,
+      type: subscriptionType,
       usageCount: 0,
       limit: 100,
     };

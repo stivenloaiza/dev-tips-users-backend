@@ -93,23 +93,4 @@ export class BotsSubscriptionController {
       throw error;
     }
   }
-
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    try {
-      const deletedSubscription = await this.botsSubscriptionService.remove(id);
-      return {
-        message: 'Bots subscription deleted successfully',
-        data: deletedSubscription,
-      };
-    } catch (error) {
-      if (error instanceof BotsSubscriptionBadRequestException) {
-        return {
-          message: error.message,
-          error: error.message,
-        };
-      }
-      throw error;
-    }
-  }
 }

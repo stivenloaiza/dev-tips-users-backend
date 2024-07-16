@@ -15,30 +15,6 @@ export class EmailService {
     @InjectModel(User.name) private readonly userModel: Model<User>,
   ) {}
 
-  /*  async create(createEmailDto: CreateEmailDto) {
-    const { userId, apikey } = createEmailDto;
-
-    const user = await this.userModel.findOne({ _id: createEmailDto.userId });
-
-    if (!user) {
-      throw new Error(
-        `The user with the ID ${userId} wasn't found please try again`,
-      );
-    }
-
-    const validation = this.emailModel.findOne({ apikey: apikey });
-
-    if (validation) {
-      throw new Error(
-        `Already exists a subscription with this ApiKey ${apikey}`,
-      );
-    }
-
-    const newSub = new this.emailModel({ createEmailDto });
-
-    return newSub.save();
-  } */
-
   async create(createEmailDto: CreateEmailDto): Promise<EmailSubscription> {
     const createdEmailSubscription = new this.emailModel(createEmailDto);
     return createdEmailSubscription.save();

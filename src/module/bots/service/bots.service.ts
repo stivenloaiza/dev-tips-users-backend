@@ -25,24 +25,6 @@ export class BotsSubscriptionService {
     return createdBotSubscription.save();
   }
 
-  /* async create(
-    createBotsSubscriptionDto: CreateBotsSubscriptionDto,
-  ): Promise<BotsSubscription> {
-    try {
-      const apiKey = await this.authService.getApiKey();
-      console.log(`API Key obtenida: ${apiKey}`);
-
-      const newBotsSubscription = new this.botsSubscriptionModel(
-        createBotsSubscriptionDto,
-      );
-      return newBotsSubscription.save();
-    } catch (error) {
-      throw new BotsSubscriptionBadRequestException(
-        'Failed to create bots subscription',
-      );
-    }
-  } */
-
   async findAll(page: number = 1, limit: number = 10): Promise<any> {
     const skip = (page - 1) * limit;
 
@@ -106,21 +88,4 @@ export class BotsSubscriptionService {
     }
   }
 
-  async remove(id: string): Promise<BotsSubscription> {
-    try {
-      const deletedBotsSubscription = await this.botsSubscriptionModel
-        .findByIdAndDelete(id)
-        .exec();
-      if (!deletedBotsSubscription) {
-        throw new BotsSubscriptionNotFoundException(
-          `BotsSubscription with ID "${id}" not found`,
-        );
-      }
-      return deletedBotsSubscription;
-    } catch (error) {
-      throw new BotsSubscriptionBadRequestException(
-        'Failed to delete bots subscription',
-      );
-    }
-  }
 }

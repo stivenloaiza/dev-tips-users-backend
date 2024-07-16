@@ -191,18 +191,6 @@ export class UsersService {
     return user;
   }
 
-  async findUserByApikey(apikey: string): Promise<User> {
-    const user = await this.userModel.findOne({ apikey });
-
-    if (!user) {
-      throw new NotFoundException(
-        `The user with the email: ${apikey} wasn't found`,
-      );
-    }
-
-    return user;
-  }
-
   async update(
     id: string,
     updateUserDto: UpdateUserDto,

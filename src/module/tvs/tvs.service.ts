@@ -5,6 +5,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../users/entities/user.entity';
 import { Model } from 'mongoose';
 import { TvSuscription } from './entities/tv.entity';
+import { ApiService } from 'src/libs/auth/auth.service';
+import { SubscriptionType } from 'src/libs/enums';
 
 @Injectable()
 export class TvsService {
@@ -12,17 +14,15 @@ export class TvsService {
     @InjectModel(TvSuscription.name)
     private readonly tvModel: Model<TvSuscription>,
     @InjectModel(User.name) private readonly userModel: Model<User>,
+    private readonly apiService: ApiService,
   ) {}
 
-  async create(createTvDto: CreateTvDto): Promise<TvSuscription> {
-    const user = await this.userModel.findById(createTvDto.userId).exec();
-    if (!user) {
-      throw new NotFoundException(
-        `User with id ${createTvDto.userId} not found`,
-      );
-    }
-    const createdTv = new this.tvModel(createTvDto);
-    return await createdTv.save();
+  async create(createTvDto: CreateTvDto): Promise<TvSuscription>  {
+    const apiKey = await this.apiService.getApiKey(SubscriptionType.tv);
+    createTvDto.apikey = apiKey;
+    const createdTvSubscription = new this.tvModel(createTvDto);
+    createdTvSubscription.save();
+    return
   }
 
   async findAll(page: number = 1, limit: number = 10): Promise<any> {
@@ -93,11 +93,4 @@ export class TvsService {
     return await tv.save();
   }
 
-  async remove(id: string): Promise<TvSuscription> {
-    const tv = await this.tvModel.findByIdAndDelete(id).exec();
-    if (!tv) {
-      throw new NotFoundException(`Tv suscription with id ${id} not found`);
-    }
-    return tv;
-  }
 }

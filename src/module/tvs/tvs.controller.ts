@@ -49,8 +49,5 @@ export class TvsController {
     return this.tvsService.update(id, updateTvDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tvsService.remove(id);
-  }
+ 
 }

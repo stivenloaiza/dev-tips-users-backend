@@ -8,6 +8,7 @@ import { IframeSuscription } from './entities/iframe.entity';
 import { User } from '../users/entities/user.entity';
 import { lastValueFrom } from 'rxjs';
 import { ApiService } from 'src/libs/auth/auth.service';
+import { SubscriptionType } from 'src/libs/enums';
 
 @Injectable()
 export class IframesService {
@@ -21,7 +22,7 @@ export class IframesService {
   ) {}
 
   async create(createIframeDto: CreateIframeDto): Promise<void> {
-    const apiKey = await this.apiService.getApiKey('iframe');
+    const apiKey = await this.apiService.getApiKey(SubscriptionType.iframe);
     createIframeDto.apikey = apiKey;
     const createdIframeSubscription = new this.iframeModel(createIframeDto);
     createdIframeSubscription.save();
@@ -116,11 +117,4 @@ export class IframesService {
     return await iframe.save();
   }
 
-  async remove(id: string): Promise<IframeSuscription> {
-    const iframe = await this.iframeModel.findByIdAndDelete(id).exec();
-    if (!iframe) {
-      throw new NotFoundException(`Iframe with id ${id} not found`);
-    }
-    return iframe;
-  }
 }
