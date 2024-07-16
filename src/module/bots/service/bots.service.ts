@@ -8,14 +8,12 @@ import {
   BotsSubscriptionNotFoundException,
   BotsSubscriptionBadRequestException,
 } from '../exception/bots-suscription.exceptions';
-/* import { AuthService } from 'src/libs/auth/AuthServiceApiKey'; */
 
 @Injectable()
 export class BotsSubscriptionService {
   constructor(
     @InjectModel(BotsSubscription.name)
     private readonly botsSubscriptionModel: Model<BotsSubscription>,
-    /* private readonly authService: AuthService, */
   ) {}
 
   async create(

@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { IframeSchema, IframeSuscription } from './entities/iframe.entity';
 import { UsersModule } from '../users/users.module';
 import { HttpModule } from '@nestjs/axios';
+import { AuthModule } from 'src/libs/auth/auth.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { HttpModule } from '@nestjs/axios';
     ]),
     UsersModule,
     HttpModule,
+    AuthModule,
   ],
   controllers: [IframesController],
   providers: [IframesService],
