@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { IframesService } from './iframes.service';
 import { CreateIframeDto } from './dto/create-iframe.dto';
 import { UpdateIframeDto } from './dto/update-iframe.dto';
@@ -48,5 +40,4 @@ export class IframesController {
   update(@Param('id') id: string, @Body() updateIframeDto: UpdateIframeDto) {
     return this.iframesService.update(id, updateIframeDto);
   }
-
 }

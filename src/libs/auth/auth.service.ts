@@ -7,7 +7,7 @@ import { lastValueFrom } from 'rxjs';
 export class ApiService {
   constructor(private readonly httpService: HttpService) {}
 
-  async getApiKey(subscriptionType:SubscriptionType): Promise<string> {
+  async getApiKey(subscriptionType: SubscriptionType): Promise<string> {
     const createApiKeyParams = {
       type: subscriptionType,
       usageCount: 0,

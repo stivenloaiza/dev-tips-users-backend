@@ -14,6 +14,6 @@ import { ApiService } from 'src/libs/auth/auth.service';
     HttpModule,
   ],
   controllers: [TvsController],
-  providers: [TvsService,ApiService],
+  providers: [TvsService, ApiService],
 })
 export class TvsModule {}
