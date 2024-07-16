@@ -57,7 +57,11 @@ export class TvsService {
   }
 
   async findTvByApikey(apikey: string): Promise<TvSuscription> {
-    const tv = await this.tvModel.findOne({ apikey });
+    const tv = await this.tvModel.findOne({ apikey }).populate({
+      path: 'userId',
+      select: 'name',
+    })
+    .exec();;
 
     if (!tv) {
       throw new NotFoundException(
