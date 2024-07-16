@@ -55,15 +55,6 @@ export class UsersController {
     }
   }
 
-  @Get('/:apikey')
-  async findOneByApikey(@Param('apikey') apikey: string): Promise<User> {
-    try {
-      return await this.usersService.findUserByApikey(apikey);
-    } catch (error) {
-      throw new Error(`There is a isssue with find oen by email: ${error}`);
-    }
-  }
-
   @Patch(':id')
   async update(
     @Param('id') id: string,
