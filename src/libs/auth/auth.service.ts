@@ -1,32 +1,44 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { lastValueFrom } from 'rxjs';
-import { ConfigService } from '@nestjs/config';
 
 @Injectable()
-export class AuthService {
-  constructor(
-    private readonly httpService: HttpService,
-    private readonly configService: ConfigService,
-  ) {}
+export class ApiService {
+  constructor(private readonly httpService: HttpService) {}
 
-  async getApiKey(): Promise<string> {
-    try {
-      const apiUrl = 'http://localhost:3002/key-subscription/new';
-      const response = await lastValueFrom(
-        this.httpService.get<{ apiKey: string }>(apiUrl),
-      );
-      console.log(response.data.apiKey);
-      return response.data.apiKey;
-    } catch (error) {
-      console.error(
-        'Failed to fetch API Key:',
-        error.response?.data ?? error.message,
-      );
+  async getApiKey(data: string): Promise<string> {
+    const createApiKeyParams = {
+      type: data,
+      usageCount: 0,
+      limit: 100,
+    };
+
+    const headers = {
+      'x-api-key': 'p5ypxpbidn0200uvh4cz0plx3n2zqy',
+    };
+
+    const apiKeyResponse = await lastValueFrom(
+      this.httpService.post(
+        'http://localhost:4000/key-subscription/new',
+        createApiKeyParams,
+        { headers },
+      ),
+    );
+
+    if (apiKeyResponse.status !== 201) {
+      console.log('hola');
       throw new HttpException(
-        'Failed to fetch API Key',
+        'Failed to create API key',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    } else if (apiKeyResponse.data.apiKey === undefined) {
+      console.log('hola2');
+      throw new HttpException(
+        'Failed to create API key',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
+
+    return apiKeyResponse.data.apiKey;
   }
 }
