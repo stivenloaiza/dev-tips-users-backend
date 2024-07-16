@@ -19,7 +19,7 @@ export class EmailSubscription extends Document {
   frequency: frecuencyType;
 
   @Prop({ required: true, enum: seniorityType })
-  levels: seniorityType;
+  level: seniorityType;
 
   @Prop({ required: true, enum: devLanguageType })
   technology: devLanguageType;

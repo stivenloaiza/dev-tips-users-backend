@@ -22,7 +22,7 @@ export class BotsSubscription extends Document {
   channel: channelType;
 
   @Prop({ required: true, enum: seniorityType })
-  levels: seniorityType;
+  level: seniorityType;
 
   @Prop({ type: MongooseSchema.Types.Mixed, required: true })
   technology: Record<string, any>;
