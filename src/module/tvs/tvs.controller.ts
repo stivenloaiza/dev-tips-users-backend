@@ -12,13 +12,14 @@ import { CreateTvDto } from './dto/create-tv.dto';
 import { UpdateTvDto } from './dto/update-tv.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { TvSuscription } from './entities/tv.entity';
+import { TvSuscription } from './entities/tv.entity';
 
 @ApiTags('tv-subscriptions')
 @Controller('tvs')
 export class TvsController {
   constructor(private readonly tvsService: TvsService) {}
 
-  @Post()
+  @Post('/create')
   create(@Body() createTvDto: CreateTvDto) {
     return this.tvsService.create(createTvDto);
   }

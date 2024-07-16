@@ -63,6 +63,7 @@ export class UsersService {
     try {
       for (const subscription of subscriptions) {
         const { type, ...data } = subscription;
+        console.log('DATA');
         let subscriptionCreate: any;
 
         switch (type) {
