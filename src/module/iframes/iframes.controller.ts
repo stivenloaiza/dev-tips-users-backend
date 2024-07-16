@@ -11,6 +11,7 @@ import { IframesService } from './iframes.service';
 import { CreateIframeDto } from './dto/create-iframe.dto';
 import { UpdateIframeDto } from './dto/update-iframe.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { IframeSuscription } from './entities/iframe.entity';
 
 @ApiTags('iframe-subscriptions')
 @Controller('iframes')
@@ -30,6 +31,17 @@ export class IframesController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.iframesService.findOne(id);
+  }
+
+  @Get('/getApiKey/:apikey')
+  async findOneByApikey(
+    @Param('apikey') apikey: string,
+  ): Promise<IframeSuscription> {
+    try {
+      return await this.iframesService.findIframeByApikey(apikey);
+    } catch (error) {
+      throw new Error(`There is a isssue with find oen by apikey: ${error}`);
+    }
   }
 
   @Patch(':id')

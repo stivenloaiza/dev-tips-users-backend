@@ -22,9 +22,7 @@ export class IframesService {
 
   async create(createIframeDto: CreateIframeDto): Promise<void> {
     const apiKey = await this.apiService.getApiKey('iframe');
-
     createIframeDto.apikey = apiKey;
-
     const createdIframeSubscription = new this.iframeModel(createIframeDto);
     createdIframeSubscription.save();
 
@@ -42,7 +40,7 @@ export class IframesService {
     return;
   }
 
-  async findAll(page: number = 1, limit: number = 10): Promise<object> {
+  async findAll(page: number = 3, limit: number = 10): Promise<object> {
     const skip = (page - 1) * limit;
 
     const items = await this.iframeModel
@@ -75,6 +73,24 @@ export class IframesService {
     if (!iframe) {
       throw new NotFoundException(`Iframe with id ${id} not found`);
     }
+    return iframe;
+  }
+
+  async findIframeByApikey(apikey: string): Promise<IframeSuscription> {
+    const iframe = await this.iframeModel.findOne({ apikey });
+
+    if (!iframe) {
+      throw new NotFoundException(
+        `The iframe with the apikey: ${apikey} wasn't found`,
+      );
+    }
+
+    if (iframe.deletedAt !== null) {
+      throw new NotFoundException(
+        `The iframe with the apikey: ${apikey} is already deleted`,
+      );
+    }
+
     return iframe;
   }
 

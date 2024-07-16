@@ -55,12 +55,12 @@ export class UsersController {
     }
   }
 
-  @Get('/:apikey')
+  @Get('/getApiKey/:apikey')
   async findOneByApikey(@Param('apikey') apikey: string): Promise<User> {
     try {
       return await this.usersService.findUserByApikey(apikey);
     } catch (error) {
-      throw new Error(`There is a isssue with find oen by email: ${error}`);
+      throw new Error(`There is a isssue with find oen by apikey: ${error}`);
     }
   }
 

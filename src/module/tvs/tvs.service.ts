@@ -56,6 +56,24 @@ export class TvsService {
     return tv;
   }
 
+  async findTvByApikey(apikey: string): Promise<TvSuscription> {
+    const tv = await this.tvModel.findOne({ apikey });
+
+    if (!tv) {
+      throw new NotFoundException(
+        `The tv suscription with the apikey: ${apikey} wasn't found`,
+      );
+    }
+
+    if (tv.deletedAt !== null) {
+      throw new NotFoundException(
+        `The tv suscription with the apikey: ${apikey} is already deleted`,
+      );
+    }
+
+    return tv;
+  }
+
   async update(id: string, updateTvDto: UpdateTvDto): Promise<TvSuscription> {
     const tv = await this.tvModel.findById(id).exec();
     if (!tv) {
