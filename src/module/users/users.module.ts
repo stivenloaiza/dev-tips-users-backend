@@ -22,7 +22,7 @@ import {
   EmailSubscriptionSchema,
 } from '../email/entities/email.entity';
 import { HttpModule } from '@nestjs/axios';
-import { AuthService } from 'src/libs/auth/auth.service';
+import { ApiService } from 'src/libs/auth/auth.service';
 
 @Module({
   imports: [
@@ -46,7 +46,7 @@ import { AuthService } from 'src/libs/auth/auth.service';
     BotsSubscriptionService,
     TvsService,
     EmailService,
-    AuthService,
+    ApiService,
   ],
   exports: [MongooseModule],
 })
