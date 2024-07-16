@@ -17,12 +17,12 @@ export class TvsService {
     private readonly apiService: ApiService,
   ) {}
 
-  async create(createTvDto: CreateTvDto): Promise<TvSuscription>  {
+  async create(createTvDto: CreateTvDto): Promise<TvSuscription> {
     const apiKey = await this.apiService.getApiKey(SubscriptionType.tv);
     createTvDto.apikey = apiKey;
     const createdTvSubscription = new this.tvModel(createTvDto);
     createdTvSubscription.save();
-    return
+    return;
   }
 
   async findAll(page: number = 1, limit: number = 10): Promise<any> {
@@ -57,11 +57,13 @@ export class TvsService {
   }
 
   async findTvByApikey(apikey: string): Promise<TvSuscription> {
-    const tv = await this.tvModel.findOne({ apikey }).populate({
-      path: 'userId',
-      select: 'name',
-    })
-    .exec();;
+    const tv = await this.tvModel
+      .findOne({ apikey })
+      .populate({
+        path: 'userId',
+        select: 'name',
+      })
+      .exec();
 
     if (!tv) {
       throw new NotFoundException(
@@ -96,5 +98,4 @@ export class TvsService {
     Object.assign(tv, updateTvDto);
     return await tv.save();
   }
-
 }

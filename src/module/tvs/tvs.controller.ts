@@ -1,18 +1,9 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
 import { TvsService } from './tvs.service';
 import { CreateTvDto } from './dto/create-tv.dto';
 import { UpdateTvDto } from './dto/update-tv.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { TvSuscription } from './entities/tv.entity';
-
 
 @ApiTags('tv-subscriptions')
 @Controller('tvs')
@@ -49,6 +40,4 @@ export class TvsController {
   update(@Param('id') id: string, @Body() updateTvDto: UpdateTvDto) {
     return this.tvsService.update(id, updateTvDto);
   }
-
- 
 }
