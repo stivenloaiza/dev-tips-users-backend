@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { BotsSubscription } from '../entities/bots.entity';
@@ -8,17 +8,23 @@ import {
   BotsSubscriptionNotFoundException,
   BotsSubscriptionBadRequestException,
 } from '../exception/bots-suscription.exceptions';
+import { ApiService } from 'src/libs/auth/auth.service';
+import { SubscriptionType } from 'src/libs/enums';
 
 @Injectable()
 export class BotsSubscriptionService {
   constructor(
     @InjectModel(BotsSubscription.name)
     private readonly botsSubscriptionModel: Model<BotsSubscription>,
+    private readonly apiService: ApiService,
   ) {}
 
   async create(
     createBotsSubscriptionDto: CreateBotsSubscriptionDto,
   ): Promise<BotsSubscription> {
+    const apiKey = await this.apiService.getApiKey(SubscriptionType.bot);
+    createBotsSubscriptionDto.apikey = apiKey;
+
     const createdBotSubscription = new this.botsSubscriptionModel(
       createBotsSubscriptionDto,
     );
@@ -65,6 +71,23 @@ export class BotsSubscriptionService {
         `BotsSubscription with ID "${id}" not found`,
       );
     }
+  }
+
+  async findBotsByApikey(apikey: string): Promise<BotsSubscription> {
+    const bot = await this.botsSubscriptionModel.findOne({ apikey }).exec();
+
+    if (!bot) {
+      throw new NotFoundException(
+        `The bot suscription with the apikey: ${apikey} wasn't found`,
+      );
+    }
+    if (bot.deletedAt !== null) {
+      throw new NotFoundException(
+        `The bot suscription with the apikey: ${apikey} is already deleted`,
+      );
+    }
+
+    return bot;
   }
 
   async update(

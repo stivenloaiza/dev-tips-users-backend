@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsEnum } from 'class-validator';
+import { IsString, IsNotEmpty, IsEnum, IsOptional } from 'class-validator';
 import {
   channelType,
   devLanguageType,
@@ -8,6 +8,9 @@ import {
 } from 'src/libs/enums';
 
 export class CreateBotsSubscriptionDto {
+  @IsString()
+  apikey: string;
+
   @IsString()
   userId: string;
 
@@ -40,4 +43,9 @@ export class CreateBotsSubscriptionDto {
   @IsEnum(languageType)
   @IsNotEmpty()
   lang: languageType;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsString()
+  apiKey?: string;
 }
