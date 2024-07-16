@@ -17,8 +17,6 @@ import { IframesService } from '../iframes/iframes.service';
 import { BotsSubscriptionService } from '../bots/service/bots.service';
 import { EmailService } from '../email/email.service';
 import { CreateEmailDto } from '../email/dto/create-email.dto';
-import { AuthServiceIframe } from 'src/libs/auth/AuthServiceIframe';
-
 
 @Injectable()
 export class UsersService {
@@ -28,8 +26,6 @@ export class UsersService {
     private readonly iframesService: IframesService,
     private readonly botsSubscriptionService: BotsSubscriptionService,
     private readonly emailService: EmailService,
-    
-
   ) {}
 
   async create(createUserDto: any): Promise<User> {
@@ -116,10 +112,8 @@ export class UsersService {
 
         case 'iframe':
           await this.iframesService.create(subscription);
-          
-          
-          break;
 
+          break;
       }
     } catch (error) {
       throw new Error(`There is a issue saving the subscription ${error}`);
@@ -176,7 +170,6 @@ export class UsersService {
       currentPage: page,
     };
   }
-
 
   async findOne(id: string): Promise<User> {
     const user = await this.userModel.findById(id).exec();

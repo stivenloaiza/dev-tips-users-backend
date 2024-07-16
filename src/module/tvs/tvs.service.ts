@@ -5,7 +5,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../users/entities/user.entity';
 import { Model } from 'mongoose';
 import { TvSuscription } from './entities/tv.entity';
-import { AuthService } from 'src/tvs/service/auth.service';
 
 @Injectable()
 export class TvsService {
@@ -13,7 +12,6 @@ export class TvsService {
     @InjectModel(TvSuscription.name)
     private readonly tvModel: Model<TvSuscription>,
     @InjectModel(User.name) private readonly userModel: Model<User>,
-    private readonly authService: AuthService,
   ) {}
 
   async create(createTvDto: CreateTvDto): Promise<TvSuscription> {
@@ -23,12 +21,8 @@ export class TvsService {
         `User with id ${createTvDto.userId} not found`,
       );
     }
-
     const createdTv = new this.tvModel(createTvDto);
     return await createdTv.save();
-
-    // const tvApiKey = await this.authService.getTvApiKey();
-    // console.log(`TV API Key obtained: ${tvApiKey}`);
   }
 
   async findAll(page: number = 1, limit: number = 10): Promise<any> {

@@ -5,7 +5,6 @@ import { TvsController } from './tvs.controller';
 import { TvsService } from './tvs.service';
 import { TvSchema, TvSuscription } from './entities/tv.entity';
 import { UsersModule } from '../users/users.module';
-import { AuthService } from 'src/tvs/service/auth.service';
 
 @Module({
   imports: [
@@ -14,6 +13,6 @@ import { AuthService } from 'src/tvs/service/auth.service';
     HttpModule,
   ],
   controllers: [TvsController],
-  providers: [TvsService, AuthService],
+  providers: [TvsService],
 })
 export class TvsModule {}
