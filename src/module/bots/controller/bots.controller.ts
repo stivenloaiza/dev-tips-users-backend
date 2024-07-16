@@ -15,6 +15,7 @@ import {
   BotsSubscriptionBadRequestException,
 } from '../exception/bots-suscription.exceptions';
 import { ApiTags } from '@nestjs/swagger';
+import { BotsSubscription } from '../entities/bots.entity';
 
 @ApiTags('bots-subscriptions')
 @Controller('bots-subscriptions')
@@ -65,6 +66,16 @@ export class BotsSubscriptionController {
         throw new NotFoundException(error.message);
       }
       throw error;
+    }
+  }
+  @Get('/getApiKey/:apikey')
+  async findOneByApikey(
+    @Param('apikey') apikey: string,
+  ): Promise<BotsSubscription> {
+    try {
+      return await this.botsSubscriptionService.findBotsByApikey(apikey);
+    } catch (error) {
+      throw new Error(`There is a isssue with find oen by apikey: ${error}`);
     }
   }
 
