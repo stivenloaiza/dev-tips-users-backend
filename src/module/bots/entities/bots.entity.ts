@@ -6,7 +6,7 @@ import { User } from 'src/module/users/entities/user.entity';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class BotsSubscription extends Document {
-  @Prop()
+  @Prop({})
   apikey: string;
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
