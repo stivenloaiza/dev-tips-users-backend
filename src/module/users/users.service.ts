@@ -63,6 +63,7 @@ export class UsersService {
     try {
       for (const subscription of subscriptions) {
         const { type, ...data } = subscription;
+        console.log('DATA');
         let subscriptionCreate: any;
 
         switch (type) {
@@ -184,18 +185,6 @@ export class UsersService {
     if (!user) {
       throw new NotFoundException(
         `The user with the email: ${email} wasn't found`,
-      );
-    }
-
-    return user;
-  }
-
-  async findUserByApikey(apikey: string): Promise<User> {
-    const user = await this.userModel.findOne({ apikey });
-
-    if (!user) {
-      throw new NotFoundException(
-        `The user with the email: ${apikey} wasn't found`,
       );
     }
 

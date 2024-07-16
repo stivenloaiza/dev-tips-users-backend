@@ -62,6 +62,18 @@ export class TvsService {
     return tv;
   }
 
+  async findSubByApikey(apikey: string): Promise<TvSuscription> {
+    const tv = await this.tvModel.findOne({ apikey });
+
+    if (!tv) {
+      throw new NotFoundException(
+        `The user with the email: ${apikey} wasn't found`,
+      );
+    }
+
+    return tv;
+  }
+
   async update(id: string, updateTvDto: UpdateTvDto): Promise<TvSuscription> {
     const tv = await this.tvModel.findById(id).exec();
     if (!tv) {
