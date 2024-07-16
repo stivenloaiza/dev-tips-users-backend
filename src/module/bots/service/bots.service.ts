@@ -8,17 +8,22 @@ import {
   BotsSubscriptionNotFoundException,
   BotsSubscriptionBadRequestException,
 } from '../exception/bots-suscription.exceptions';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class BotsSubscriptionService {
   constructor(
     @InjectModel(BotsSubscription.name)
     private readonly botsSubscriptionModel: Model<BotsSubscription>,
+    private readonly authService: AuthService,
   ) {}
 
   async create(
     createBotsSubscriptionDto: CreateBotsSubscriptionDto,
   ): Promise<BotsSubscription> {
+    const apiKey = await this.authService.createBotsApiKey('bots', 0, 100);
+    createBotsSubscriptionDto.apiKey = apiKey;
+
     const createdBotSubscription = new this.botsSubscriptionModel(
       createBotsSubscriptionDto,
     );

@@ -8,6 +8,7 @@ import {
 } from './entities/bots.entity';
 import { HttpModule } from '@nestjs/axios';
 import { UsersModule } from '../users/users.module';
+import { AuthService } from './service/auth.service';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { UsersModule } from '../users/users.module';
     UsersModule,
   ],
   controllers: [BotsSubscriptionController],
-  providers: [BotsSubscriptionService],
+  providers: [BotsSubscriptionService, AuthService],
   exports: [BotsSubscriptionService],
 })
 export class BotsSubscriptionModule {}
