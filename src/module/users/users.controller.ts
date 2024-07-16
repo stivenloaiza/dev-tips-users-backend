@@ -8,20 +8,20 @@ import {
   Delete,
   BadRequestException,
   NotFoundException,
-  UseGuards,
+  /* UseGuards,
+  Query, */
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { User } from './entities/user.entity';
 import { ApiTags } from '@nestjs/swagger';
-import { ApiKeyGuard } from 'src/libs/guard/x-api-key.guard';
+/* import { ApiKeyGuard } from 'src/libs/guard/x-api-key.guard'; */
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  @UseGuards(ApiKeyGuard)
   @Post('/create')
   async create(@Body() createUserDto: any): Promise<any> {
     try {
@@ -49,13 +49,16 @@ export class UsersController {
     return user;
   }
 
-  @Get('/:email')
-  async findOneByEmail(@Param('email') email: string): Promise<User> {
-    try {
-      return await this.usersService.findUserByEmail(email);
-    } catch (error) {
-      throw new Error(`There is a isssue with find oen by email: ${error}`);
+  @Get('/findByEmail/:email')
+  async findByEmail(@Param('email') email: string) {
+    const user = await this.usersService.findUserByEmail(email);
+    if (!user) {
+      return {
+        statusCode: 404,
+        message: `The user with the email: ${email} wasn't found`,
+      };
     }
+    return user;
   }
 
   @Patch(':id')

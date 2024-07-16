@@ -32,6 +32,9 @@ export class IframeSuscription extends Document {
   @Prop({ required: true, enum: languageType })
   lang: languageType;
 
+  @Prop({ type: MongooseSchema.Types.Mixed, default: null })
+  iframe: any;
+
   @Prop({ default: null })
   deletedAt?: Date;
 

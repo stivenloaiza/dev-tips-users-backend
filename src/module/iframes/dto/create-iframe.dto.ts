@@ -42,4 +42,7 @@ export class CreateIframeDto {
   @IsEnum(languageType)
   @IsNotEmpty()
   lang: languageType;
+
+  @ApiProperty()
+  iframe: any;
 }

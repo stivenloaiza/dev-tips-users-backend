@@ -7,22 +7,22 @@ import { lastValueFrom } from 'rxjs';
 export class ApiService {
   constructor(private readonly httpService: HttpService) {}
 
-  async getApiKey(subscriptionType:SubscriptionType): Promise<string> {
+  async getApiKey(subscriptionType: SubscriptionType): Promise<string> {
     const createApiKeyParams = {
       type: subscriptionType,
       usageCount: 0,
       limit: 100,
     };
 
-    const headers = {
+    /* const headers = {
       'x-api-key': 'p5ypxpbidn0200uvh4cz0plx3n2zqy',
-    };
+    }; */
 
     const apiKeyResponse = await lastValueFrom(
       this.httpService.post(
         'http://localhost:4000/key-subscription/new',
         createApiKeyParams,
-        { headers },
+        /*  { headers }, */
       ),
     );
 

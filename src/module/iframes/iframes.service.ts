@@ -21,7 +21,7 @@ export class IframesService {
     private readonly apiService: ApiService,
   ) {}
 
-  async create(createIframeDto: CreateIframeDto): Promise<void> {
+  async create(createIframeDto: CreateIframeDto): Promise<object> {
     const apiKey = await this.apiService.getApiKey(SubscriptionType.iframe);
     createIframeDto.apikey = apiKey;
     const createdIframeSubscription = new this.iframeModel(createIframeDto);
@@ -38,10 +38,21 @@ export class IframesService {
       ),
     );
     console.log('Response:', iframeResponse.data);
-    return;
+
+    await this.iframeModel.findByIdAndUpdate(
+      createdIframeSubscription._id,
+      { iframe: iframeResponse.data.iframe },
+      { new: true },
+    );
+    const updatedIframeSubscription = await this.iframeModel
+      .findById(createdIframeSubscription._id)
+      .exec();
+    console.log('holita', updatedIframeSubscription);
+
+    return updatedIframeSubscription;
   }
 
-  async findAll(page: number = 3, limit: number = 10): Promise<object> {
+  async findAll(page: number = 4, limit: number = 10): Promise<object> {
     const skip = (page - 1) * limit;
 
     const items = await this.iframeModel
@@ -116,5 +127,4 @@ export class IframesService {
     Object.assign(iframe, updateIframeDto);
     return await iframe.save();
   }
-
 }

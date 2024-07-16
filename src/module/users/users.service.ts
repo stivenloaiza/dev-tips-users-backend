@@ -181,15 +181,25 @@ export class UsersService {
   }
 
   async findUserByEmail(email: string): Promise<User> {
-    const user = await this.userModel.findOne({ email });
+    try {
+      const user = await this.userModel.findOne({ email });
 
-    if (!user) {
-      throw new NotFoundException(
-        `The user with the email: ${email} wasn't found`,
-      );
+      if (!user) {
+        console.error(`The user with the email: ${email} wasn't found`);
+        throw new NotFoundException(
+          `The user with the email: ${email} wasn't found`,
+        );
+      }
+
+      return user;
+    } catch (error) {
+      if (error instanceof NotFoundException) {
+        throw error;
+      } else {
+        console.error(`An unexpected error occurred: ${error.message}`);
+        throw new Error('An unexpected error occurred');
+      }
     }
-
-    return user;
   }
 
   async update(
