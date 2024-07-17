@@ -37,11 +37,6 @@ export class UsersController {
     }
   }
 
-  @ApiHeader({
-    name: 'x-api-key',
-    description: 'API key to access this endpoint',
-    required: true,
-  })
   @UseGuards(ApiKeyGuard)
   @Get()
   async findAll(): Promise<User[]> {

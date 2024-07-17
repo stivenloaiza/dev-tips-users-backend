@@ -17,10 +17,7 @@ async function bootstrap() {
     .setDescription('registration of users to subscriptions - Tips Users.')
     .setVersion('1.0')
     .addTag('Tips Users')
-    .addApiKey(
-      { type: 'apiKey', name: 'x-api-key', in: 'header' },
-      'x-api-key'
-    )
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-doc', app, document);
