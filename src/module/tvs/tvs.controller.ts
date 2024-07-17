@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, UseGuards } from '@nestjs/common';
 import { TvsService } from './tvs.service';
 import { CreateTvDto } from './dto/create-tv.dto';
 import { UpdateTvDto } from './dto/update-tv.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { TvSuscription } from './entities/tv.entity';
+import { ApiKeyGuard } from 'src/libs/guard/x-api-key.guard';
 
 @ApiTags('tv-subscriptions')
 @Controller('tvs')
@@ -15,16 +16,19 @@ export class TvsController {
     return this.tvsService.create(createTvDto);
   }
 
+  @UseGuards(ApiKeyGuard)
   @Get()
   findAll() {
     return this.tvsService.findAll();
   }
 
+  @UseGuards(ApiKeyGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.tvsService.findOne(id);
   }
 
+  @UseGuards(ApiKeyGuard)
   @Get('/getApiKey/:apikey')
   async findOneByApikey(
     @Param('apikey') apikey: string,
@@ -36,6 +40,7 @@ export class TvsController {
     }
   }
 
+  @UseGuards(ApiKeyGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTvDto: UpdateTvDto) {
     return this.tvsService.update(id, updateTvDto);

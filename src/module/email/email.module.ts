@@ -5,6 +5,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { EmailSubscription } from './entities/email.entity';
 import { EmailSubscriptionSchema } from './entities/email.entity';
 import { UsersModule } from '../users/users.module';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { UsersModule } from '../users/users.module';
       { name: EmailSubscription.name, schema: EmailSubscriptionSchema },
     ]),
     UsersModule,
+    HttpModule,
   ],
   controllers: [EmailController],
   providers: [EmailService],

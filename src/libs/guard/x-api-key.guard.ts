@@ -20,20 +20,20 @@ export class ApiKeyGuard implements CanActivate {
     }
 
     const headers = {
-      'x-api-key': 'p5ypxpbidn0200uvh4cz0plx3n2zqy',
+      'x-api-key': apiKey,
     };
 
     try {
       const response = await lastValueFrom(
         this.httpService.post(
-          'http://localhost:4000/api-keys/validate',
-          apiKey,
+          'http://localhost:3004/api/api-keys/validate',
+          {key: apiKey},
           { headers },
         ),
       );
       console.log(response);
 
-      if (response) {
+      if (response.data === true) {
         return true;
       } else {
         throw new UnauthorizedException('Invalid API key format');
