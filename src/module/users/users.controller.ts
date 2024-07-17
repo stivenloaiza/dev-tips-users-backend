@@ -37,14 +37,14 @@ export class UsersController {
     }
   }
   
-  @UseGuards(ApiKeyGuard)
+  /* @UseGuards(ApiKeyGuard) */
   @Get()
   async findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
   
-  @UseGuards(ApiKeyGuard)
+  
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<User> {
     const user = await this.usersService.findOne(id);
@@ -55,7 +55,7 @@ export class UsersController {
   }
 
  
-  @UseGuards(ApiKeyGuard)
+
   @Get('/findByEmail/:email')
   async findByEmail(@Param('email') email: string) {
     const user = await this.usersService.findUserByEmail(email);
@@ -69,7 +69,7 @@ export class UsersController {
   }
 
   
-  @UseGuards(ApiKeyGuard)
+ 
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -90,7 +90,7 @@ export class UsersController {
     }
   }
 
-  @UseGuards(ApiKeyGuard)
+
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<User> {
     try {

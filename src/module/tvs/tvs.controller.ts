@@ -17,21 +17,21 @@ export class TvsController {
   }
 
   
-  @UseGuards(ApiKeyGuard)
+  
   @Get()
   findAll() {
     return this.tvsService.findAll();
   }
 
   
-  @UseGuards(ApiKeyGuard)
+  
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.tvsService.findOne(id);
   }
 
  
-  @UseGuards(ApiKeyGuard)
+  
   @Get('/getApiKey/:apikey')
   async findOneByApikey(@Param('apikey') apikey: string): Promise<TvSuscription | { message: string }> {
     try {
@@ -42,7 +42,7 @@ export class TvsController {
   }
 
   
-  @UseGuards(ApiKeyGuard)
+  
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTvDto: UpdateTvDto) {
     return this.tvsService.update(id, updateTvDto);

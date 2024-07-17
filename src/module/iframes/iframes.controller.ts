@@ -17,20 +17,20 @@ export class IframesController {
   }
 
   
-  @UseGuards(ApiKeyGuard)
+  
   @Get()
   findAll() {
     return this.iframesService.findAll();
   }
 
-  @UseGuards(ApiKeyGuard)
+  
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.iframesService.findOne(id);
   }
 
   
-  @UseGuards(ApiKeyGuard)
+  
   @Get('/getApiKey/:apikey')
   async findOneByApikey(
     @Param('apikey') apikey: string,
@@ -43,7 +43,7 @@ export class IframesController {
   }
 
  
-  @UseGuards(ApiKeyGuard)
+ 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateIframeDto: UpdateIframeDto) {
     return this.iframesService.update(id, updateIframeDto);

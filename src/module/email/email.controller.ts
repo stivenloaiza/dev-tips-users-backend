@@ -26,28 +26,28 @@ export class EmailController {
   }
 
   
-  @UseGuards(ApiKeyGuard)
+  
   @Get('/find/all')
   findAll() {
     return this.emailService.findAll();
   }
 
  
-  @UseGuards(ApiKeyGuard)
+  
   @Get('/find/field/:field/value/:value')
   findOne(@Param('field') field: string, @Param('value') value: string) {
     return this.emailService.findOneByField(field, value);
   }
 
   
-  @UseGuards(ApiKeyGuard)
+  
   @Patch('/update/:id')
   update(@Param('id') id: string, @Body() updateEmailDto: UpdateEmailDto) {
     return this.emailService.update(+id, updateEmailDto);
   }
 
   
-  @UseGuards(ApiKeyGuard)
+  
   @Delete('/apikey/:apikey')
   remove(@Param('apikey') apikey: string) {
     return this.emailService.remove(apikey);
