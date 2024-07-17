@@ -36,22 +36,14 @@ export class UsersController {
       }
     }
   }
-  @ApiHeader({
-    name: 'x-api-key',
-    description: 'API key to access this endpoint',
-    required: true,
-  })
+  
   @UseGuards(ApiKeyGuard)
   @Get()
   async findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
-  @ApiHeader({
-    name: 'x-api-key',
-    description: 'API key to access this endpoint',
-    required: true,
-  })
+  
   @UseGuards(ApiKeyGuard)
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<User> {
@@ -62,11 +54,7 @@ export class UsersController {
     return user;
   }
 
-  @ApiHeader({
-    name: 'x-api-key',
-    description: 'API key to access this endpoint',
-    required: true,
-  })
+ 
   @UseGuards(ApiKeyGuard)
   @Get('/findByEmail/:email')
   async findByEmail(@Param('email') email: string) {
@@ -80,11 +68,7 @@ export class UsersController {
     return user;
   }
 
-  @ApiHeader({
-    name: 'x-api-key',
-    description: 'API key to access this endpoint',
-    required: true,
-  })
+  
   @UseGuards(ApiKeyGuard)
   @Patch(':id')
   async update(

@@ -52,7 +52,7 @@ export class IframesService {
     return updatedIframeSubscription;
   }
 
-  async findAll(page: number = 4, limit: number = 10): Promise<object> {
+  async findAll(page: number = 6, limit: number = 10): Promise<object> {
     const skip = (page - 1) * limit;
 
     const items = await this.iframeModel

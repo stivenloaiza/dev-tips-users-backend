@@ -16,33 +16,20 @@ export class IframesController {
     return this.iframesService.create(createIframeDto);
   }
 
-  @ApiHeader({
-    name: 'x-api-key',
-    description: 'API key to access this endpoint',
-    required: true,
-  })
+  
   @UseGuards(ApiKeyGuard)
   @Get()
   findAll() {
     return this.iframesService.findAll();
   }
 
-  @ApiHeader({
-    name: 'x-api-key',
-    description: 'API key to access this endpoint',
-    required: true,
-  })
   @UseGuards(ApiKeyGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.iframesService.findOne(id);
   }
 
-  @ApiHeader({
-    name: 'x-api-key',
-    description: 'API key to access this endpoint',
-    required: true,
-  })
+  
   @UseGuards(ApiKeyGuard)
   @Get('/getApiKey/:apikey')
   async findOneByApikey(
@@ -55,11 +42,7 @@ export class IframesController {
     }
   }
 
-  @ApiHeader({
-    name: 'x-api-key',
-    description: 'API key to access this endpoint',
-    required: true,
-  })
+ 
   @UseGuards(ApiKeyGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateIframeDto: UpdateIframeDto) {
