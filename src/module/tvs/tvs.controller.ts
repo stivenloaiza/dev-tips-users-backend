@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, UseGuards } from '@nestjs/co
 import { TvsService } from './tvs.service';
 import { CreateTvDto } from './dto/create-tv.dto';
 import { UpdateTvDto } from './dto/update-tv.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { TvSuscription } from './entities/tv.entity';
 import { ApiKeyGuard } from 'src/libs/guard/x-api-key.guard';
 
@@ -16,18 +16,33 @@ export class TvsController {
     return this.tvsService.create(createTvDto);
   }
 
+  @ApiHeader({
+    name: 'x-api-key',
+    description: 'API key to access this endpoint',
+    required: true,
+  })
   @UseGuards(ApiKeyGuard)
   @Get()
   findAll() {
     return this.tvsService.findAll();
   }
 
+  @ApiHeader({
+    name: 'x-api-key',
+    description: 'API key to access this endpoint',
+    required: true,
+  })
   @UseGuards(ApiKeyGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.tvsService.findOne(id);
   }
 
+  @ApiHeader({
+    name: 'x-api-key',
+    description: 'API key to access this endpoint',
+    required: true,
+  })
   @UseGuards(ApiKeyGuard)
   @Get('/getApiKey/:apikey')
   async findOneByApikey(@Param('apikey') apikey: string): Promise<TvSuscription | { message: string }> {
@@ -38,6 +53,11 @@ export class TvsController {
     }
   }
 
+  @ApiHeader({
+    name: 'x-api-key',
+    description: 'API key to access this endpoint',
+    required: true,
+  })
   @UseGuards(ApiKeyGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTvDto: UpdateTvDto) {
