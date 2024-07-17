@@ -15,9 +15,12 @@ export class TvsController {
     return this.tvsService.create(createTvDto);
   }
 
-  @Get()
-  findAll() {
-    return this.tvsService.findAll();
+  @Get('/:page/:limit')
+  findAll(
+    @Param('page') page: number,
+    @Param('limit') limit: number
+  ) {
+    return this.tvsService.findAll(page, limit);
   }
 
   @Get(':id')

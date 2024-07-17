@@ -30,7 +30,7 @@ export class UsersService {
 
   async create(createUserDto: any): Promise<User> {
     try {
-      console.log(createUserDto);
+      
       this.validateUserRole(createUserDto.role);
       this.validateSubscriptionType(createUserDto.subscriptions);
       this.validateEmail(createUserDto.email);
@@ -59,10 +59,10 @@ export class UsersService {
     userId: string,
     subscriptions: any[],
   ): Promise<void> {
-    console.log('The user id in create', userId);
     try {
       for (const subscription of subscriptions) {
         const { type, ...data } = subscription;
+
         let subscriptionCreate: any;
 
         switch (type) {
@@ -87,7 +87,9 @@ export class UsersService {
 
         Object.assign(subscriptionCreate, data);
         subscriptionCreate.userId = userId;
+        subscriptionCreate.type = type;
         console.log('finalSubscription', subscriptionCreate);
+        console.log('TYPE TO THE END HERE: ', type)
         return await this.saveSubscription(type, subscriptionCreate);
       }
     } catch (error) {
@@ -130,7 +132,6 @@ export class UsersService {
 
   validateSubscriptionType(subscriptions: SubscriptionDto[]) {
     for (const subscription of subscriptions) {
-      console.log(subscription);
 
       if (
         !subscription.type ||
@@ -155,7 +156,7 @@ export class UsersService {
     }
   }
 
-  async findAll(page: number = 11, limit: number = 10): Promise<any> {
+  async findAll(page: number, limit: number): Promise<any> {
     const skip = (page - 1) * limit;
 
     const items = await this.userModel.find().skip(skip).limit(limit).exec();

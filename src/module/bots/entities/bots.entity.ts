@@ -12,7 +12,7 @@ export class BotsSubscription extends Document {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   userId: User;
 
-  @Prop({ required: true })
+  @Prop({required: true})
   type: string;
 
   @Prop({ required: true })

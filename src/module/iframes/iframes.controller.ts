@@ -15,9 +15,13 @@ export class IframesController {
     return this.iframesService.create(createIframeDto);
   }
 
-  @Get()
-  findAll() {
-    return this.iframesService.findAll();
+  @Get('/:page/:limit')
+  findAll
+  (
+    @Param('page') page: number,
+    @Param('limit') limit: number
+  ) {
+    return this.iframesService.findAll(page, limit);
   }
 
   @Get(':id')

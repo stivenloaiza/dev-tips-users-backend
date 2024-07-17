@@ -30,14 +30,17 @@ export class UsersController {
       if (error instanceof BadRequestException) {
         throw error;
       } else {
-        throw new BadRequestException('Error creating user.');
+        throw new BadRequestException('Error creating user pepeep.');
       }
     }
   }
 
-  @Get()
-  async findAll(): Promise<User[]> {
-    return this.usersService.findAll();
+  @Get('/:page/:limit')
+  async findAll(
+    @Param('page') page: number,
+    @Param('limit') limit: number
+  ): Promise<User[]> {
+    return this.usersService.findAll(page, limit);
   }
 
   @Get(':id')

@@ -25,7 +25,7 @@ export class TvsService {
     return;
   }
 
-  async findAll(page: number = 1, limit: number = 10): Promise<any> {
+  async findAll(page: number, limit: number): Promise<any> {
     const skip = (page - 1) * limit;
     const items = await this.tvModel
       .find()

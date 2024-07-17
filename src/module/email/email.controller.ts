@@ -22,9 +22,14 @@ export class EmailController {
     return this.emailService.create(createEmailDto);
   }
 
-  @Get('/find/all')
-  findAll() {
-    return this.emailService.findAll();
+  @Get('/:page/:limit')
+  findAll
+  (
+    @Param('page') page: number,
+    @Param('limit') limit: number
+  ) 
+  {
+    return this.emailService.findAll(page, limit);
   }
 
   @Get('/find/field/:field/value/:value')

@@ -9,13 +9,16 @@ import {
 
 export class CreateBotsSubscriptionDto {
   @IsString()
+  @ApiProperty()
   apikey: string;
 
   @IsString()
+  @ApiProperty()
   userId: string;
 
   @ApiProperty()
   @IsString()
+  @IsNotEmpty()
   type: string;
 
   @ApiProperty()
@@ -28,6 +31,12 @@ export class CreateBotsSubscriptionDto {
   @IsNotEmpty()
   @IsEnum(channelType)
   channel: channelType;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  channelId: channelType;
+
 
   @ApiProperty()
   @IsEnum(seniorityType)
@@ -44,8 +53,4 @@ export class CreateBotsSubscriptionDto {
   @IsNotEmpty()
   lang: languageType;
 
-  @ApiProperty()
-  @IsOptional()
-  @IsString()
-  apiKey?: string;
 }

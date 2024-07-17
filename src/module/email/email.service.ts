@@ -6,6 +6,8 @@ import { EmailSubscription } from './entities/email.entity';
 import { Model, Types } from 'mongoose';
 import axios from 'axios';
 import { User } from '../users/entities/user.entity';
+import { ApiService } from 'src/libs/auth/auth.service';
+import { SubscriptionType } from 'src/libs/enums';
 
 @Injectable()
 export class EmailService {
@@ -13,14 +15,19 @@ export class EmailService {
     @InjectModel(EmailSubscription.name)
     private readonly emailModel: Model<EmailSubscription>,
     @InjectModel(User.name) private readonly userModel: Model<User>,
+    private apiService: ApiService
+    
   ) {}
 
   async create(createEmailDto: CreateEmailDto): Promise<EmailSubscription> {
+
+    const apiKey = await this.apiService.getApiKey(SubscriptionType.email);
+    createEmailDto.apikey = apiKey;
     const createdEmailSubscription = new this.emailModel(createEmailDto);
     return createdEmailSubscription.save();
   }
 
-  async findAll(page: number = 1, limit: number = 10): Promise<any> {
+  async findAll(page: number, limit: number): Promise<any> {
     const skip = (page - 1) * limit;
 
     const items = await this.emailModel
