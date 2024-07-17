@@ -87,7 +87,6 @@ export class UsersService {
 
         Object.assign(subscriptionCreate, data);
         subscriptionCreate.userId = userId;
-        console.log('finalSubscription', subscriptionCreate);
         return await this.saveSubscription(type, subscriptionCreate);
       }
     } catch (error) {
@@ -130,7 +129,6 @@ export class UsersService {
 
   validateSubscriptionType(subscriptions: SubscriptionDto[]) {
     for (const subscription of subscriptions) {
-      console.log(subscription);
 
       if (
         !subscription.type ||

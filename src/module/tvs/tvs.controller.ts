@@ -30,13 +30,11 @@ export class TvsController {
 
   @UseGuards(ApiKeyGuard)
   @Get('/getApiKey/:apikey')
-  async findOneByApikey(
-    @Param('apikey') apikey: string,
-  ): Promise<TvSuscription> {
+  async findOneByApikey(@Param('apikey') apikey: string): Promise<TvSuscription | { message: string }> {
     try {
       return await this.tvsService.findTvByApikey(apikey);
     } catch (error) {
-      throw new Error(`There is a isssue with find oen by apikey: ${error}`);
+      return { message: `The tv suscription with the apikey: ${apikey} wasn't found or is already deleted` };
     }
   }
 
