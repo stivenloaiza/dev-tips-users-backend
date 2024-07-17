@@ -15,7 +15,7 @@ import {
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { User } from './entities/user.entity';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { ApiKeyGuard } from 'src/libs/guard/x-api-key.guard';
 
 @ApiTags('users')
@@ -37,6 +37,11 @@ export class UsersController {
     }
   }
 
+  @ApiHeader({
+    name: 'x-api-key',
+    description: 'API key to access this endpoint',
+    required: true,
+  })
   @UseGuards(ApiKeyGuard)
   @Get()
   async findAll(): Promise<User[]> {
