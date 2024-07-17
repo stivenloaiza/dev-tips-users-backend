@@ -22,52 +22,90 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+# Dev Tips Users Backend
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Descripción
 
-## Installation
+Este proyecto está destinado a manejar la parte de usuarios, encargándose del registro y gestión de suscripciones de los usuarios. Los datos se guardan en la base de datos y se comparten con otros microservicios que lo requieran. Se crean endpoints para que otros microservicios puedan consumir y utilizar estos datos.
 
-```bash
-$ npm install
-```
+## Versiones
 
-## Running the app
+- Node.js: v20.11.10
 
-```bash
-# development
-$ npm run start
+## Paso a Paso
 
-# watch mode
-$ npm run start:dev
+### Clonar el Repositorio
 
-# production mode
-$ npm run start:prod
-```
+bash
+git clone https://github.com/stivenloaiza/dev-tips-users-backend.git
 
-## Test
+### Entrar a la Carpeta
+bash
+cd dev-tips-users-backend
 
-```bash
-# unit tests
-$ npm run test
 
-# e2e tests
-$ npm run test:e2e
+### Instalar Dependencias
+bash
+npm install
 
-# test coverage
-$ npm run test:cov
-```
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+###Variables de Entorno
+Crea un archivo .env en la raíz del proyecto y agrega las siguientes variables:
 
-## Stay in touch
+DB_USER=tu_usuario
+DB_PASSWORD=tu_contraseña
+DB_NAME=tu_nombre_base_datos
+DB_CLUSTER=tu_cluster.mongodb.net
+DB_LOCAL_CONNECTION=mongodb://localhost:27017/tu_nombre_base_datos_local
+NODE_ENV=development
+PORT=3000
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-## License
+
+###Estructura del Proyecto
+El proyecto está organizado de forma modular:
+src/
+├── auth/
+├── enums/
+├── guard/
+├── persistence/
+├── module/
+│   ├── bots/
+│   ├── email/
+│   ├── iframes/
+│   ├── tvs/
+│   ├── users/
+├── app.module.ts
+├── main.ts
+test/
+.env.example
+
+
+###Contribución
+Para contribuir al proyecto, sigue estos pasos:
+
+Crea una rama por cada tarea principal que quieras realizar.
+Realiza tus cambios y súbelos a la rama correspondiente.
+Crea un Pull Request.
+No hagas push a la rama principal hasta que el Team Leader o Líder del proyecto lo permita.
+La URL completa de la conexión a MongoDB se vería así:
+
+bash
+mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_NAME}.${DB_CLUSTER}/
+
+
+###Ejemplo de Variables de Entorno
+env
+MONGODB_USER=tu_usuario
+MONGODB_PASSWORD=tu_contraseña
+MONGODB_CLUSTER=tu_cluster.mongodb.net
+MONGODB_DBNAME=tu_nombre_base_datos
+PORT=3000
 
 Nest is [MIT licensed](LICENSE).
+
+Contacto 
+###Thomas Restrepo - thomasrr29@gmail.com
+###Luisa Perez
+###Juan Jaramillo
