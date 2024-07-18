@@ -12,7 +12,7 @@ export class EmailSubscription extends Document {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   userId: User;
 
-  @Prop({ default: null })
+  @Prop()
   type: string;
 
   @Prop({ required: true })

@@ -10,7 +10,6 @@ export default registerAs('dbConfig', () => {
       name: process.env.DB_DBNAME,
       localUri: process.env.DB_LOCAL_CONNECTION,
       env: process.env.NODE_ENV || 'development'
-
     },
     // env: process.env.NODE_ENV || 'local',
   };

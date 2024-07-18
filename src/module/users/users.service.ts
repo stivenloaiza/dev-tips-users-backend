@@ -43,12 +43,11 @@ export class UsersService {
       const savedUser = await createdUser.save();
       const userIdString = savedUser._id.toString();
       await this.createSubscriptions(userIdString, createUserDto.subscriptions);
-      console.log(savedUser)
       return savedUser;
+
     } catch (error) {
-      console.error('Error creating user:', error);
       if (error instanceof BadRequestException) {
-        throw error;
+        console.log(error)
       } else {
         throw new BadRequestException('Error creating user');
       }
@@ -88,7 +87,6 @@ export class UsersService {
         Object.assign(subscriptionCreate, data);
         subscriptionCreate.userId = userId;
         subscriptionCreate.type = type;
-        console.log(subscriptionCreate)
         return await this.saveSubscription(type, subscriptionCreate);
         
       }

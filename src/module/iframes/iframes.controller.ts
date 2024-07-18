@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, UseGuards } from '@nestjs/co
 import { IframesService } from './iframes.service';
 import { CreateIframeDto } from './dto/create-iframe.dto';
 import { UpdateIframeDto } from './dto/update-iframe.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { IframeSuscription } from './entities/iframe.entity';
 import { ApiKeyGuard } from 'src/libs/guard/x-api-key.guard';
 
@@ -16,7 +16,6 @@ export class IframesController {
     return this.iframesService.create(createIframeDto);
   } 
 
-  @UseGuards(ApiKeyGuard)
   @Get('/:page/:limit')
   findAll
   (
@@ -26,13 +25,11 @@ export class IframesController {
     return this.iframesService.findAll(page, limit);
   }
 
-  @UseGuards(ApiKeyGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.iframesService.findOne(id);
   }
-
-  @UseGuards(ApiKeyGuard)
+  
   @Get('/getApiKey/:apikey')
   async findOneByApikey(
     @Param('apikey') apikey: string,
@@ -44,7 +41,7 @@ export class IframesController {
     }
   }
 
-  @UseGuards(ApiKeyGuard)
+ 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateIframeDto: UpdateIframeDto) {
     return this.iframesService.update(id, updateIframeDto);

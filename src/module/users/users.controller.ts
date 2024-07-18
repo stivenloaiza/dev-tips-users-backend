@@ -8,14 +8,11 @@ import {
   Delete,
   BadRequestException,
   NotFoundException,
-  UseGuards,
-  /* UseGuards,
-  Query, */
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { User } from './entities/user.entity';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiHeader, ApiTags } from '@nestjs/swagger';
 import { ApiKeyGuard } from 'src/libs/guard/x-api-key.guard';
 
 @ApiTags('users')
@@ -37,7 +34,6 @@ export class UsersController {
     }
   }
 
-  @UseGuards(ApiKeyGuard)
   @Get('/:page/:limit')
   async findAll(
     @Param('page') page: number,
@@ -46,7 +42,6 @@ export class UsersController {
     return this.usersService.findAll(page, limit);
   }
 
-  @UseGuards(ApiKeyGuard)
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<User> {
     const user = await this.usersService.findOne(id);
@@ -56,7 +51,6 @@ export class UsersController {
     return user;
   }
 
-  @UseGuards(ApiKeyGuard)
   @Get('/findByEmail/:email')
   async findByEmail(@Param('email') email: string) {
     const user = await this.usersService.findUserByEmail(email);
@@ -69,7 +63,6 @@ export class UsersController {
     return user;
   }
 
-  @UseGuards(ApiKeyGuard)
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -90,7 +83,6 @@ export class UsersController {
     }
   }
 
-  @UseGuards(ApiKeyGuard)
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<User> {
     try {
