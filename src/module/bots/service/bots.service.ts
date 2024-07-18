@@ -22,16 +22,20 @@ export class BotsSubscriptionService {
   async create(
     createBotsSubscriptionDto: CreateBotsSubscriptionDto,
   ): Promise<BotsSubscription> {
-    const apiKey = await this.apiService.getApiKey(SubscriptionType.bot);
-    createBotsSubscriptionDto.apikey = apiKey;
+    try {
+      const apiKey = await this.apiService.getApiKey(SubscriptionType.bot);
+      createBotsSubscriptionDto.apikey = apiKey;
 
-    const createdBotSubscription = new this.botsSubscriptionModel(
-      createBotsSubscriptionDto,
-    );
-    return createdBotSubscription.save();
+      const createdBotSubscription = new this.botsSubscriptionModel(
+        createBotsSubscriptionDto,
+      );
+      return await createdBotSubscription.save();
+    } catch (error) {
+      console.error('ISSUE GETTING THE APIKEY WITH BOT', error);
+    }
   }
 
-  async findAll(page: number = 1, limit: number = 10): Promise<any> {
+  async findAll(page: number, limit: number): Promise<any> {
     const skip = (page - 1) * limit;
 
     const bots = await this.botsSubscriptionModel

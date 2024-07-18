@@ -9,13 +9,16 @@ import {
 
 export class CreateBotsSubscriptionDto {
   @IsString()
+  @ApiProperty()
   apikey: string;
 
   @IsString()
+  @ApiProperty()
   userId: string;
 
   @ApiProperty()
   @IsString()
+  @IsNotEmpty()
   type: string;
 
   @ApiProperty()

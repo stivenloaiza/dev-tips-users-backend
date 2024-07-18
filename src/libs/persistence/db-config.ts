@@ -8,7 +8,6 @@ export default registerAs('dbConfig', () => {
       cluster: process.env.MONGODB_CLUSTER,
       name: process.env.MONGODB_DBNAME,
     },
-    // env: process.env.NODE_ENV || 'local',
   };
   return dbConfig;
 });
