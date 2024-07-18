@@ -49,6 +49,13 @@ export class IframesService {
       .exec();
     console.log('holita', updatedIframeSubscription);
 
+     await lastValueFrom(
+      this.httpService.post(
+        'http://localhost:5173/iframe', 
+        { iframe: updatedIframeSubscription.iframe },
+      ),
+    );
+
     return updatedIframeSubscription;
   }
 
@@ -76,6 +83,8 @@ export class IframesService {
       currentPage: page,
     };
   }
+
+  
 
   async findOne(id: string): Promise<IframeSuscription> {
     const iframe = await this.iframeModel
