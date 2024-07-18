@@ -20,14 +20,14 @@ export class IframeSuscription extends Document {
   @Prop({ required: true, enum: devLanguageType })
   technology: devLanguageType;
 
-  @Prop({ type: String, required: true })
+  /* @Prop({ type: String, required: true })
   domains: string;
 
   @Prop({ required: true })
   color: string;
 
   @Prop({ required: true })
-  typography: string;
+  typography: string; */
 
   @Prop({ required: true, enum: languageType })
   lang: languageType;

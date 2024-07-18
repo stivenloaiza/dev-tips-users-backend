@@ -8,50 +8,36 @@ export class ApiService {
   constructor(private readonly httpService: HttpService) {}
 
   async getApiKey(subscriptionType: SubscriptionType): Promise<string> {
+    const createApiKeyParams = {
+      type: subscriptionType,
+      usageCount: 0,
+      limit: 100,
+    };
 
-    try {
+     const headers = {
+      'x-api-key': 'uqwsatbp8wcs8wqxjhc1p8sy8cpyga',
+    }; 
 
-      const createApiKeyParams = {
-        type: subscriptionType,
-        usageCount: 0,
-        limit: 100,
-      };
-  
-      const apiKeyResponse = await lastValueFrom(
-        this.httpService.post(
-          'http://localhost:3200/key-subscription/new',
-          createApiKeyParams,
-          /*  { headers }, */
-        ),
-      );
-  
-      if (apiKeyResponse.status !== 201) {
-        console.log('hola');
-        throw new HttpException(
-          'Failed to create API key',
-          HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      } else if (apiKeyResponse.data.apiKey === undefined) {
-        console.log('hola2');
-        throw new HttpException(
-          'Failed to create API key',
-          HttpStatus.INTERNAL_SERVER_ERROR,
-        );
-      }
-  
-      return apiKeyResponse.data.apiKey;
-    } catch(error){
-      console.error(`There is an issue getting the API key: ${error.message}`);
+    const apiKeyResponse = await lastValueFrom(
+      this.httpService.post(
+        'http://localhost:3200/api-keys/new',
+        createApiKeyParams,
+         { headers },
+      ),
+    );
+
+    if (apiKeyResponse.status !== 201) {
       throw new HttpException(
-        'There was a problem creating the API key',
+        'Failed to create API key',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    } else if (apiKeyResponse.data.apiKey === undefined) {
+      throw new HttpException(
+        'Failed to create API key',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
-  
-    /* const headers = {
-      'x-api-key': 'p5ypxpbidn0200uvh4cz0plx3n2zqy',
-    }; */
 
-  
+    return apiKeyResponse.data.apiKey;
   }
 }

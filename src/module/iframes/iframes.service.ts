@@ -41,7 +41,7 @@ export class IframesService {
 
     await this.iframeModel.findByIdAndUpdate(
       createdIframeSubscription._id,
-      { iframe: iframeResponse.data.iframe },
+      { iframe: iframeResponse.data.iframe},
       { new: true },
     );
     const updatedIframeSubscription = await this.iframeModel

@@ -23,7 +23,7 @@ export class CreateIframeDto {
   @IsNotEmpty()
   technology: devLanguageType;
 
-  @ApiProperty()
+ /*  @ApiProperty()
   @IsString()
   @IsNotEmpty()
   domains: string;
@@ -36,7 +36,7 @@ export class CreateIframeDto {
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  typography: string;
+  typography: string; */
 
   @ApiProperty()
   @IsEnum(languageType)
