@@ -11,6 +11,7 @@ import { EmailService } from './email.service';
 import { CreateEmailDto } from './dto/create-email.dto';
 import { UpdateEmailDto } from './dto/update-email.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { EmailSubscription } from './entities/email.entity';
 
 @ApiTags('email-subscriptions')
 @Controller('email')
@@ -22,9 +23,12 @@ export class EmailController {
     return this.emailService.create(createEmailDto);
   }
 
-  @Get('/find/all')
-  findAll() {
-    return this.emailService.findAll();
+  @Get('/:page/:limit')
+  async findAll(
+    @Param('page') page: number,
+    @Param('limit') limit: number,
+  ): Promise<EmailSubscription[]> {
+    return this.emailService.findAll(page, limit);
   }
 
   @Get('/find/field/:field/value/:value')

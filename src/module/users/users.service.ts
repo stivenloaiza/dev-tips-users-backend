@@ -1,4 +1,3 @@
-
 import {
   BadRequestException,
   Injectable,
@@ -6,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { CreateUserDto, SubscriptionDto } from './dto/create-user.dto';
+import { SubscriptionDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { User } from './entities/user.entity';
 import { SubscriptionType, UserRole } from 'src/libs/enums';
@@ -47,7 +46,7 @@ export class UsersService {
       const userIdString = savedUser._id.toString();
       await this.createSubscriptions(userIdString, createUserDto.subscriptions);
 
-      await this.sendWelcomeEmail(savedUser.name,savedUser.email );
+      await this.sendWelcomeEmail(savedUser.name, savedUser.email);
 
       return savedUser;
     } catch (error) {
@@ -59,20 +58,21 @@ export class UsersService {
     }
   }
 
-  private async sendWelcomeEmail(name:string, email:string): Promise<void> {
+  private async sendWelcomeEmail(name: string, email: string): Promise<void> {
     const apiKey = 'mnu8x0v1mbwve8vjf0z829gmk4cfw9';
-    const welcomeEndpoint = 'https://dev-tips-cronjobs-backend.onrender.com/api/v1/mail/welcome';
+    const welcomeEndpoint =
+      'https://dev-tips-cronjobs-backend.onrender.com/api/v1/mail/welcome';
     const headers = {
       'x-api-key': apiKey,
     };
     const payload = {
       name: name,
-      email: email
+      email: email,
     };
-  
+
     try {
       const response = await lastValueFrom(
-        this.httpService.post(welcomeEndpoint, payload, { headers })
+        this.httpService.post(welcomeEndpoint, payload, { headers }),
       );
       console.log('Welcome email sent:', response.data);
     } catch (error) {
