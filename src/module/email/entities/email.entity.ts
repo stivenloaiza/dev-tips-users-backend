@@ -6,20 +6,20 @@ import { Document, Schema as MongooseSchema } from 'mongoose';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class EmailSubscription extends Document {
-  @Prop()
-  apikey?: string;
+  @Prop({})
+  apikey: string;
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   userId: User;
 
-  @Prop()
+  @Prop({})
   type: string;
 
   @Prop({ required: true })
   frequency: frecuencyType;
 
   @Prop({ required: true, enum: seniorityType })
-  level: seniorityType;
+  levels: seniorityType;
 
   @Prop({ required: true, enum: devLanguageType })
   technology: devLanguageType;

@@ -12,7 +12,7 @@ export class BotsSubscription extends Document {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   userId: User;
 
-  @Prop()
+  @Prop({})
   type: string;
 
   @Prop({ required: true })
@@ -22,7 +22,7 @@ export class BotsSubscription extends Document {
   channel: channelType;
 
   @Prop({ required: true, enum: seniorityType })
-  level: seniorityType;
+  levels: seniorityType;
 
   @Prop({ type: MongooseSchema.Types.Mixed, required: true })
   technology: Record<string, any>;

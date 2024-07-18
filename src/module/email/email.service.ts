@@ -6,6 +6,8 @@ import { EmailSubscription } from './entities/email.entity';
 import { Model, Types } from 'mongoose';
 import axios from 'axios';
 import { User } from '../users/entities/user.entity';
+import { SubscriptionType } from 'src/libs/enums';
+import { ApiService } from 'src/libs/auth/auth.service';
 
 @Injectable()
 export class EmailService {
@@ -13,10 +15,18 @@ export class EmailService {
     @InjectModel(EmailSubscription.name)
     private readonly emailModel: Model<EmailSubscription>,
     @InjectModel(User.name) private readonly userModel: Model<User>,
+    private readonly apiService: ApiService,
   ) {}
 
+  
+
   async create(createEmailDto: CreateEmailDto): Promise<EmailSubscription> {
-    const createdEmailSubscription = new this.emailModel(createEmailDto);
+    const apiKey = await this.apiService.getApiKey(SubscriptionType.email);
+    createEmailDto.apikey = apiKey;
+
+    const createdEmailSubscription = new this.emailModel(
+      createEmailDto,
+    );
     return createdEmailSubscription.save();
   }
 

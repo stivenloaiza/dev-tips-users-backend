@@ -6,6 +6,7 @@ import { EmailSubscription } from './entities/email.entity';
 import { EmailSubscriptionSchema } from './entities/email.entity';
 import { UsersModule } from '../users/users.module';
 import { HttpModule } from '@nestjs/axios';
+import { ApiService } from 'src/libs/auth/auth.service';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { HttpModule } from '@nestjs/axios';
     HttpModule,
   ],
   controllers: [EmailController],
-  providers: [EmailService],
+  providers: [EmailService,ApiService],
   exports: [EmailService],
 })
 export class EmailModule {}

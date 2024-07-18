@@ -4,7 +4,7 @@ import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
 
 export class CreateEmailDto {
   @IsString()
-  readonly apikey?: string;
+  apikey: string;
 
   @IsString()
   userId: string;
@@ -21,7 +21,7 @@ export class CreateEmailDto {
   @ApiProperty()
   @IsEnum(seniorityType)
   @IsNotEmpty()
-  level: seniorityType;
+  levels: seniorityType;
 
   @ApiProperty()
   @IsEnum(devLanguageType)
