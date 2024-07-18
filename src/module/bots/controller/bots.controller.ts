@@ -45,12 +45,11 @@ export class BotsSubscriptionController {
   }
 
   @Get('/:page/:limit')
-  async findAll
-  (
-    @Param('page') page: number,
-    @Param('limit') limit: number
-  ) {
-    const subscriptions = await this.botsSubscriptionService.findAll(page, limit);
+  async findAll(@Param('page') page: number, @Param('limit') limit: number) {
+    const subscriptions = await this.botsSubscriptionService.findAll(
+      page,
+      limit,
+    );
     return {
       message: 'List of all bots subscriptions',
       data: subscriptions,

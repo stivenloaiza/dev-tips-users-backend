@@ -35,11 +35,10 @@ export class UsersController {
   @Get('/:page/:limit')
   async findAll(
     @Param('page') page: number,
-    @Param('limit') limit: number
+    @Param('limit') limit: number,
   ): Promise<User[]> {
     return this.usersService.findAll(page, limit);
   }
-
 
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<User> {
@@ -61,7 +60,6 @@ export class UsersController {
     }
     return user;
   }
-
 
   @Patch(':id')
   async update(

@@ -24,7 +24,7 @@ import { AuthModule } from './libs/auth/auth.module';
     IframesModule,
     TvsModule,
     EmailModule,
-    AuthModule
+    AuthModule,
   ],
   controllers: [],
   providers: [],

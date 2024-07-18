@@ -13,23 +13,18 @@ export class IframesController {
   @Post()
   create(@Body() createIframeDto: CreateIframeDto) {
     return this.iframesService.create(createIframeDto);
-  } 
-
-  @Get('/:page/:limit')
-  findAll
-  (
-    @Param('page') page: number,
-    @Param('limit') limit: number
-  ) {
-    return this.iframesService.findAll(page, limit);
   }
 
+  @Get('/:page/:limit')
+  findAll(@Param('page') page: number, @Param('limit') limit: number) {
+    return this.iframesService.findAll(page, limit);
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.iframesService.findOne(id);
   }
-  
+
   @Get('/getApiKey/:apikey')
   async findOneByApikey(
     @Param('apikey') apikey: string,
@@ -41,7 +36,6 @@ export class IframesController {
     }
   }
 
- 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateIframeDto: UpdateIframeDto) {
     return this.iframesService.update(id, updateIframeDto);

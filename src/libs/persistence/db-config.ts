@@ -1,5 +1,4 @@
 import { registerAs } from '@nestjs/config';
-import { env } from 'process';
 
 export default registerAs('dbConfig', () => {
   const dbConfig = {

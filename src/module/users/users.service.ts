@@ -30,7 +30,6 @@ export class UsersService {
 
   async create(createUserDto: any): Promise<User> {
     try {
-      
       this.validateUserRole(createUserDto.role);
       this.validateSubscriptionType(createUserDto.subscriptions);
       this.validateEmail(createUserDto.email);
@@ -43,12 +42,11 @@ export class UsersService {
       const savedUser = await createdUser.save();
       const userIdString = savedUser._id.toString();
       await this.createSubscriptions(userIdString, createUserDto.subscriptions);
-      console.log("SAVED USER", savedUser)
+      console.log('SAVED USER', savedUser);
       return savedUser;
-
     } catch (error) {
       if (error instanceof BadRequestException) {
-        console.log(error)
+        console.log(error);
       } else {
         throw new BadRequestException('Error creating user');
       }
@@ -88,9 +86,8 @@ export class UsersService {
         Object.assign(subscriptionCreate, data);
         subscriptionCreate.userId = userId;
         subscriptionCreate.type = type;
-        console.log(subscriptionCreate)
+        console.log(subscriptionCreate);
         return await this.saveSubscription(type, subscriptionCreate);
-        
       }
     } catch (error) {
       throw new Error(`Error acrossing the subscription array ${error}`);

@@ -16,7 +16,7 @@ import { HttpModule } from '@nestjs/axios';
     ]),
     UsersModule,
     AuthModule,
-    HttpModule
+    HttpModule,
   ],
   controllers: [EmailController],
   providers: [EmailService, ApiService],
