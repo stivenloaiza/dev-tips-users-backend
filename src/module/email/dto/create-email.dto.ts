@@ -21,7 +21,7 @@ export class CreateEmailDto {
   @ApiProperty()
   @IsEnum(seniorityType)
   @IsNotEmpty()
-  levels: seniorityType;
+  level: seniorityType;
 
   @ApiProperty()
   @IsEnum(devLanguageType)

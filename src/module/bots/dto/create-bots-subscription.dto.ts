@@ -35,7 +35,7 @@ export class CreateBotsSubscriptionDto {
   @ApiProperty()
   @IsEnum(seniorityType)
   @IsNotEmpty()
-  levels: seniorityType;
+  level: seniorityType;
 
   @ApiProperty()
   @IsEnum(devLanguageType)
