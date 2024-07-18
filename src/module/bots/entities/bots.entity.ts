@@ -31,7 +31,7 @@ export class BotsSubscription extends Document {
   lang: string;
 
   @Prop({ required: true })
-  channelId:string
+  channelId: string;
 
   @Prop({ default: null })
   deletedAt?: Date;

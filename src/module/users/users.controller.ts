@@ -12,15 +12,13 @@ import {
 import { UsersService } from './users.service';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { User } from './entities/user.entity';
-import { ApiHeader, ApiTags } from '@nestjs/swagger';
-import { ApiKeyGuard } from 'src/libs/guard/x-api-key.guard';
+import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  
   @Post('/create')
   async create(@Body() createUserDto: any): Promise<any> {
     try {
@@ -42,6 +40,7 @@ export class UsersController {
     return this.usersService.findAll(page, limit);
   }
 
+
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<User> {
     const user = await this.usersService.findOne(id);
@@ -62,6 +61,7 @@ export class UsersController {
     }
     return user;
   }
+
 
   @Patch(':id')
   async update(

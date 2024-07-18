@@ -26,8 +26,8 @@ export class ApiKeyGuard implements CanActivate {
     try {
       const response = await lastValueFrom(
         this.httpService.post(
-          'http://localhost:3004/api-keys/validate',
-          {key: apiKey},
+          'http://localhost:3004/api/api-keys/validate',
+          { key: apiKey },
           { headers },
         ),
       );

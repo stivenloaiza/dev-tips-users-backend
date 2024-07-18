@@ -64,15 +64,19 @@ export class TvsService {
         select: 'name',
       })
       .exec();
-  
+
     if (!tv) {
-      throw new NotFoundException(`The tv suscription with the apikey: ${apikey} wasn't found`);
+      throw new NotFoundException(
+        `The tv suscription with the apikey: ${apikey} wasn't found`,
+      );
     }
-  
+
     if (tv.deletedAt !== null) {
-      throw new NotFoundException(`The tv suscription with the apikey: ${apikey} is already deleted`);
+      throw new NotFoundException(
+        `The tv suscription with the apikey: ${apikey} is already deleted`,
+      );
     }
-  
+
     return tv;
   }
 

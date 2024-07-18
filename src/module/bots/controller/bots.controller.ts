@@ -6,7 +6,6 @@ import {
   Param,
   Body,
   NotFoundException,
-  UseGuards,
 } from '@nestjs/common';
 import { BotsSubscriptionService } from '../service/bots.service';
 import { CreateBotsSubscriptionDto } from '../dto/create-bots-subscription.dto';
@@ -15,7 +14,7 @@ import {
   BotsSubscriptionNotFoundException,
   BotsSubscriptionBadRequestException,
 } from '../exception/bots-suscription.exceptions';
-import { ApiHeader, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import { BotsSubscription } from '../entities/bots.entity';
 
 @ApiTags('bots-subscriptions')
@@ -58,8 +57,6 @@ export class BotsSubscriptionController {
     };
   }
 
- 
-  
   @Get(':id')
   async findOne(@Param('id') id: string) {
     try {
@@ -76,7 +73,6 @@ export class BotsSubscriptionController {
     }
   }
 
-  
   @Get('/getApiKey/:apikey')
   async findOneByApikey(
     @Param('apikey') apikey: string,
@@ -88,9 +84,6 @@ export class BotsSubscriptionController {
     }
   }
 
-
- 
- 
   @Put(':id')
   async update(
     @Param('id') id: string,

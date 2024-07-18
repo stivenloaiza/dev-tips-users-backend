@@ -41,18 +41,17 @@ export class IframesService {
 
     await this.iframeModel.findByIdAndUpdate(
       createdIframeSubscription._id,
-      { iframe: iframeResponse.data.iframe},
+      { iframe: iframeResponse.data.iframe },
       { new: true },
     );
     const updatedIframeSubscription = await this.iframeModel
       .findById(createdIframeSubscription._id)
       .exec();
 
-     await lastValueFrom(
-      this.httpService.post(
-        'http://localhost:5173/iframe', 
-        { iframe: updatedIframeSubscription.iframe },
-      ),
+    await lastValueFrom(
+      this.httpService.post('http://localhost:5173/iframe', {
+        iframe: updatedIframeSubscription.iframe,
+      }),
     );
 
     return updatedIframeSubscription;
@@ -82,8 +81,6 @@ export class IframesService {
       currentPage: page,
     };
   }
-
-  
 
   async findOne(id: string): Promise<IframeSuscription> {
     const iframe = await this.iframeModel
