@@ -48,6 +48,13 @@ export class IframesService {
       .findById(createdIframeSubscription._id)
       .exec();
 
+     await lastValueFrom(
+      this.httpService.post(
+        'http://localhost:5173/iframe', 
+        { iframe: updatedIframeSubscription.iframe },
+      ),
+    );
+
     return updatedIframeSubscription;
   }
 
@@ -75,6 +82,8 @@ export class IframesService {
       currentPage: page,
     };
   }
+
+  
 
   async findOne(id: string): Promise<IframeSuscription> {
     const iframe = await this.iframeModel
