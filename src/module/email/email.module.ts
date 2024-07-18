@@ -17,7 +17,7 @@ import { ApiService } from 'src/libs/auth/auth.service';
     HttpModule,
   ],
   controllers: [EmailController],
-  providers: [EmailService,ApiService],
+  providers: [EmailService, ApiService],
   exports: [EmailService],
 })
 export class EmailModule {}

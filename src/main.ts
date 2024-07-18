@@ -1,7 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ApiKeyGuard } from './libs/guard/x-api-key.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -20,8 +19,6 @@ async function bootstrap() {
     .addTag('Tips Users')
     .addBearerAuth()
     .build();
-
-    
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-doc', app, document);

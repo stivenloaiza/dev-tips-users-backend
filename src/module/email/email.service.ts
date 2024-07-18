@@ -18,15 +18,11 @@ export class EmailService {
     private readonly apiService: ApiService,
   ) {}
 
-  
-
   async create(createEmailDto: CreateEmailDto): Promise<EmailSubscription> {
     const apiKey = await this.apiService.getApiKey(SubscriptionType.email);
     createEmailDto.apikey = apiKey;
 
-    const createdEmailSubscription = new this.emailModel(
-      createEmailDto,
-    );
+    const createdEmailSubscription = new this.emailModel(createEmailDto);
     return createdEmailSubscription.save();
   }
 

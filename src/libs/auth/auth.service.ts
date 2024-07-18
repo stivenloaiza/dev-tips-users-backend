@@ -14,15 +14,15 @@ export class ApiService {
       limit: 100,
     };
 
-     const headers = {
+    const headers = {
       'x-api-key': 'uqwsatbp8wcs8wqxjhc1p8sy8cpyga',
-    }; 
+    };
 
     const apiKeyResponse = await lastValueFrom(
       this.httpService.post(
         'http://localhost:3004/api/key-subscription/new',
         createApiKeyParams,
-         { headers },
+        { headers },
       ),
     );
 
