@@ -34,7 +34,6 @@ export class UsersService {
 
   async create(createUserDto: any): Promise<User> {
     try {
-      console.log(createUserDto);
       this.validateUserRole(createUserDto.role);
       this.validateSubscriptionType(createUserDto.subscriptions);
       this.validateEmail(createUserDto.email);
@@ -52,9 +51,8 @@ export class UsersService {
 
       return savedUser;
     } catch (error) {
-      console.error('Error creating user:', error);
       if (error instanceof BadRequestException) {
-        throw error;
+        console.log(error);
       } else {
         throw new BadRequestException('Error creating user');
       }
@@ -87,10 +85,10 @@ export class UsersService {
     userId: string,
     subscriptions: any[],
   ): Promise<void> {
-    console.log('The user id in create', userId);
     try {
       for (const subscription of subscriptions) {
         const { type, ...data } = subscription;
+
         let subscriptionCreate: any;
 
         switch (type) {
@@ -115,6 +113,8 @@ export class UsersService {
 
         Object.assign(subscriptionCreate, data);
         subscriptionCreate.userId = userId;
+        subscriptionCreate.type = type;
+        console.log(subscriptionCreate);
         return await this.saveSubscription(type, subscriptionCreate);
       }
     } catch (error) {
@@ -180,7 +180,7 @@ export class UsersService {
     }
   }
 
-  async findAll(page: number = 1, limit: number = 10): Promise<any> {
+  async findAll(page: number, limit: number): Promise<any> {
     const skip = (page - 1) * limit;
 
     const items = await this.userModel.find().skip(skip).limit(limit).exec();
