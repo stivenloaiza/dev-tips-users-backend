@@ -1,3 +1,4 @@
+
 import {
   BadRequestException,
   Injectable,
@@ -5,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { SubscriptionDto } from './dto/create-user.dto';
+import { CreateUserDto, SubscriptionDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user-dto';
 import { User } from './entities/user.entity';
 import { SubscriptionType, UserRole } from 'src/libs/enums';
@@ -17,6 +18,8 @@ import { IframesService } from '../iframes/iframes.service';
 import { BotsSubscriptionService } from '../bots/service/bots.service';
 import { EmailService } from '../email/email.service';
 import { CreateEmailDto } from '../email/dto/create-email.dto';
+import { lastValueFrom } from 'rxjs';
+import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class UsersService {
@@ -26,6 +29,7 @@ export class UsersService {
     private readonly iframesService: IframesService,
     private readonly botsSubscriptionService: BotsSubscriptionService,
     private readonly emailService: EmailService,
+    private readonly httpService: HttpService,
   ) {}
 
   async create(createUserDto: any): Promise<User> {
@@ -44,6 +48,8 @@ export class UsersService {
       const userIdString = savedUser._id.toString();
       await this.createSubscriptions(userIdString, createUserDto.subscriptions);
 
+      await this.sendWelcomeEmail(savedUser.name,savedUser.email );
+
       return savedUser;
     } catch (error) {
       console.error('Error creating user:', error);
@@ -52,6 +58,28 @@ export class UsersService {
       } else {
         throw new BadRequestException('Error creating user');
       }
+    }
+  }
+
+  private async sendWelcomeEmail(name:string, email:string): Promise<void> {
+    const apiKey = 'mnu8x0v1mbwve8vjf0z829gmk4cfw9';
+    const welcomeEndpoint = 'https://dev-tips-cronjobs-backend.onrender.com/api/v1/mail/welcome';
+    const headers = {
+      'x-api-key': apiKey,
+    };
+    const payload = {
+      name: name,
+      email: email
+    };
+  
+    try {
+      const response = await lastValueFrom(
+        this.httpService.post(welcomeEndpoint, payload, { headers })
+      );
+      console.log('Welcome email sent:', response.data);
+    } catch (error) {
+      console.error('Error sending welcome email:', error);
+      throw new BadRequestException('Error sending welcome email');
     }
   }
 
