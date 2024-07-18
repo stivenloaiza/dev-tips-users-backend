@@ -19,7 +19,7 @@ export class BotsSubscription extends Document {
   frequency: frecuencyType;
 
   @Prop({ required: true, enum: channelType })
-  channel: channelType;
+  channelType: channelType;
 
   @Prop({ required: true, enum: seniorityType })
   levels: seniorityType;
@@ -29,6 +29,9 @@ export class BotsSubscription extends Document {
 
   @Prop({ required: true })
   lang: string;
+
+  @Prop({ required: true })
+  channelId:string
 
   @Prop({ default: null })
   deletedAt?: Date;

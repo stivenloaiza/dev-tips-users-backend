@@ -1,7 +1,7 @@
 export enum devLanguageType {
-  NODE_JS = 'nodejs',
-  JAVASCRIPT = 'javascript',
+  PYTHON = 'Python',
+  JAVASCRIPT = 'JavaScript',
   TYPESCRIPT = 'typescript',
   JAVA = 'java',
-  C_SHARP = 'c-sharp',
+  C_SHARP = 'c#',
 }
