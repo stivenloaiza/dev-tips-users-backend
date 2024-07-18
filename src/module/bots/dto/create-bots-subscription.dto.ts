@@ -30,18 +30,12 @@ export class CreateBotsSubscriptionDto {
   @IsString()
   @IsNotEmpty()
   @IsEnum(channelType)
-  channel: channelType;
-
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  channelId: channelType;
-
+  channelType: channelType;
 
   @ApiProperty()
   @IsEnum(seniorityType)
   @IsNotEmpty()
-  level: seniorityType;
+  levels: seniorityType;
 
   @ApiProperty()
   @IsEnum(devLanguageType)
@@ -52,5 +46,11 @@ export class CreateBotsSubscriptionDto {
   @IsEnum(languageType)
   @IsNotEmpty()
   lang: languageType;
+
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  channelId:string
+
 
 }

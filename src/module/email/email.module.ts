@@ -19,7 +19,7 @@ import { HttpModule } from '@nestjs/axios';
     HttpModule
   ],
   controllers: [EmailController],
-  providers: [EmailService],
+  providers: [EmailService,ApiService],
   exports: [EmailService],
 })
 export class EmailModule {}

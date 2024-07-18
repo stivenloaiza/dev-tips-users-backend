@@ -11,11 +11,11 @@ export class IframeSuscription extends Document {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   userId: User;
 
-  @Prop()
+  @Prop({})
   type: string;
 
   @Prop({ required: true, enum: seniorityType })
-  level: seniorityType;
+  levels: seniorityType;
 
   @Prop({ required: true, enum: devLanguageType })
   technology: devLanguageType;
@@ -24,10 +24,7 @@ export class IframeSuscription extends Document {
   domains: string;
 
   @Prop({ required: true })
-  color: string;
-
-  @Prop({ required: true })
-  typography: string; */
+  color: string;*/
 
   @Prop({ required: true, enum: languageType })
   lang: languageType;

@@ -12,23 +12,26 @@ export class BotsSubscription extends Document {
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
   userId: User;
 
-  @Prop({required: true})
+  @Prop({})
   type: string;
 
   @Prop({ required: true })
   frequency: frecuencyType;
 
   @Prop({ required: true, enum: channelType })
-  channel: channelType;
+  channelType: channelType;
 
   @Prop({ required: true, enum: seniorityType })
-  level: seniorityType;
+  levels: seniorityType;
 
   @Prop({ type: MongooseSchema.Types.Mixed, required: true })
   technology: Record<string, any>;
 
   @Prop({ required: true })
   lang: string;
+
+  @Prop({ required: true })
+  channelId:string
 
   @Prop({ default: null })
   deletedAt?: Date;

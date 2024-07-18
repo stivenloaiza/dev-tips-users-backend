@@ -159,7 +159,8 @@ export class UsersService {
   async findAll(page: number, limit: number): Promise<any> {
     const skip = (page - 1) * limit;
 
-    const items = await this.userModel.find().skip(skip).limit(limit).exec();
+    const items = await this.userModel.find().skip(skip).limit(limit)
+    .exec();
 
     const totalUsers = await this.userModel.countDocuments();
     const totalPages = Math.ceil(totalUsers / limit);
