@@ -47,7 +47,6 @@ export class IframesService {
     const updatedIframeSubscription = await this.iframeModel
       .findById(createdIframeSubscription._id)
       .exec();
-    console.log('holita', updatedIframeSubscription);
 
     return updatedIframeSubscription;
   }
