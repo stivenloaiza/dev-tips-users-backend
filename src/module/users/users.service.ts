@@ -153,7 +153,7 @@ export class UsersService {
     }
   }
 
-  async findAll(page: number = 2, limit: number = 10): Promise<any> {
+  async findAll(page: number = 1, limit: number = 10): Promise<any> {
     const skip = (page - 1) * limit;
 
     const items = await this.userModel.find().skip(skip).limit(limit)

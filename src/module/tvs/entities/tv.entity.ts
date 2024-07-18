@@ -15,7 +15,7 @@ export class TvSuscription extends Document {
   type: string;
 
   @Prop({ required: true, enum: seniorityType })
-  levels: seniorityType;
+  level: seniorityType;
 
   @Prop({ required: true, enum: devLanguageType })
   technology: devLanguageType;

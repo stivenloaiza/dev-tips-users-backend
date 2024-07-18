@@ -16,22 +16,17 @@ export class CreateIframeDto {
   @ApiProperty()
   @IsEnum(seniorityType)
   @IsNotEmpty()
-  levels: seniorityType;
+  level: seniorityType;
 
   @ApiProperty()
   @IsEnum(devLanguageType)
   @IsNotEmpty()
   technology: devLanguageType;
 
- /*  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
-  domains: string;
-
   @ApiProperty()
   @IsString()
   @IsNotEmpty()
-  color: string;*/
+  domains: string;
 
   @ApiProperty()
   @IsEnum(languageType)
