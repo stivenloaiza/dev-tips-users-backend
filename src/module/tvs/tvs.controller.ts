@@ -15,7 +15,6 @@ export class TvsController {
     return this.tvsService.create(createTvDto);
   }
 
-  @UseGuards(ApiKeyGuard)
   @Get('/:page/:limit')
   findAll(@Param('page') page: number, @Param('limit') limit: number) {
     return this.tvsService.findAll(page, limit);

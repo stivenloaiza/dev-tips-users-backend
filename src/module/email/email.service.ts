@@ -27,6 +27,7 @@ export class EmailService {
   }
 
   async findAll(page: number, limit: number): Promise<any> {
+    
     const skip = (page - 1) * limit;
 
     const items = await this.emailModel
