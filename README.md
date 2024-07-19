@@ -112,6 +112,14 @@ MONGODB_CLUSTER=your_cluster.mongodb.net
 MONGODB_DBNAME=your_database_name
 PORT=3000
 
+JIRA DOCUMENTATION 
+https://miguelangeltabarescuadros.atlassian.net/jira/software/projects/URT/boards/3?atlOrigin=eyJpIjoiNmQzZWYyNzg1NTZjNDliZTg1NDQ4ZTUxNzNkMzMwMmQiLCJwIjoiaiJ9
+
+CONFLUENCE DOCUMENTATION 
+https://miguelangeltabarescuadros.atlassian.net/l/cp/PzJrNHiE
+
+
+
 License
 
 Nest is MIT licensed.
