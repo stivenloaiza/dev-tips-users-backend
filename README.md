@@ -22,7 +22,7 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-Dev Tips Users Backend
+###Dev Tips Users Backend
 Description
 
 This project handles the user part, managing user registration and subscriptions. Data is stored in the database and shared with other microservices as needed. Endpoints are created for other microservices to consume and utilize this data.
@@ -30,7 +30,7 @@ Versions
 
     Node.js: v20.11.10
 
-Step-by-Step
+###Step-by-Step###
 
     Clone the Repository
 
@@ -54,21 +54,19 @@ Environment Variables
 
 Create a .env file in the project root and add the following variables:
 
-plaintext
 
-    DB_USER=your_username
-    DB_PASSWORD=your_password
-    DB_NAME=your_database_name
-    DB_CLUSTER=your_cluster.mongodb.net
-    DB_LOCAL_CONNECTION=mongodb://localhost:27017/your_local_database_name
-    NODE_ENV=development
-    PORT=3000
+PORT=3000
 
-Project Structure
+MONGODB_USER=silenceisbeautyofsoul
+MONGODB_PASSWORD=BqCDS2d2wjaHH1uu
+MONGODB_CLUSTER=efnizvz.mongodb.net
+MONGODB_DBNAME=riwi-tips-users
+
+
+###Project Structure###
 
 The project is organized in a modular structure:
 
-plaintext
 
 src/
 ├── auth/
@@ -86,7 +84,7 @@ src/
 test/
 .env.example
 
-Contributing
+###Contributing###
 
 To contribute to the project, follow these steps:
 
