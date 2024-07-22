@@ -22,49 +22,52 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-# Dev Tips Users Backend
+###Dev Tips Users Backend
+Description
 
-## Descripción
+This project handles the user part, managing user registration and subscriptions. Data is stored in the database and shared with other microservices as needed. Endpoints are created for other microservices to consume and utilize this data.
+Versions
 
-Este proyecto está destinado a manejar la parte de usuarios, encargándose del registro y gestión de suscripciones de los usuarios. Los datos se guardan en la base de datos y se comparten con otros microservicios que lo requieran. Se crean endpoints para que otros microservicios puedan consumir y utilizar estos datos.
+    Node.js: v20.11.10
 
-## Versiones
+###Step-by-Step###
 
-- Node.js: v20.11.10
+    Clone the Repository
 
-## Paso a Paso
+    bash
 
-### Clonar el Repositorio
-
-bash
 git clone https://github.com/stivenloaiza/dev-tips-users-backend.git
 
-### Entrar a la Carpeta
+Navigate to the Folder
+
 bash
+
 cd dev-tips-users-backend
 
+Install Dependencies
 
-### Instalar Dependencias
 bash
+
 npm install
 
+Environment Variables
+
+Create a .env file in the project root and add the following variables:
 
 
-###Variables de Entorno
-Crea un archivo .env en la raíz del proyecto y agrega las siguientes variables:
-
-DB_USER=tu_usuario
-DB_PASSWORD=tu_contraseña
-DB_NAME=tu_nombre_base_datos
-DB_CLUSTER=tu_cluster.mongodb.net
-DB_LOCAL_CONNECTION=mongodb://localhost:27017/tu_nombre_base_datos_local
-NODE_ENV=development
 PORT=3000
 
+MONGODB_USER=silenceisbeautyofsoul
+MONGODB_PASSWORD=BqCDS2d2wjaHH1uu
+MONGODB_CLUSTER=efnizvz.mongodb.net
+MONGODB_DBNAME=riwi-tips-users
 
 
-###Estructura del Proyecto
-El proyecto está organizado de forma modular:
+###Project Structure###
+
+The project is organized in a modular structure:
+
+
 src/
 ├── auth/
 ├── enums/
@@ -75,37 +78,53 @@ src/
 │   ├── email/
 │   ├── iframes/
 │   ├── tvs/
-│   ├── users/
+│   └── users/
 ├── app.module.ts
-├── main.ts
+└── main.ts
 test/
 .env.example
 
+###Contributing###
 
-###Contribución
-Para contribuir al proyecto, sigue estos pasos:
+To contribute to the project, follow these steps:
 
-Crea una rama por cada tarea principal que quieras realizar.
-Realiza tus cambios y súbelos a la rama correspondiente.
-Crea un Pull Request.
-No hagas push a la rama principal hasta que el Team Leader o Líder del proyecto lo permita.
-La URL completa de la conexión a MongoDB se vería así:
+    Create a branch for each major task you want to perform.
+    Make your changes and push them to the corresponding branch.
+    Create a Pull Request. Do not push to the main branch until permitted by the Team Leader or Project Lead.
+
+MongoDB Connection String Example
+
+The complete MongoDB connection URL would look like this:
 
 bash
+
 mongodb+srv://${DB_USER}:${DB_PASSWORD}@${DB_NAME}.${DB_CLUSTER}/
 
+Example Environment Variables
 
-###Ejemplo de Variables de Entorno
-env
-MONGODB_USER=tu_usuario
-MONGODB_PASSWORD=tu_contraseña
-MONGODB_CLUSTER=tu_cluster.mongodb.net
-MONGODB_DBNAME=tu_nombre_base_datos
+plaintext
+
+MONGODB_USER=your_username
+MONGODB_PASSWORD=your_password
+MONGODB_CLUSTER=your_cluster.mongodb.net
+MONGODB_DBNAME=your_database_name
 PORT=3000
 
-Nest is [MIT licensed](LICENSE).
+JIRA DOCUMENTATION 
+https://miguelangeltabarescuadros.atlassian.net/jira/software/projects/URT/boards/3?atlOrigin=eyJpIjoiNmQzZWYyNzg1NTZjNDliZTg1NDQ4ZTUxNzNkMzMwMmQiLCJwIjoiaiJ9
 
-Contacto 
-###Thomas Restrepo - thomasrr29@gmail.com
-###Luisa Perez
-###Juan Jaramillo
+CONFLUENCE DOCUMENTATION 
+https://miguelangeltabarescuadros.atlassian.net/l/cp/PzJrNHiE
+
+
+
+License
+
+Nest is MIT licensed.
+Contact
+
+    Thomas Restrepo - thomasrr29@gmail.com
+    Luisa Perez
+    Juan Jaramillo
+
+This README provides an overview of setting up and contributing to the dev-tips-users-backend project, including its structure, dependencies, and contribution guidelines.
