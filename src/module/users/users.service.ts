@@ -45,10 +45,10 @@ export class UsersService {
       const savedUser = await createdUser.save();
       const userIdString = savedUser._id.toString();
       await this.createSubscriptions(userIdString, createUserDto.subscriptions);
-
-      await this.sendWelcomeEmail(savedUser.name, savedUser.email);
-
+      /* await this.sendWelcomeEmail(savedUser.name, savedUser.email); */
       return savedUser;
+
+
     } catch (error) {
       if (error instanceof BadRequestException) {
         console.log(error);
@@ -84,7 +84,8 @@ export class UsersService {
   private async createSubscriptions(
     userId: string,
     subscriptions: any[],
-  ): Promise<void> {
+  ): Promise<any[]> {
+    const results: any[] = [];
     try {
       for (const subscription of subscriptions) {
         const { type, ...data } = subscription;
@@ -114,15 +115,20 @@ export class UsersService {
         Object.assign(subscriptionCreate, data);
         subscriptionCreate.userId = userId;
         subscriptionCreate.type = type;
-        console.log(subscriptionCreate);
-        return await this.saveSubscription(type, subscriptionCreate);
+        subscriptionCreate.data = 
+        console.log("VEA PUES",subscriptionCreate);
+        const savedSubscription = await this.saveSubscription(type, subscriptionCreate);
+        results.push(savedSubscription.iframe);
+        console.log("Resultado",results);
       }
+      return results;
     } catch (error) {
       throw new Error(`Error acrossing the subscription array ${error}`);
     }
   }
 
   private async saveSubscription(type: SubscriptionType, subscription: any) {
+    
     try {
       switch (type) {
         case 'email':
@@ -138,9 +144,9 @@ export class UsersService {
           break;
 
         case 'iframe':
-          await this.iframesService.create(subscription);
-
-          break;
+          const savedSubscription = await this.iframesService.create(subscription);
+          console.log("este es",savedSubscription);
+          return savedSubscription;
       }
     } catch (error) {
       throw new Error(`There is a issue saving the subscription ${error}`);

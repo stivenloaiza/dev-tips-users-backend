@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, HttpException, HttpStatus } from '@nestjs/common';
 import { IframesService } from './iframes.service';
 import { CreateIframeDto } from './dto/create-iframe.dto';
 import { UpdateIframeDto } from './dto/update-iframe.dto';
@@ -9,7 +9,6 @@ import { IframeSuscription } from './entities/iframe.entity';
 @Controller('iframes')
 export class IframesController {
   constructor(private readonly iframesService: IframesService) {}
-
   @Post()
   create(@Body() createIframeDto: CreateIframeDto) {
     return this.iframesService.create(createIframeDto);
@@ -19,6 +18,19 @@ export class IframesController {
   findAll(@Param('page') page: number, @Param('limit') limit: number) {
     return this.iframesService.findAll(page, limit);
   }
+
+  @Post('iframe')
+  async sendIframeToFrontend(@Body() iframe: object): Promise<void> {
+    try {
+      await this.iframesService.sendIframeToFrontend(iframe);
+    } catch (error) {
+      throw new HttpException(
+        `No se pudo enviar el iframe al frontend: ${error.message}`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
 
   @Get(':id')
   findOne(@Param('id') id: string) {

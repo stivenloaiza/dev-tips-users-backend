@@ -21,7 +21,7 @@ export class ApiService {
 
       const apiKeyResponse = await lastValueFrom(
         this.httpService.post(
-          'http://localhost:3004/key-subscription/new',
+          'http://localhost:3004/api/key-subscription/new',
           createApiKeyParams,
           { headers },
         ),
