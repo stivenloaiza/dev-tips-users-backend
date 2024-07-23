@@ -6,9 +6,9 @@ import { CreateIframeDto } from './dto/create-iframe.dto';
 import { UpdateIframeDto } from './dto/update-iframe.dto';
 import { IframeSuscription } from './entities/iframe.entity';
 import { User } from '../users/entities/user.entity';
-import { firstValueFrom, lastValueFrom } from 'rxjs';
 import { ApiService } from 'src/libs/auth/auth.service';
 import { SubscriptionType } from 'src/libs/enums';
+import { lastValueFrom } from 'rxjs';
 
 @Injectable()
 export class IframesService {
@@ -21,10 +21,10 @@ export class IframesService {
     private readonly apiService: ApiService,
   ) {}
 
-  async create(createIframeDto: CreateIframeDto){
+  async create(createIframeDto: CreateIframeDto) {
     const apiKey = await this.apiService.getApiKey(SubscriptionType.iframe);
     createIframeDto.apikey = apiKey;
-    
+
     const createdIframeSubscription = new this.iframeModel(createIframeDto);
     createdIframeSubscription.save();
 
@@ -49,28 +49,7 @@ export class IframesService {
       .findById(createdIframeSubscription._id)
       .exec();
 
-      /* try {
-        await this.sendIframeToFrontend(updatedIframeSubscription.iframe);
-        console.log('Iframe enviado al frontend con éxito');
-      } catch (error) {
-        console.error('Error al enviar iframe al frontend:', error);
-      } */
-
-    return updatedIframeSubscription
-  }
-
-  async sendIframeToFrontend(iframe: object): Promise<void> {
-    try {
-      await firstValueFrom(
-        this.httpService.post('http://localhost:5173/iframe', {
-          iframe: iframe,
-        }),
-      );
-      console.log('Iframe enviado al frontend con éxito:', iframe);
-    } catch (error) {
-      console.error('Error al enviar iframe al frontend:', error);
-      throw new Error(`No se pudo enviar el iframe al frontend ${error.message}`);
-    }
+    return updatedIframeSubscription;
   }
 
   async findAll(page: number, limit: number): Promise<object> {
