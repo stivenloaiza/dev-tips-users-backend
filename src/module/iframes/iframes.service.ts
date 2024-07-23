@@ -34,7 +34,7 @@ export class IframesService {
     };
     const iframeResponse = await lastValueFrom(
       this.httpService.post(
-        'http://localhost:5003/v1/api/iframe/getIframe',
+        `${process.env.ROUTE_BACKEND_IFRAME}/${process.env.getIframe}`,
         getIframe,
       ),
     );
@@ -62,7 +62,7 @@ export class IframesService {
   async sendIframeToFrontend(iframe: object): Promise<void> {
     try {
       await firstValueFrom(
-        this.httpService.post('http://localhost:5173/iframe', {
+        this.httpService.post(`${process.env.ROUTE_FRONTEND_IFRAME}`, {
           iframe: iframe,
         }),
       );

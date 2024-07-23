@@ -7,7 +7,7 @@ async function bootstrap() {
   app.setGlobalPrefix('/v1/api', { exclude: ['/'] });
 
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: process.env.ROUTE_FRONTEND,
     methods: 'GET, HEAD, PUT, PATCH, POST',
     allowedHeaders: 'Content-Type, Accept',
   });
@@ -25,6 +25,6 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT || 3000);
 
-  console.log(`Application is running on: http://localhost:3000/v1/api`);
+  console.log(`Application is running on: http://localhost:${process.env.PORT}/v1/api`);
 }
 bootstrap();

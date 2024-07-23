@@ -72,23 +72,4 @@ export class EmailService {
     return email;
   }
 
-  async remove(apikey: string) {
-    try {
-      const subscription = await this.emailModel.findOne({ apikey: apikey });
-
-      const response = await axios.post(
-        'http://localhost:3000/user/remove',
-        subscription,
-      );
-
-      if (response.status === 200) {
-        console.log('Response send Sucessfully');
-        return response;
-      }
-    } catch (error) {
-      console.error(
-        `There is a problem with the user remove by apikey ${error}`,
-      );
-    }
-  }
 }

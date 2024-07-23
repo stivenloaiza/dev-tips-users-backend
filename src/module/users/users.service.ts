@@ -58,10 +58,11 @@ export class UsersService {
     }
   }
 
+  // TODO: Esta funcion esta siendo creada pero nunca utilizada
   private async sendWelcomeEmail(name: string, email: string): Promise<void> {
-    const apiKey = 'mnu8x0v1mbwve8vjf0z829gmk4cfw9';
+    const apiKey = process.env.API_KEY_CRONJOBS;
     const welcomeEndpoint =
-      'https://dev-tips-cronjobs-backend.onrender.com/api/v1/mail/welcome';
+      `${process.env.ROUTE_API_CRONJOBS}/${process.env.ENDPOINT_WELCOME_CRONJOBS}`;
     const headers = {
       'x-api-key': apiKey,
     };
