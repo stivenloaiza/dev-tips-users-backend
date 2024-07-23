@@ -47,8 +47,6 @@ export class UsersService {
       await this.createSubscriptions(userIdString, createUserDto.subscriptions);
       /* await this.sendWelcomeEmail(savedUser.name, savedUser.email); */
       return savedUser;
-
-
     } catch (error) {
       if (error instanceof BadRequestException) {
         console.log(error);
@@ -61,8 +59,7 @@ export class UsersService {
   // TODO: Esta funcion esta siendo creada pero nunca utilizada
   private async sendWelcomeEmail(name: string, email: string): Promise<void> {
     const apiKey = process.env.API_KEY_CRONJOBS;
-    const welcomeEndpoint =
-      `${process.env.ROUTE_API_CRONJOBS}/${process.env.ENDPOINT_WELCOME_CRONJOBS}`;
+    const welcomeEndpoint = `${process.env.ROUTE_API_CRONJOBS}/${process.env.ENDPOINT_WELCOME_CRONJOBS}`;
     const headers = {
       'x-api-key': apiKey,
     };
@@ -116,11 +113,13 @@ export class UsersService {
         Object.assign(subscriptionCreate, data);
         subscriptionCreate.userId = userId;
         subscriptionCreate.type = type;
-        subscriptionCreate.data = 
-        console.log("VEA PUES",subscriptionCreate);
-        const savedSubscription = await this.saveSubscription(type, subscriptionCreate);
+        subscriptionCreate.data = console.log('VEA PUES', subscriptionCreate);
+        const savedSubscription = await this.saveSubscription(
+          type,
+          subscriptionCreate,
+        );
         results.push(savedSubscription.iframe);
-        console.log("Resultado",results);
+        console.log('Resultado', results);
       }
       return results;
     } catch (error) {
@@ -129,7 +128,6 @@ export class UsersService {
   }
 
   private async saveSubscription(type: SubscriptionType, subscription: any) {
-    
     try {
       switch (type) {
         case 'email':
@@ -145,8 +143,9 @@ export class UsersService {
           break;
 
         case 'iframe':
-          const savedSubscription = await this.iframesService.create(subscription);
-          console.log("este es",savedSubscription);
+          const savedSubscription =
+            await this.iframesService.create(subscription);
+          console.log('este es', savedSubscription);
           return savedSubscription;
       }
     } catch (error) {
