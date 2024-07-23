@@ -41,8 +41,4 @@ export class EmailController {
     return this.emailService.update(+id, updateEmailDto);
   }
 
-  @Delete('/apikey/:apikey')
-  remove(@Param('apikey') apikey: string) {
-    return this.emailService.remove(apikey);
-  }
 }

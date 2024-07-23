@@ -4,7 +4,6 @@ import { UpdateEmailDto } from './dto/update-email.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { EmailSubscription } from './entities/email.entity';
 import { Model, Types } from 'mongoose';
-import axios from 'axios';
 import { User } from '../users/entities/user.entity';
 import { SubscriptionType } from 'src/libs/enums';
 import { ApiService } from 'src/libs/auth/auth.service';
