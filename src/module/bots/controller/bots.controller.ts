@@ -154,6 +154,27 @@ export class BotsSubscriptionController {
   @ApiResponse({
     status: 200,
     description: 'The bots subscription found.',
+    example: {
+      "message": "string",
+      "data": {
+        "_id": "string",
+        "apikey": "string",
+        "userId": "string",
+        "frequency": "daily",
+        "channelType": "Telegram",
+        "level": "junior",
+        "technology": "Python",
+        "lang": "english",
+        "channelId": "string",
+        "deletedAt": null,
+        "createdBy": null,
+        "updatedBy": null,
+        "deletedBy": null,
+        "createdAt": "2024-07-18T16:34:28.389Z",
+        "updatedAt": "2024-07-24T12:11:38.515Z",
+        "__v": 0
+      }
+    }
   })
   @ApiResponse({
     status: 404,
@@ -184,6 +205,24 @@ export class BotsSubscriptionController {
   @ApiResponse({
     status: 200,
     description: 'The bots subscription found.',
+    example: {
+      "_id": "string",
+      "apikey": "string",
+      "userId": "string",
+      "frequency": "daily",
+      "channelType": "Telegram",
+      "level": "junior",
+      "technology": "Python",
+      "lang": "english",
+      "channelId": "string",
+      "deletedAt": null,
+      "createdBy": null,
+      "updatedBy": null,
+      "deletedBy": null,
+      "createdAt": "2024-07-18T16:34:28.389Z",
+      "updatedAt": "2024-07-24T16:57:03.127Z",
+      "__v": 0
+    }
   })
   @ApiResponse({
     status: 404,
@@ -210,6 +249,27 @@ export class BotsSubscriptionController {
   @ApiResponse({
     status: 200,
     description: 'The bots subscription has been successfully updated.',
+    example: {
+      "message": "Bots subscription updated successfully",
+      "data": {
+        "_id": "string",
+        "apikey": "string",
+        "userId": "string",
+        "frequency": "daily",
+        "channelType": "Telegram",
+        "level": "junior",
+        "technology": "Python",
+        "lang": "english",
+        "channelId": "string",
+        "deletedAt": null,
+        "createdBy": null,
+        "updatedBy": null,
+        "deletedBy": null,
+        "createdAt": "2024-07-18T16:34:28.389Z",
+        "updatedAt": "2024-07-24T16:57:03.127Z",
+        "__v": 0
+      }
+    }
   })
   @ApiResponse({
     status: 400,
