@@ -33,7 +33,18 @@ export class EmailController {
   @ApiResponse({
     status: 201,
     description: 'The email subscription has been successfully created.',
-    type: EmailSubscription,
+    example: {
+      "userId": "string",
+      "type": "email",
+      "frequency": "weekly",
+      "level": "junior",
+      "technology": "Python",
+      "lang": "spanish",
+      "_id": "string",
+      "createdAt": "2024-07-24T18:44:55.335Z",
+      "updatedAt": "2024-07-24T18:44:55.335Z",
+      "__v": 0
+    },
   })
   @ApiResponse({ status: 400, description: 'Invalid input data.' })
   create(@Body() createEmailDto: CreateEmailDto): Promise<EmailSubscription> {
@@ -55,7 +66,49 @@ export class EmailController {
   @ApiResponse({
     status: 200,
     description: 'A list of email subscriptions.',
-    type: [EmailSubscription],
+    example: {
+      "items": [
+        {
+          "_id": "string",
+          "apikey": "string",
+          "userId": {
+            "_id": "string",
+            "name": "string",
+            "email": "?@gmail.com",
+            "phone": "34567543",
+            "role": "person"
+          },
+          "frequency": "daily",
+          "level": "senior",
+          "technology": "JavaScript",
+          "lang": "spanish",
+          "createdAt": "2024-07-18T16:39:25.583Z",
+          "updatedAt": "2024-07-18T16:39:25.583Z",
+          "__v": 0
+        },
+        {
+          "_id": "string",
+          "apikey": "string",
+          "userId": {
+            "_id": "string",
+            "name": "string",
+            "email": "?@gmail.com",
+            "phone": "34567543",
+            "role": "person"
+          },
+          "frequency": "daily",
+          "level": "senior",
+          "technology": "JavaScript",
+          "lang": "spanish",
+          "createdAt": "2024-07-18T16:39:25.583Z",
+          "updatedAt": "2024-07-18T16:39:25.583Z",
+          "__v": 0
+        }, 
+      ],
+      "totalItems": 2,
+      "totalPages": 1,
+      "currentPage": "1"
+    },
   })
   async findAll(
     @Param('page') page: number,
@@ -71,7 +124,21 @@ export class EmailController {
   @ApiParam({
     name: 'field',
     description: 'The field to search by',
-    type: String,
+    enum: [
+      'apikey',
+      'userId',
+      'type',
+      'frequency',
+      'level',
+      'technology',
+      'lang',
+      'createdAt',
+      'updatedAt',
+      'deletedAt',
+      'createdBy',
+      'updatedBy',
+      'deletedBy',
+    ],
   })
   @ApiParam({
     name: 'value',
@@ -81,7 +148,20 @@ export class EmailController {
   @ApiResponse({
     status: 200,
     description: 'The email subscription matching the field and value.',
-    type: EmailSubscription,
+    example: [
+      {
+        "_id": "string",
+        "apikey": "string",
+        "userId": "string",
+        "frequency": "daily",
+        "level": "senior",
+        "technology": "JavaScript",
+        "lang": "spanish",
+        "createdAt": "2024-07-18T16:39:25.583Z",
+        "updatedAt": "2024-07-18T16:39:25.583Z",
+        "__v": 0
+      }
+    ],
   })
   @ApiResponse({ status: 404, description: 'Email subscription not found.' })
   findOne(@Param('field') field: string, @Param('value') value: string) {
