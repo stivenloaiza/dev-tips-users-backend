@@ -34,7 +34,7 @@ export class IframesService {
     };
     const iframeResponse = await lastValueFrom(
       this.httpService.post(
-        'http://localhost:5003/v1/api/iframe/getIframe',
+        `${process.env.ROUTE_BACKEND_IFRAME}/${process.env.getIframe}`,
         getIframe,
       ),
     );
@@ -48,8 +48,6 @@ export class IframesService {
     const updatedIframeSubscription = await this.iframeModel
       .findById(createdIframeSubscription._id)
       .exec();
-
-    return updatedIframeSubscription;
   }
 
   async findAll(page: number, limit: number): Promise<object> {

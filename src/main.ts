@@ -10,7 +10,7 @@ async function bootstrap() {
   app.setGlobalPrefix('/v1/api', { exclude: ['/'] });
 
   app.enableCors({
-    origin: 'http://localhost:5173',
+    origin: process.env.ROUTE_FRONTEND,
     methods: 'GET, HEAD, PUT, PATCH, POST',
     allowedHeaders: 'Content-Type, Accept',
   });

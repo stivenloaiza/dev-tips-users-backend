@@ -4,7 +4,6 @@ import { UpdateEmailDto } from './dto/update-email.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { EmailSubscription } from './entities/email.entity';
 import { Model, Types } from 'mongoose';
-import axios from 'axios';
 import { User } from '../users/entities/user.entity';
 import { SubscriptionType } from 'src/libs/enums';
 import { ApiService } from 'src/libs/auth/auth.service';
@@ -70,25 +69,5 @@ export class EmailService {
       throw new Error(`Problem with the updating process`);
     }
     return email;
-  }
-
-  async remove(apikey: string) {
-    try {
-      const subscription = await this.emailModel.findOne({ apikey: apikey });
-
-      const response = await axios.post(
-        'http://localhost:3000/user/remove',
-        subscription,
-      );
-
-      if (response.status === 200) {
-        console.log('Response send Sucessfully');
-        return response;
-      }
-    } catch (error) {
-      console.error(
-        `There is a problem with the user remove by apikey ${error}`,
-      );
-    }
   }
 }
