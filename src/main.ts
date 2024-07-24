@@ -19,7 +19,6 @@ async function bootstrap() {
     .setTitle('Tips Users')
     .setDescription('registration of users to subscriptions - Tips Users.')
     .setVersion('1.0')
-    .addTag('Tips Users')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

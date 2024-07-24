@@ -73,7 +73,57 @@ export class IframesController {
     status: 200,
     description:
       'Paginated list of iframe subscriptions returned successfully.',
-    type: [IframeSuscription],
+    example: {
+      "items": [
+        {
+          "_id": "string",
+          "apikey": "string",
+          "userId": {
+            "_id": "string",
+            "name": "string",
+            "email": "?@gmail.com",
+            "phone": "34567543",
+            "role": "person"
+          },
+          "level": "senior",
+          "technology": "Python",
+          "lang": "spanish",
+          "iframe": "<iframe>...</iframe>",
+          "deletedAt": null,
+          "createdBy": null,
+          "updatedBy": null,
+          "deletedBy": null,
+          "createdAt": "2024-07-18T16:35:55.834Z",
+          "updatedAt": "2024-07-18T16:35:55.887Z",
+          "__v": 0
+        },
+        {
+          "_id": "string",
+          "apikey": "string",
+          "userId": {
+            "_id": "string",
+            "name": "string",
+            "email": "?@gmail.com",
+            "phone": "34567543",
+            "role": "person"
+          },
+          "level": "senior",
+          "technology": "Python",
+          "lang": "spanish",
+          "iframe": "<iframe>...</iframe>",
+          "deletedAt": null,
+          "createdBy": null,
+          "updatedBy": null,
+          "deletedBy": null,
+          "createdAt": "2024-07-18T16:35:55.834Z",
+          "updatedAt": "2024-07-18T16:35:55.887Z",
+          "__v": 0
+        }
+      ],
+      "totalItems": 57,
+      "totalPages": 6,
+      "currentPage": "1"
+    }
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   findAll(@Param('page') page: number, @Param('limit') limit: number) {
@@ -92,7 +142,43 @@ export class IframesController {
   @ApiResponse({
     status: 200,
     description: 'Iframe subscription details returned successfully.',
-    type: IframeSuscription,
+    example: {
+      "_id": "66995863908d3a97dbc6c1ab",
+      "userId": {
+        "_id": "string",
+        "apikey": "string",
+        "userId": {
+          "_id": "string",
+          "name": "string",
+          "email": "?@gmail.com",
+          "phone": "34567543",
+          "role": "person"
+        },
+        "level": "senior",
+        "technology": "Python",
+        "lang": "spanish",
+        "iframe": "<iframe>...</iframe>",
+        "deletedAt": null,
+        "createdBy": null,
+        "updatedBy": null,
+        "deletedBy": null,
+        "createdAt": "2024-07-18T16:35:55.834Z",
+        "updatedAt": "2024-07-18T16:35:55.887Z",
+        "__v": 0
+      },
+      "type": "iframe",
+      "level": "senior",
+      "technology": "Python",
+      "lang": "spanish",
+      "iframe": null,
+      "deletedAt": null,
+      "createdBy": null,
+      "updatedBy": null,
+      "deletedBy": null,
+      "createdAt": "2024-07-18T18:01:07.861Z",
+      "updatedAt": "2024-07-18T18:01:07.861Z",
+      "__v": 0
+    },
   })
   @ApiResponse({ status: 404, description: 'Iframe subscription not found.' })
   findOne(@Param('id') id: string) {
@@ -152,7 +238,22 @@ export class IframesController {
   @ApiResponse({
     status: 200,
     description: 'Iframe subscription updated successfully.',
-    type: IframeSuscription,
+    example: {
+      "_id": "string",
+      "userId": "string",
+      "type": "iframe",
+      "level": "senior",
+      "technology": "Python",
+      "lang": "spanish",
+      "iframe": "<iframe>...</iframe>",
+      "deletedAt": null,
+      "createdBy": null,
+      "updatedBy": null,
+      "deletedBy": null,
+      "createdAt": "2024-07-18T18:01:07.861Z",
+      "updatedAt": "2024-07-18T18:01:07.861Z",
+      "__v": 0
+    },
   })
   @ApiResponse({ status: 404, description: 'Iframe subscription not found.' })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
