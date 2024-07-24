@@ -25,12 +25,13 @@ export class CreateBotsSubscriptionDto {
   userId: string;
 
   @ApiProperty({
-    description: 'Type of ?',
-    example: '?',
+    description: 'Type of subscription',
+    example: 'bot',
+    default: 'bot',
   })
   @IsString()
   @IsNotEmpty()
-  type: string;
+  type: string = 'bot';
 
   @ApiProperty({
     description: 'Frequency of the bots subscription',

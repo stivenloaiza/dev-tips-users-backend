@@ -19,11 +19,13 @@ export class CreateEmailDto {
   userId: string;
 
   @ApiProperty({
+    description: 'Type of subscription',
     example: 'email',
-    description: 'The type of subscription',
+    default: 'email',
   })
   @IsString()
-  type: string;
+  @IsNotEmpty()
+  type: string = 'email';
 
   @ApiProperty({
     example: 'weekly',

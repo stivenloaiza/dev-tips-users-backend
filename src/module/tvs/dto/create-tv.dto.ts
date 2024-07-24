@@ -11,9 +11,14 @@ export class CreateTvDto {
   @IsString()
   userId: string;
 
-  @ApiProperty({ description: 'Type of TV subscription' })
+  @ApiProperty({
+    description: 'Type of subscription',
+    example: 'tv',
+    default: 'tv',
+  })
   @IsString()
-  type: string;
+  @IsNotEmpty()
+  type: string = 'tv';
 
   @ApiProperty({ description: 'Seniority level of the TV subscription' })
   @IsNotEmpty()

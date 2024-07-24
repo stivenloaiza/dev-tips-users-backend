@@ -18,10 +18,13 @@ export class CreateIframeDto {
   userId: string;
 
   @ApiProperty({
-    description: 'Type of ?',
+    description: 'Type of subscription',
+    example: 'iframe',
+    default: 'iframe',
   })
   @IsString()
-  type: string;
+  @IsNotEmpty()
+  type: string = 'iframe';
 
   @ApiProperty({
     description: 'Seniority level',
