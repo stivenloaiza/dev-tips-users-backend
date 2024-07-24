@@ -5,7 +5,7 @@ import { UpdateTvDto } from './dto/update-tv.dto';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
 import { TvSuscription } from './entities/tv.entity';
 
-@ApiTags('tv-subscriptions')
+@ApiTags('TV Subscriptions')
 @Controller('tvs')
 export class TvsController {
   constructor(private readonly tvsService: TvsService) {}

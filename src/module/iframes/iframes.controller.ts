@@ -20,7 +20,7 @@ import {
 } from '@nestjs/swagger';
 import { IframeSuscription } from './entities/iframe.entity';
 
-@ApiTags('iframe-subscriptions')
+@ApiTags('Iframe Subscriptions')
 @Controller('iframes')
 export class IframesController {
   constructor(private readonly iframesService: IframesService) {}

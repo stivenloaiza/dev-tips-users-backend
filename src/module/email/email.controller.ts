@@ -19,7 +19,7 @@ import {
 } from '@nestjs/swagger';
 import { EmailSubscription } from './entities/email.entity';
 
-@ApiTags('email-subscriptions')
+@ApiTags('Email Subscriptions')
 @Controller('email')
 export class EmailController {
   constructor(private readonly emailService: EmailService) {}

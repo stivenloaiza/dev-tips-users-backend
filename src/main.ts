@@ -16,8 +16,8 @@ async function bootstrap() {
   });
 
   const config = new DocumentBuilder()
-    .setTitle('Tips Users')
-    .setDescription('registration of users to subscriptions - Tips Users.')
+    .setTitle(' Dev Tips | Users Back-End')
+    .setDescription('A Microservice created to manage User Information and The Services they subscribe to.')
     .setVersion('1.0')
     .build();
 

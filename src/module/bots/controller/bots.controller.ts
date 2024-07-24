@@ -23,7 +23,7 @@ import {
 } from '@nestjs/swagger';
 import { BotsSubscription } from '../entities/bots.entity';
 
-@ApiTags('bots-subscriptions')
+@ApiTags('Bots Subscriptions')
 @Controller('bots-subscriptions')
 export class BotsSubscriptionController {
   constructor(
