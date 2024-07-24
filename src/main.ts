@@ -19,7 +19,6 @@ async function bootstrap() {
     .setDescription('registration of users to subscriptions - Tips Users.')
     .setVersion('1.0')
     .addTag('Tips Users')
-    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
@@ -27,9 +26,9 @@ async function bootstrap() {
 
   const port = process.env.PORT || 3000;
   await app.listen(port);
-  console.log(`Servidor iniciado en http://localhost:${port}`);
+  console.log(`Server Initialized in: http://localhost:${port}`);
   console.log(
-    `Documentación de la API disponible en http://localhost:${port}/api`,
+    `Swagger Available in: http://localhost:${port}/api`,
   );
 }
 
