@@ -16,12 +16,12 @@ export class ApiService {
       };
 
       const headers = {
-        'x-api-key': 'uqwsatbp8wcs8wqxjhc1p8sy8cpyga',
+        'x-api-key': process.env.X_API_KEY,
       };
 
       const apiKeyResponse = await lastValueFrom(
         this.httpService.post(
-          'http://localhost:3004/api/key-subscription/new',
+          `${process.env.ROUTE_API_KEY_BASE}/${process.env.ENDPOINT_NEW_SUSCRIPTION_APIKEY}`,
           createApiKeyParams,
           { headers },
         ),
