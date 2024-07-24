@@ -29,44 +29,51 @@ export class UsersController {
   @Post('/create')
   @ApiOperation({ summary: 'Create a new user' })
   @ApiBody({
-    type: CreateUserDto,
-    description: 'Data to create a new user',
     examples: {
       example1: {
         summary: 'Complete example',
-        description: 'A full example of the data required to create a user',
+        description:
+          'A full example of the data required to create an iframe subscription',
         value: {
-          apiKey: '12345-abcdef-67890-ghijk',
-          name: 'John Doe',
-          email: 'john.doe@example.com',
-          phone: '+1234567890',
-          role: 'person',
-          managerName: 'Jane Doe',
-          managerEmail: 'jane.doe@example.com',
-          managerPhone: '+0987654321',
-          subscriptions: [
-            {
-              type: 'iframe',
-              data: {
-                apikey: '67890-ghijk-12345-abcdef',
-                userId: '60c72b2f9b1e8e2f88d9b123',
-                type: 'Basic',
-                level: 'junior',
-                technology: 'JavaScript',
-                lang: 'english',
-                iframe:
-                  '<iframe src="https://example.com/iframe" width="600" height="400"></iframe>',
-              },
-            },
-          ],
+          "apiKey": "12345-abcdef-67890-ghijk",
+          "name": "John Doe",
+          "email": "john.doe@example.com",
+          "phone": "+1234567890",
+          "role": "person",
+          "managerName": "Jane Doe",
+          "managerEmail": "jane.doe@example.com",
+          "managerPhone": "+0987654321",
+          "subscriptions": [],
+          "deletedAt": null,
+          "createdBy": null,
+          "updatedBy": null,
+          "deletedBy": null
         },
-      },
+      }
     },
+    description: 'Data to create a new user',
   })
   @ApiResponse({
     status: 201,
     description: 'User created successfully.',
-    type: User,
+    example: {
+      "name": "string",
+      "email": "jonh.doe@example.com",
+      "phone": "string",
+      "role": "person",
+      "managerName": "string",
+      "managerEmail": "jane.doe@example.com",
+      "managerPhone": "string",
+      "subscriptions": [],
+      "deletedAt": null,
+      "createdBy": null,
+      "updatedBy": null,
+      "deletedBy": null,
+      "_id": "string",
+      "createdAt": "2024-07-24T13:45:00.953Z",
+      "updatedAt": "2024-07-24T13:45:00.953Z",
+      "__v": 0
+    }
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   async create(@Body() createUserDto: CreateUserDto): Promise<User> {
@@ -96,7 +103,57 @@ export class UsersController {
   @ApiResponse({
     status: 200,
     description: 'Paginated list of users returned successfully.',
-    type: [User],
+    example: {
+      "items": [
+        {
+          "_id": "string",
+          "name": "string",
+          "email": "?@gmail.com",
+          "phone": "123456789",
+          "role": "person",
+          "subscriptions": [
+            {
+              "type": "tv",
+              "level": "senior",
+              "technology": "typescript",
+              "lang": "spanish"
+            }
+          ],
+          "deletedAt": null,
+          "createdBy": null,
+          "updatedBy": "admin",
+          "deletedBy": null,
+          "createdAt": "2024-07-18T16:29:03.783Z",
+          "updatedAt": "2024-07-24T11:39:58.380Z",
+          "__v": 0
+        },
+        {
+          "_id": "string",
+          "name": "string",
+          "email": "?@gmail.com",
+          "phone": "123456789",
+          "role": "person",
+          "subscriptions": [
+            {
+              "type": "tv",
+              "level": "senior",
+              "technology": "typescript",
+              "lang": "spanish"
+            }
+          ],
+          "deletedAt": null,
+          "createdBy": null,
+          "updatedBy": "admin",
+          "deletedBy": null,
+          "createdAt": "2024-07-18T16:29:03.783Z",
+          "updatedAt": "2024-07-24T11:39:58.380Z",
+          "__v": 0
+        }
+      ],
+      "totalUsers": 2,
+      "totalPages": 1,
+      "currentPage": "1"
+    },
   })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
   async findAll(
@@ -112,7 +169,28 @@ export class UsersController {
   @ApiResponse({
     status: 200,
     description: 'User details returned successfully.',
-    type: User,
+    example: {
+      "_id": "string",
+      "name": "string",
+      "email": "?@gmail.com",
+      "phone": "123456789",
+      "role": "person",
+      "subscriptions": [
+        {
+          "type": "tv",
+          "level": "senior",
+          "technology": "typescript",
+          "lang": "spanish"
+        }
+      ],
+      "deletedAt": null,
+      "createdBy": null,
+      "updatedBy": "admin",
+      "deletedBy": null,
+      "createdAt": "2024-07-18T16:29:03.783Z",
+      "updatedAt": "2024-07-24T11:39:58.380Z",
+      "__v": 0
+    },
   })
   @ApiResponse({ status: 404, description: 'User not found.' })
   async findOne(@Param('id') id: string): Promise<User> {
@@ -163,7 +241,21 @@ export class UsersController {
   @ApiResponse({
     status: 200,
     description: 'User updated successfully.',
-    type: User,
+    example: {
+      "_id": "string",
+      "name": "string",
+      "email": "?@gmail.com",
+      "phone": "34567543",
+      "role": "person",
+      "subscriptions": [],
+      "deletedAt": null,
+      "createdBy": null,
+      "updatedBy": "admin",
+      "deletedBy": null,
+      "createdAt": "2024-07-18T16:36:54.227Z",
+      "updatedAt": "2024-07-24T14:37:15.297Z",
+      "__v": 0
+    },
   })
   @ApiResponse({ status: 404, description: 'User not found.' })
   @ApiResponse({ status: 400, description: 'Bad Request.' })
