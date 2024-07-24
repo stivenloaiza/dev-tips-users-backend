@@ -16,6 +16,7 @@ export class TvsController {
   @ApiResponse({
     status: 201,
     description: 'The TV subscription has been successfully created.',
+    type: TvSuscription,
   })
   @ApiResponse({ status: 400, description: 'Invalid input data.' })
   create(@Body() createTvDto: CreateTvDto): Promise<TvSuscription> {
@@ -109,7 +110,42 @@ export class TvsController {
   @ApiResponse({
     status: 200,
     description: 'The TV subscription with the specified ID.',
-    type: TvSuscription,
+    example: {
+      "_id": "string",
+      "apikey": "string",
+      "userId": {
+        "_id": "string",
+        "name": "string",
+        "email": "?@gmail.com",
+        "phone": "34567543",
+        "role": "person",
+        "subscriptions": [
+          {
+            "type": "tv",
+            "level": "senior",
+            "technology": "typescript",
+            "lang": "spanish"
+          }
+        ],
+        "deletedAt": null,
+        "createdBy": null,
+        "updatedBy": null,
+        "deletedBy": null,
+        "createdAt": "2024-07-18T16:31:07.067Z",
+        "updatedAt": "2024-07-18T16:31:07.067Z",
+        "__v": 0
+      },
+      "level": "senior",
+      "technology": "typescript",
+      "lang": "spanish",
+      "deletedAt": null,
+      "createdBy": null,
+      "updatedBy": null,
+      "deletedBy": null,
+      "createdAt": "2024-07-18T16:31:08.200Z",
+      "updatedAt": "2024-07-18T16:31:08.200Z",
+      "__v": 0
+    },
   })
   @ApiResponse({ status: 404, description: 'TV subscription not found.' })
   findOne(@Param('id') id: string): Promise<TvSuscription> {
@@ -126,7 +162,42 @@ export class TvsController {
   @ApiResponse({
     status: 200,
     description: 'The TV subscription with the specified API key.',
-    type: TvSuscription,
+    example: {
+      "_id": "string",
+      "apikey": "string",
+      "userId": {
+        "_id": "string",
+        "name": "string",
+        "email": "?@gmail.com",
+        "phone": "34567543",
+        "role": "person",
+        "subscriptions": [
+          {
+            "type": "tv",
+            "level": "senior",
+            "technology": "typescript",
+            "lang": "spanish"
+          }
+        ],
+        "deletedAt": null,
+        "createdBy": null,
+        "updatedBy": null,
+        "deletedBy": null,
+        "createdAt": "2024-07-18T16:31:07.067Z",
+        "updatedAt": "2024-07-18T16:31:07.067Z",
+        "__v": 0
+      },
+      "level": "senior",
+      "technology": "typescript",
+      "lang": "spanish",
+      "deletedAt": null,
+      "createdBy": null,
+      "updatedBy": null,
+      "deletedBy": null,
+      "createdAt": "2024-07-18T16:31:08.200Z",
+      "updatedAt": "2024-07-18T16:31:08.200Z",
+      "__v": 0
+    },
   })
   @ApiResponse({ status: 404, description: 'TV subscription not found.' })
   async findOneByApikey(
