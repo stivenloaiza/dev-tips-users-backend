@@ -183,6 +183,4 @@ export class EmailController {
   ): Promise<EmailSubscription> {
     return this.emailService.update(id, updateEmailDto);
   }
-
-
 }
