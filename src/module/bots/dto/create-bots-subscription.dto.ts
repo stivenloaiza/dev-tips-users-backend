@@ -8,46 +8,79 @@ import {
 } from 'src/libs/enums';
 
 export class CreateBotsSubscriptionDto {
-  @IsString()
-  @ApiProperty()
-  apikey: string;
-
-  @IsString()
-  @ApiProperty()
-  userId: string;
-
-  @ApiProperty()
+  @ApiProperty({
+    description: 'API key for the bots subscription',
+    example: '12345-abcde',
+  })
   @IsString()
   @IsNotEmpty()
-  type: string;
+  apikey: string;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'User ID for the bots subscription',
+    example: 'user123',
+  })
+  @IsString()
+  @IsNotEmpty()
+  userId: string;
+
+  @ApiProperty({
+    description: 'Type of subscription',
+    example: 'bot',
+    default: 'bot',
+  })
+  @IsString()
+  @IsNotEmpty()
+  type: string = 'bot';
+
+  @ApiProperty({
+    description: 'Frequency of the bots subscription',
+    example: 'weekly',
+  })
   @IsString()
   @IsNotEmpty()
   frequency: string;
 
-  @ApiProperty()
-  @IsString()
-  @IsNotEmpty()
+  @ApiProperty({
+    description: 'Channel type of the bots subscription',
+    example: 'Telegram',
+    enum: channelType,
+  })
   @IsEnum(channelType)
+  @IsNotEmpty()
   channelType: channelType;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Seniority level of the bots subscription',
+    example: 'junior',
+    enum: seniorityType,
+  })
   @IsEnum(seniorityType)
   @IsNotEmpty()
   level: seniorityType;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Technology used in the bots subscription',
+    example: 'TypeScript',
+    enum: devLanguageType,
+  })
   @IsEnum(devLanguageType)
   @IsNotEmpty()
   technology: devLanguageType;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Language of the bots subscription',
+    example: 'English',
+    enum: languageType,
+  })
   @IsEnum(languageType)
   @IsNotEmpty()
   lang: languageType;
 
-  @ApiProperty()
+  @ApiProperty({
+    description: 'Channel ID for the bots subscription',
+    example: 'channel123',
+  })
   @IsString()
   @IsNotEmpty()
   channelId: string;
