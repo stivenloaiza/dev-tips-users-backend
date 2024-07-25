@@ -117,4 +117,30 @@ describe('EmailController', () => {
       expect(service.findAll).toHaveBeenCalledWith(page, limit);
     });
   });
+
+  describe('findOne', () => {
+    it('should find an email subscription by field', async () => {
+      const field = 'type';
+      const value = 'email';
+      const emailSubscription = { _id: 'id', type: 'email', frequency: 'weekly' };
+
+      jest.spyOn(service, 'findOneByField').mockResolvedValue([emailSubscription] as any);
+
+      const result = await controller.findOne(field, value);
+      expect(result).toEqual([emailSubscription]);
+      expect(service.findOneByField).toHaveBeenCalledWith(field, value);
+    });
+
+    it('should return an empty array if no email subscription is found', async () => {
+      const field = 'type';
+      const value = 'nonexistent';
+      jest.spyOn(service, 'findOneByField').mockResolvedValue([] as any);
+
+      const result = await controller.findOne(field, value);
+      expect(result).toEqual([]);
+      expect(service.findOneByField).toHaveBeenCalledWith(field, value);
+    });
+  });
+
+  
 });

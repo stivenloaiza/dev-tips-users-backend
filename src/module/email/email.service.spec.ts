@@ -48,7 +48,7 @@ describe('EmailService', () => {
           },
         },
         {
-          provide: ApiService, 
+          provide: ApiService,
           useValue: {
             getApiKey: jest.fn(),
           },
@@ -149,6 +149,47 @@ describe('EmailService', () => {
         select: 'name email phone role managerName managerEmail managerPhone',
       });
       expect(emailModel.countDocuments).toHaveBeenCalled();
+    });
+  });
+
+  describe('findOneByField', () => {
+    it('should find an email subscription by field', async () => {
+      const field = 'type';
+      const value = 'email';
+
+      const foundEmailSubscription = [
+        {
+          _id: 'id',
+          apikey: 'generatedApiKey',
+          userId: 'userId',
+          type: 'email',
+          frequency: 'weekly',
+          level: seniorityType.JUNIOR,
+          technology: devLanguageType.JAVASCRIPT,
+          lang: languageType.SPANISH,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        },
+      ];
+
+      jest.spyOn(emailModel, 'find').mockReturnValueOnce({
+        exec: jest.fn().mockResolvedValue(foundEmailSubscription),
+      } as any);
+
+      const result = await service.findOneByField(field, value);
+      expect(result).toEqual(foundEmailSubscription);
+    });
+
+    it('should return an empty array if no email subscription is found', async () => {
+      const field = 'type';
+      const value = 'email';
+
+      jest.spyOn(emailModel, 'find').mockReturnValueOnce({
+        exec: jest.fn().mockResolvedValue([]),
+      } as any);
+
+      const result = await service.findOneByField(field, value);
+      expect(result).toEqual([]);
     });
   });
 });
