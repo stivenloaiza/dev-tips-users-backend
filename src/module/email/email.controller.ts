@@ -161,10 +161,6 @@ export class EmailController {
   }
 
   @Patch('/update/:id')
-<<<<<<< HEAD
-  update(@Param('id') id: string, @Body() updateEmailDto: UpdateEmailDto) {
-    return this.emailService.update(id, updateEmailDto);
-=======
   @ApiOperation({ summary: 'Update an existing email subscription' })
   @ApiParam({
     name: 'id',
@@ -185,24 +181,8 @@ export class EmailController {
     @Param('id') id: string,
     @Body() updateEmailDto: UpdateEmailDto,
   ): Promise<EmailSubscription> {
-    return this.emailService.update(+id, updateEmailDto);
->>>>>>> origin
+    return this.emailService.update(id, updateEmailDto);
   }
 
-  @Delete('/apikey/:apikey')
-  @ApiOperation({ summary: 'Remove an email subscription by API key' })
-  @ApiParam({
-    name: 'apikey',
-    description: 'API key of the email subscription to remove',
-    type: String,
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'The email subscription has been successfully removed.',
-    type: EmailSubscription,
-  })
-  @ApiResponse({ status: 404, description: 'Email subscription not found.' })
-  remove(@Param('apikey') apikey: string) {
-    return this.emailService.remove(apikey);
-  }
+
 }
