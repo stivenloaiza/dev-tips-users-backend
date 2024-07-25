@@ -18,10 +18,10 @@ export class TvsService {
   ) {}
 
   async create(createTvDto: CreateTvDto): Promise<TvSuscription> {
-      const apiKey = await this.apiService.getApiKey(SubscriptionType.tv);
-      createTvDto.apikey = apiKey;
-      const createdTvSubscription = await this.tvModel.create(createTvDto);
-      return createdTvSubscription;
+    const apiKey = await this.apiService.getApiKey(SubscriptionType.tv);
+    createTvDto.apikey = apiKey;
+    const createdTvSubscription = await this.tvModel.create(createTvDto);
+    return createdTvSubscription;
   }
 
   async findAll(page: number, limit: number): Promise<any> {
@@ -46,7 +46,6 @@ export class TvsService {
       currentPage: page,
     };
   }
-
 
   async findOne(id: string): Promise<TvSuscription> {
     const tv = await this.tvModel.findById(id).populate('userId').exec();

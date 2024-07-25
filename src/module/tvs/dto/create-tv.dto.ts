@@ -1,6 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsEnum, IsNotEmpty } from 'class-validator';
-import { devLanguageType, languageType, seniorityType } from '../../../libs/enums';
+import {
+  devLanguageType,
+  languageType,
+  seniorityType,
+} from '../../../libs/enums';
 
 export class CreateTvDto {
   @ApiProperty({ description: 'API key for the TV subscription' })
@@ -25,7 +29,9 @@ export class CreateTvDto {
   @IsEnum(seniorityType)
   level: seniorityType;
 
-  @ApiProperty({ description: 'Technology associated with the TV subscription' })
+  @ApiProperty({
+    description: 'Technology associated with the TV subscription',
+  })
   @IsNotEmpty()
   @IsEnum(devLanguageType)
   technology: devLanguageType;
