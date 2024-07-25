@@ -36,7 +36,7 @@ export class TvsService {
       })
       .exec();
 
-    const totalItems = await this.tvModel.countDocuments().exec();
+    const totalItems = await this.tvModel.countDocuments();
     const totalPages = Math.ceil(totalItems / limit);
 
     return {
@@ -46,6 +46,7 @@ export class TvsService {
       currentPage: page,
     };
   }
+
 
   async findOne(id: string): Promise<TvSuscription> {
     const tv = await this.tvModel.findById(id).populate('userId').exec();

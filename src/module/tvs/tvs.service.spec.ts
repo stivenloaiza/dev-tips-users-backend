@@ -6,20 +6,26 @@ import { Model } from 'mongoose';
 import { ApiService } from '../../libs/auth/auth.service';
 import { CreateTvDto } from './dto/create-tv.dto';
 import { devLanguageType, languageType, seniorityType, SubscriptionType } from '../../libs/enums';
-import { User } from '../users/entities/user.entity'; // Importa tu entidad User
+import { User } from '../users/entities/user.entity';
 
 describe('TvsService', () => {
     let service: TvsService;
-    let tvModel: Model<TvSuscription>;
+    let tvModel: any;  // Usar `any` para el mock
     let userModel: Model<User>;
     let apiService: ApiService;
 
     beforeEach(async () => {
         const mockTvModel = {
             create: jest.fn().mockImplementation(dto => Promise.resolve(dto)),
+            find: jest.fn().mockReturnThis(),
+            skip: jest.fn().mockReturnThis(),
+            limit: jest.fn().mockReturnThis(),
+            populate: jest.fn().mockReturnThis(),
+            exec: jest.fn(),
+            countDocuments: jest.fn(),
         };
 
-        const mockUserModel = {}; // Agrega aquí cualquier método que necesites mockear de UserModel
+        const mockUserModel = {};
 
         const mockApiService = {
             getApiKey: jest.fn().mockResolvedValue('test-api-key'),
@@ -29,7 +35,7 @@ describe('TvsService', () => {
             providers: [
                 TvsService,
                 { provide: getModelToken(TvSuscription.name), useValue: mockTvModel },
-                { provide: getModelToken(User.name), useValue: mockUserModel }, // Agrega el mock de UserModel
+                { provide: getModelToken(User.name), useValue: mockUserModel },
                 { provide: ApiService, useValue: mockApiService },
             ],
         }).compile();
@@ -44,26 +50,70 @@ describe('TvsService', () => {
         expect(service).toBeDefined();
     });
 
-    it('create should create a tv subscription', async () => {
-        const createTvDto: CreateTvDto = {
-            userId: 'user-id',
-            type: 'type',
-            level: seniorityType.JUNIOR,
-            technology: devLanguageType.JAVASCRIPT,
-            lang: languageType.SPANISH,
-            apikey: '', // La clave se añadirá en el servicio
-        };
+    describe('create', () => {
+        it('create should create a tv subscription', async () => {
+            const createTvDto: CreateTvDto = {
+                userId: 'user-id',
+                type: 'type',
+                level: seniorityType.JUNIOR,
+                technology: devLanguageType.JAVASCRIPT,
+                lang: languageType.SPANISH,
+                apikey: '',
+            };
 
-        const result = await service.create(createTvDto);
+            const result = await service.create(createTvDto);
 
-        expect(apiService.getApiKey).toHaveBeenCalledWith(SubscriptionType.tv);
-        expect(tvModel.create).toHaveBeenCalledWith({
-            ...createTvDto,
-            apikey: 'test-api-key',
+            expect(apiService.getApiKey).toHaveBeenCalledWith(SubscriptionType.tv);
+            expect(tvModel.create).toHaveBeenCalledWith({
+                ...createTvDto,
+                apikey: 'test-api-key',
+            });
+            expect(result).toEqual({
+                ...createTvDto,
+                apikey: 'test-api-key',
+            });
         });
-        expect(result).toEqual({
-            ...createTvDto,
-            apikey: 'test-api-key',
+    })
+
+    describe('findAll', () => {
+        it('findAll should return paginated tv subscriptions', async () => {
+            const mockItems = [
+                { userId: 'user-id-1', type: 'type-1', level: seniorityType.JUNIOR, technology: devLanguageType.JAVASCRIPT, lang: languageType.SPANISH },
+                { userId: 'user-id-2', type: 'type-2', level: seniorityType.SENIOR, technology: devLanguageType.PYTHON, lang: languageType.ENGLISH },
+            ];
+
+            tvModel.find = jest.fn().mockReturnValue({
+                skip: jest.fn().mockReturnValue({
+                    limit: jest.fn().mockReturnValue({
+                        populate: jest.fn().mockReturnValue({
+                            exec: jest.fn().mockResolvedValue(mockItems),
+                        }),
+                    }),
+                }),
+            });
+
+            tvModel.countDocuments = jest.fn().mockResolvedValue(10);
+
+            const page = 1;
+            const limit = 10;
+
+            const result = await service.findAll(page, limit);
+
+            expect(tvModel.find).toHaveBeenCalled();
+            expect(tvModel.find().skip).toHaveBeenCalledWith((page - 1) * limit);
+            expect(tvModel.find().skip().limit).toHaveBeenCalledWith(limit);
+            expect(tvModel.find().skip().limit().populate).toHaveBeenCalledWith({
+                path: 'userId',
+                select: 'name email phone role managerName managerEmail managerPhone',
+            });
+            expect(tvModel.find().skip().limit().populate().exec).toHaveBeenCalled();
+            expect(tvModel.countDocuments).toHaveBeenCalled();
+            expect(result).toEqual({
+                items: mockItems,
+                totalItems: 10,
+                totalPages: 1,
+                currentPage: page,
+            });
         });
-    });
+    })
 });
