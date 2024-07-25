@@ -1,8 +1,22 @@
-import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  NotFoundException,
+} from '@nestjs/common';
 import { TvsService } from './tvs.service';
 import { CreateTvDto } from './dto/create-tv.dto';
 import { UpdateTvDto } from './dto/update-tv.dto';
-import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBody } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiParam,
+  ApiBody,
+} from '@nestjs/swagger';
 import { TvSuscription } from './entities/tv.entity';
 
 @ApiTags('TV Subscriptions')
@@ -39,64 +53,67 @@ export class TvsController {
     status: 200,
     description: 'A list of TV subscriptions.',
     example: {
-      "items": [
+      items: [
         {
-          "apikey": "string",
-          "userId": {
-            "name": "string",
-            "email": "string",
-            "phone": "string",
-            "role": "person",
-            "managerName": "string",
-            "managerEmail": "string",
-            "managerPhone": "string",
-            "subscriptions": [],
-            "deletedAt": "2024-07-24T13:16:37.951Z",
-            "createdBy": "string",
-            "updatedBy": "string",
-            "deletedBy": "string"
+          apikey: 'string',
+          userId: {
+            name: 'string',
+            email: 'string',
+            phone: 'string',
+            role: 'person',
+            managerName: 'string',
+            managerEmail: 'string',
+            managerPhone: 'string',
+            subscriptions: [],
+            deletedAt: '2024-07-24T13:16:37.951Z',
+            createdBy: 'string',
+            updatedBy: 'string',
+            deletedBy: 'string',
           },
-          "type": "string",
-          "level": "junior",
-          "technology": "Python",
-          "lang": "spanish",
-          "deletedAt": "2024-07-24T13:16:37.951Z",
-          "createdBy": "string",
-          "updatedBy": "string",
-          "deletedBy": "string"
+          type: 'string',
+          level: 'junior',
+          technology: 'Python',
+          lang: 'spanish',
+          deletedAt: '2024-07-24T13:16:37.951Z',
+          createdBy: 'string',
+          updatedBy: 'string',
+          deletedBy: 'string',
         },
         {
-          "apikey": "string",
-          "userId": {
-            "name": "string",
-            "email": "string",
-            "phone": "string",
-            "role": "person",
-            "managerName": "string",
-            "managerEmail": "string",
-            "managerPhone": "string",
-            "subscriptions": [],
-            "deletedAt": "2024-07-24T13:16:37.951Z",
-            "createdBy": "string",
-            "updatedBy": "string",
-            "deletedBy": "string"
+          apikey: 'string',
+          userId: {
+            name: 'string',
+            email: 'string',
+            phone: 'string',
+            role: 'person',
+            managerName: 'string',
+            managerEmail: 'string',
+            managerPhone: 'string',
+            subscriptions: [],
+            deletedAt: '2024-07-24T13:16:37.951Z',
+            createdBy: 'string',
+            updatedBy: 'string',
+            deletedBy: 'string',
           },
-          "type": "string",
-          "level": "junior",
-          "technology": "Python",
-          "lang": "spanish",
-          "deletedAt": "2024-07-24T13:16:37.951Z",
-          "createdBy": "string",
-          "updatedBy": "string",
-          "deletedBy": "string"
-        }
+          type: 'string',
+          level: 'junior',
+          technology: 'Python',
+          lang: 'spanish',
+          deletedAt: '2024-07-24T13:16:37.951Z',
+          createdBy: 'string',
+          updatedBy: 'string',
+          deletedBy: 'string',
+        },
       ],
-      "totalItems": 2,
-      "totalPages": 1,
-      "currentPage": "1"
+      totalItems: 2,
+      totalPages: 1,
+      currentPage: '1',
     },
   })
-  findAll(@Param('page') page: number, @Param('limit') limit: number): Promise<TvSuscription[]> {
+  findAll(
+    @Param('page') page: number,
+    @Param('limit') limit: number,
+  ): Promise<TvSuscription[]> {
     return this.tvsService.findAll(page, limit);
   }
 
@@ -111,40 +128,40 @@ export class TvsController {
     status: 200,
     description: 'The TV subscription with the specified ID.',
     example: {
-      "_id": "string",
-      "apikey": "string",
-      "userId": {
-        "_id": "string",
-        "name": "string",
-        "email": "?@gmail.com",
-        "phone": "34567543",
-        "role": "person",
-        "subscriptions": [
+      _id: 'string',
+      apikey: 'string',
+      userId: {
+        _id: 'string',
+        name: 'string',
+        email: '?@gmail.com',
+        phone: '34567543',
+        role: 'person',
+        subscriptions: [
           {
-            "type": "tv",
-            "level": "senior",
-            "technology": "typescript",
-            "lang": "spanish"
-          }
+            type: 'tv',
+            level: 'senior',
+            technology: 'typescript',
+            lang: 'spanish',
+          },
         ],
-        "deletedAt": null,
-        "createdBy": null,
-        "updatedBy": null,
-        "deletedBy": null,
-        "createdAt": "2024-07-18T16:31:07.067Z",
-        "updatedAt": "2024-07-18T16:31:07.067Z",
-        "__v": 0
+        deletedAt: null,
+        createdBy: null,
+        updatedBy: null,
+        deletedBy: null,
+        createdAt: '2024-07-18T16:31:07.067Z',
+        updatedAt: '2024-07-18T16:31:07.067Z',
+        __v: 0,
       },
-      "level": "senior",
-      "technology": "typescript",
-      "lang": "spanish",
-      "deletedAt": null,
-      "createdBy": null,
-      "updatedBy": null,
-      "deletedBy": null,
-      "createdAt": "2024-07-18T16:31:08.200Z",
-      "updatedAt": "2024-07-18T16:31:08.200Z",
-      "__v": 0
+      level: 'senior',
+      technology: 'typescript',
+      lang: 'spanish',
+      deletedAt: null,
+      createdBy: null,
+      updatedBy: null,
+      deletedBy: null,
+      createdAt: '2024-07-18T16:31:08.200Z',
+      updatedAt: '2024-07-18T16:31:08.200Z',
+      __v: 0,
     },
   })
   @ApiResponse({ status: 404, description: 'TV subscription not found.' })
@@ -163,52 +180,55 @@ export class TvsController {
     status: 200,
     description: 'The TV subscription with the specified API key.',
     example: {
-      "_id": "string",
-      "apikey": "string",
-      "userId": {
-        "_id": "string",
-        "name": "string",
-        "email": "?@gmail.com",
-        "phone": "34567543",
-        "role": "person",
-        "subscriptions": [
+      _id: 'string',
+      apikey: 'string',
+      userId: {
+        _id: 'string',
+        name: 'string',
+        email: '?@gmail.com',
+        phone: '34567543',
+        role: 'person',
+        subscriptions: [
           {
-            "type": "tv",
-            "level": "senior",
-            "technology": "typescript",
-            "lang": "spanish"
-          }
+            type: 'tv',
+            level: 'senior',
+            technology: 'typescript',
+            lang: 'spanish',
+          },
         ],
-        "deletedAt": null,
-        "createdBy": null,
-        "updatedBy": null,
-        "deletedBy": null,
-        "createdAt": "2024-07-18T16:31:07.067Z",
-        "updatedAt": "2024-07-18T16:31:07.067Z",
-        "__v": 0
+        deletedAt: null,
+        createdBy: null,
+        updatedBy: null,
+        deletedBy: null,
+        createdAt: '2024-07-18T16:31:07.067Z',
+        updatedAt: '2024-07-18T16:31:07.067Z',
+        __v: 0,
       },
-      "level": "senior",
-      "technology": "typescript",
-      "lang": "spanish",
-      "deletedAt": null,
-      "createdBy": null,
-      "updatedBy": null,
-      "deletedBy": null,
-      "createdAt": "2024-07-18T16:31:08.200Z",
-      "updatedAt": "2024-07-18T16:31:08.200Z",
-      "__v": 0
+      level: 'senior',
+      technology: 'typescript',
+      lang: 'spanish',
+      deletedAt: null,
+      createdBy: null,
+      updatedBy: null,
+      deletedBy: null,
+      createdAt: '2024-07-18T16:31:08.200Z',
+      updatedAt: '2024-07-18T16:31:08.200Z',
+      __v: 0,
     },
   })
   @ApiResponse({ status: 404, description: 'TV subscription not found.' })
   async findOneByApikey(
     @Param('apikey') apikey: string,
-  ): Promise<TvSuscription | { message: string }> {
+  ): Promise<TvSuscription> {
     try {
       return await this.tvsService.findTvByApikey(apikey);
     } catch (error) {
-      return {
-        message: `The TV subscription with the API key: ${apikey} wasn't found or is already deleted`,
-      };
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(
+          `The TV subscription with the API key: ${apikey} wasn't found or is already deleted`,
+        );
+      }
+      throw error; // Rethrow unexpected errors
     }
   }
 
@@ -223,25 +243,27 @@ export class TvsController {
   @ApiResponse({
     status: 200,
     description: 'The TV subscription has been successfully updated.',
-    example: 
-    {
-      "_id": "string",
-      "apikey": "string",
-      "userId": "string",
-      "level": "senior",
-      "technology": "typescript",
-      "lang": "spanish",
-      "deletedAt": null,
-      "createdBy": null,
-      "updatedBy": null,
-      "deletedBy": null,
-      "createdAt": "2024-07-18T16:31:08.200Z",
-      "updatedAt": "2024-07-18T16:31:08.200Z",
-      "__v": 0
+    example: {
+      _id: 'string',
+      apikey: 'string',
+      userId: 'string',
+      level: 'senior',
+      technology: 'typescript',
+      lang: 'spanish',
+      deletedAt: null,
+      createdBy: null,
+      updatedBy: null,
+      deletedBy: null,
+      createdAt: '2024-07-18T16:31:08.200Z',
+      updatedAt: '2024-07-18T16:31:08.200Z',
+      __v: 0,
     },
   })
   @ApiResponse({ status: 400, description: 'Invalid input data.' })
-  update(@Param('id') id: string, @Body() updateTvDto: UpdateTvDto): Promise<TvSuscription> {
+  update(
+    @Param('id') id: string,
+    @Body() updateTvDto: UpdateTvDto,
+  ): Promise<TvSuscription> {
     return this.tvsService.update(id, updateTvDto);
   }
 }

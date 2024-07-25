@@ -75,63 +75,64 @@ export class BotsSubscriptionController {
   @ApiResponse({
     status: 200,
     description: 'A list of bots subscriptions.',
-    example: {"message": "List of all bots subscriptions",
-    "data": {
-      "bots": [
-        {
-          "_id": "string",
-          "apikey": "string",
-          "userId": {
-            "_id": "string",
-            "name": "string",
-            "email": "string",
-            "phone": "string",
-            "role": "string"
+    example: {
+      message: 'List of all bots subscriptions',
+      data: {
+        bots: [
+          {
+            _id: 'string',
+            apikey: 'string',
+            userId: {
+              _id: 'string',
+              name: 'string',
+              email: 'string',
+              phone: 'string',
+              role: 'string',
+            },
+            frequency: 'daily',
+            channelType: 'Telegram',
+            level: 'junior',
+            technology: 'Python',
+            lang: 'english',
+            channelId: 'test123456',
+            deletedAt: null,
+            createdBy: null,
+            updatedBy: null,
+            deletedBy: null,
+            createdAt: '2024-07-18T16:34:28.389Z',
+            updatedAt: '2024-07-24T12:11:38.515Z',
+            __v: 0,
           },
-          "frequency": "daily",
-          "channelType": "Telegram",
-          "level": "junior",
-          "technology": "Python",
-          "lang": "english",
-          "channelId": "test123456",
-          "deletedAt": null,
-          "createdBy": null,
-          "updatedBy": null,
-          "deletedBy": null,
-          "createdAt": "2024-07-18T16:34:28.389Z",
-          "updatedAt": "2024-07-24T12:11:38.515Z",
-          "__v": 0
-        },
-        {
-          "_id": "string",
-          "apikey": "string",
-          "userId": {
-            "_id": "string",
-            "name": "string",
-            "email": "string",
-            "phone": "string",
-            "role": "string"
+          {
+            _id: 'string',
+            apikey: 'string',
+            userId: {
+              _id: 'string',
+              name: 'string',
+              email: 'string',
+              phone: 'string',
+              role: 'string',
+            },
+            frequency: 'daily',
+            channelType: 'Telegram',
+            level: 'junior',
+            technology: 'Python',
+            lang: 'english',
+            channelId: 'test123456',
+            deletedAt: null,
+            createdBy: null,
+            updatedBy: null,
+            deletedBy: null,
+            createdAt: '2024-07-18T16:34:28.389Z',
+            updatedAt: '2024-07-24T12:11:38.515Z',
+            __v: 0,
           },
-          "frequency": "daily",
-          "channelType": "Telegram",
-          "level": "junior",
-          "technology": "Python",
-          "lang": "english",
-          "channelId": "test123456",
-          "deletedAt": null,
-          "createdBy": null,
-          "updatedBy": null,
-          "deletedBy": null,
-          "createdAt": "2024-07-18T16:34:28.389Z",
-          "updatedAt": "2024-07-24T12:11:38.515Z",
-          "__v": 0
-        }
-      ],
-      "totalBots": 2,
-      "totalPages": 1,
-      "currentPage": "1"
-      }
-    }
+        ],
+        totalBots: 2,
+        totalPages: 1,
+        currentPage: '1',
+      },
+    },
   })
   async findAll(@Param('page') page: number, @Param('limit') limit: number) {
     const subscriptions = await this.botsSubscriptionService.findAll(
@@ -155,26 +156,26 @@ export class BotsSubscriptionController {
     status: 200,
     description: 'The bots subscription found.',
     example: {
-      "message": "string",
-      "data": {
-        "_id": "string",
-        "apikey": "string",
-        "userId": "string",
-        "frequency": "daily",
-        "channelType": "Telegram",
-        "level": "junior",
-        "technology": "Python",
-        "lang": "english",
-        "channelId": "string",
-        "deletedAt": null,
-        "createdBy": null,
-        "updatedBy": null,
-        "deletedBy": null,
-        "createdAt": "2024-07-18T16:34:28.389Z",
-        "updatedAt": "2024-07-24T12:11:38.515Z",
-        "__v": 0
-      }
-    }
+      message: 'string',
+      data: {
+        _id: 'string',
+        apikey: 'string',
+        userId: 'string',
+        frequency: 'daily',
+        channelType: 'Telegram',
+        level: 'junior',
+        technology: 'Python',
+        lang: 'english',
+        channelId: 'string',
+        deletedAt: null,
+        createdBy: null,
+        updatedBy: null,
+        deletedBy: null,
+        createdAt: '2024-07-18T16:34:28.389Z',
+        updatedAt: '2024-07-24T12:11:38.515Z',
+        __v: 0,
+      },
+    },
   })
   @ApiResponse({
     status: 404,
@@ -206,23 +207,23 @@ export class BotsSubscriptionController {
     status: 200,
     description: 'The bots subscription found.',
     example: {
-      "_id": "string",
-      "apikey": "string",
-      "userId": "string",
-      "frequency": "daily",
-      "channelType": "Telegram",
-      "level": "junior",
-      "technology": "Python",
-      "lang": "english",
-      "channelId": "string",
-      "deletedAt": null,
-      "createdBy": null,
-      "updatedBy": null,
-      "deletedBy": null,
-      "createdAt": "2024-07-18T16:34:28.389Z",
-      "updatedAt": "2024-07-24T16:57:03.127Z",
-      "__v": 0
-    }
+      _id: 'string',
+      apikey: 'string',
+      userId: 'string',
+      frequency: 'daily',
+      channelType: 'Telegram',
+      level: 'junior',
+      technology: 'Python',
+      lang: 'english',
+      channelId: 'string',
+      deletedAt: null,
+      createdBy: null,
+      updatedBy: null,
+      deletedBy: null,
+      createdAt: '2024-07-18T16:34:28.389Z',
+      updatedAt: '2024-07-24T16:57:03.127Z',
+      __v: 0,
+    },
   })
   @ApiResponse({
     status: 404,
@@ -234,7 +235,9 @@ export class BotsSubscriptionController {
     try {
       return await this.botsSubscriptionService.findBotsByApikey(apikey);
     } catch (error) {
-      throw new Error(`There is an issue with finding one by API key: ${error}`);
+      throw new Error(
+        `There is an issue with finding one by API key: ${error}`,
+      );
     }
   }
 
@@ -250,26 +253,26 @@ export class BotsSubscriptionController {
     status: 200,
     description: 'The bots subscription has been successfully updated.',
     example: {
-      "message": "Bots subscription updated successfully",
-      "data": {
-        "_id": "string",
-        "apikey": "string",
-        "userId": "string",
-        "frequency": "daily",
-        "channelType": "Telegram",
-        "level": "junior",
-        "technology": "Python",
-        "lang": "english",
-        "channelId": "string",
-        "deletedAt": null,
-        "createdBy": null,
-        "updatedBy": null,
-        "deletedBy": null,
-        "createdAt": "2024-07-18T16:34:28.389Z",
-        "updatedAt": "2024-07-24T16:57:03.127Z",
-        "__v": 0
-      }
-    }
+      message: 'Bots subscription updated successfully',
+      data: {
+        _id: 'string',
+        apikey: 'string',
+        userId: 'string',
+        frequency: 'daily',
+        channelType: 'Telegram',
+        level: 'junior',
+        technology: 'Python',
+        lang: 'english',
+        channelId: 'string',
+        deletedAt: null,
+        createdBy: null,
+        updatedBy: null,
+        deletedBy: null,
+        createdAt: '2024-07-18T16:34:28.389Z',
+        updatedAt: '2024-07-24T16:57:03.127Z',
+        __v: 0,
+      },
+    },
   })
   @ApiResponse({
     status: 400,

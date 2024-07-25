@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const port = process.env.PORT || 3000;
-  
+
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix('/v1/api', { exclude: ['/'] });
 
@@ -17,7 +17,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle(' Dev Tips | Users Back-End')
-    .setDescription('A Microservice created to manage User Information and The Services they subscribe to.')
+    .setDescription(
+      'A Microservice created to manage User Information and The Services they subscribe to.',
+    )
     .setVersion('1.0')
     .build();
 
@@ -26,9 +28,7 @@ async function bootstrap() {
 
   await app.listen(port);
   console.log(`Server Initialized in: http://localhost:${port}`);
-  console.log(
-    `Swagger Available in: http://localhost:${port}/api-doc`,
-  );
+  console.log(`Swagger Available in: http://localhost:${port}/api-doc`);
 }
 
 bootstrap();

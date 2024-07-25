@@ -1,7 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
-import { User } from 'src/module/users/entities/user.entity';
+import {
+  devLanguageType,
+  languageType,
+  seniorityType,
+} from '../../../libs/enums';
+import { User } from '../../users/entities/user.entity';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class TvSuscription extends Document {
