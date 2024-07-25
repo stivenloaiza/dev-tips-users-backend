@@ -26,16 +26,16 @@ export class EmailController {
     status: 201,
     description: 'The email subscription has been successfully created.',
     example: {
-      "userId": "string",
-      "type": "email",
-      "frequency": "weekly",
-      "level": "junior",
-      "technology": "Python",
-      "lang": "spanish",
-      "_id": "string",
-      "createdAt": "2024-07-24T18:44:55.335Z",
-      "updatedAt": "2024-07-24T18:44:55.335Z",
-      "__v": 0
+      userId: 'string',
+      type: 'email',
+      frequency: 'weekly',
+      level: 'junior',
+      technology: 'Python',
+      lang: 'spanish',
+      _id: 'string',
+      createdAt: '2024-07-24T18:44:55.335Z',
+      updatedAt: '2024-07-24T18:44:55.335Z',
+      __v: 0,
     },
   })
   @ApiResponse({ status: 400, description: 'Invalid input data.' })
@@ -59,47 +59,47 @@ export class EmailController {
     status: 200,
     description: 'A list of email subscriptions.',
     example: {
-      "items": [
+      items: [
         {
-          "_id": "string",
-          "apikey": "string",
-          "userId": {
-            "_id": "string",
-            "name": "string",
-            "email": "?@gmail.com",
-            "phone": "34567543",
-            "role": "person"
+          _id: 'string',
+          apikey: 'string',
+          userId: {
+            _id: 'string',
+            name: 'string',
+            email: '?@gmail.com',
+            phone: '34567543',
+            role: 'person',
           },
-          "frequency": "daily",
-          "level": "senior",
-          "technology": "JavaScript",
-          "lang": "spanish",
-          "createdAt": "2024-07-18T16:39:25.583Z",
-          "updatedAt": "2024-07-18T16:39:25.583Z",
-          "__v": 0
+          frequency: 'daily',
+          level: 'senior',
+          technology: 'JavaScript',
+          lang: 'spanish',
+          createdAt: '2024-07-18T16:39:25.583Z',
+          updatedAt: '2024-07-18T16:39:25.583Z',
+          __v: 0,
         },
         {
-          "_id": "string",
-          "apikey": "string",
-          "userId": {
-            "_id": "string",
-            "name": "string",
-            "email": "?@gmail.com",
-            "phone": "34567543",
-            "role": "person"
+          _id: 'string',
+          apikey: 'string',
+          userId: {
+            _id: 'string',
+            name: 'string',
+            email: '?@gmail.com',
+            phone: '34567543',
+            role: 'person',
           },
-          "frequency": "daily",
-          "level": "senior",
-          "technology": "JavaScript",
-          "lang": "spanish",
-          "createdAt": "2024-07-18T16:39:25.583Z",
-          "updatedAt": "2024-07-18T16:39:25.583Z",
-          "__v": 0
-        }, 
+          frequency: 'daily',
+          level: 'senior',
+          technology: 'JavaScript',
+          lang: 'spanish',
+          createdAt: '2024-07-18T16:39:25.583Z',
+          updatedAt: '2024-07-18T16:39:25.583Z',
+          __v: 0,
+        },
       ],
-      "totalItems": 2,
-      "totalPages": 1,
-      "currentPage": "1"
+      totalItems: 2,
+      totalPages: 1,
+      currentPage: '1',
     },
   })
   async findAll(
@@ -142,17 +142,17 @@ export class EmailController {
     description: 'The email subscription matching the field and value.',
     example: [
       {
-        "_id": "string",
-        "apikey": "string",
-        "userId": "string",
-        "frequency": "daily",
-        "level": "senior",
-        "technology": "JavaScript",
-        "lang": "spanish",
-        "createdAt": "2024-07-18T16:39:25.583Z",
-        "updatedAt": "2024-07-18T16:39:25.583Z",
-        "__v": 0
-      }
+        _id: 'string',
+        apikey: 'string',
+        userId: 'string',
+        frequency: 'daily',
+        level: 'senior',
+        technology: 'JavaScript',
+        lang: 'spanish',
+        createdAt: '2024-07-18T16:39:25.583Z',
+        updatedAt: '2024-07-18T16:39:25.583Z',
+        __v: 0,
+      },
     ],
   })
   @ApiResponse({ status: 404, description: 'Email subscription not found.' })
@@ -205,5 +205,4 @@ export class EmailController {
   remove(@Param('apikey') apikey: string) {
     return this.emailService.remove(apikey);
   }
-
 }
