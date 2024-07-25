@@ -1,5 +1,5 @@
 export enum seniorityType {
-  JUNIOR = 'junior',
-  MID = 'mid',
-  SENIOR = 'senior',
+  JUNIOR = 'JUNIOR',
+  MID = 'MID',
+  SENIOR = 'SENIOR',
 }

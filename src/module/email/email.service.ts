@@ -5,8 +5,8 @@ import { InjectModel } from '@nestjs/mongoose';
 import { EmailSubscription } from './entities/email.entity';
 import { Model, Types } from 'mongoose';
 import { User } from '../users/entities/user.entity';
-import { SubscriptionType } from 'src/libs/enums';
-import { ApiService } from 'src/libs/auth/auth.service';
+import { SubscriptionType } from '../../libs/enums/index';
+import { ApiService } from '../../libs/auth/auth.service';
 
 @Injectable()
 export class EmailService {
@@ -21,8 +21,8 @@ export class EmailService {
     const apiKey = await this.apiService.getApiKey(SubscriptionType.email);
     createEmailDto.apikey = apiKey;
 
-    const createdEmailSubscription = new this.emailModel(createEmailDto);
-    return createdEmailSubscription.save();
+    const createdEmailSubscription = await this.emailModel.create(createEmailDto);
+    return createdEmailSubscription;
   }
 
   async findAll(page: number, limit: number): Promise<any> {

@@ -5,8 +5,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { EmailSubscription } from './entities/email.entity';
 import { EmailSubscriptionSchema } from './entities/email.entity';
 import { UsersModule } from '../users/users.module';
-import { ApiService } from 'src/libs/auth/auth.service';
-import { AuthModule } from 'src/libs/auth/auth.module';
+import { ApiService } from '../../libs/auth/auth.service';
+import { AuthModule } from '../../libs/auth/auth.module';
 import { HttpModule } from '@nestjs/axios';
 
 @Module({
