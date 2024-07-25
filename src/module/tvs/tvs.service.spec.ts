@@ -25,6 +25,7 @@ describe('TvsService', () => {
             exec: jest.fn(),
             countDocuments: jest.fn(),
             findById: jest.fn().mockReturnThis(),
+            findOne: jest.fn().mockReturnThis(),
         };
 
         const mockUserModel = {};
@@ -155,6 +156,72 @@ describe('TvsService', () => {
 
             await expect(service.findOne(id)).rejects.toThrow(
                 new NotFoundException(`Tv Suscription with id ${id} not found`)
+            );
+        });
+    });
+
+    describe('findTvByApikey', () => {
+        it('findTvByApikey should return a tv subscription if it exists and is not deleted', async () => {
+            const apikey = 'some-apikey';
+            const mockTv = {
+                userId: 'user-id-1',
+                type: 'type-1',
+                level: seniorityType.JUNIOR,
+                technology: devLanguageType.JAVASCRIPT,
+                lang: languageType.SPANISH,
+                deletedAt: null,
+            };
+
+            tvModel.findOne = jest.fn().mockReturnValue({
+                populate: jest.fn().mockReturnValue({
+                    exec: jest.fn().mockResolvedValue(mockTv),
+                }),
+            });
+
+            const result = await service.findTvByApikey(apikey);
+
+            expect(tvModel.findOne).toHaveBeenCalledWith({ apikey });
+            expect(tvModel.findOne().populate).toHaveBeenCalledWith({
+                path: 'userId',
+                select: 'name',
+            });
+            expect(tvModel.findOne().populate().exec).toHaveBeenCalled();
+            expect(result).toEqual(mockTv);
+        });
+
+        it('findTvByApikey should throw a NotFoundException if the tv subscription does not exist', async () => {
+            const apikey = 'some-apikey';
+
+            tvModel.findOne = jest.fn().mockReturnValue({
+                populate: jest.fn().mockReturnValue({
+                    exec: jest.fn().mockResolvedValue(null),
+                }),
+            });
+
+            await expect(service.findTvByApikey(apikey)).rejects.toThrow(
+                new NotFoundException(`The tv suscription with the apikey: ${apikey} wasn't found`)
+            );
+        });
+
+        it('findTvByApikey should throw a NotFoundException if the tv subscription is deleted', async () => {
+            const apikey = 'some-apikey';
+            const mockTv = {
+                userId: 'user-id-1',
+                type: 'type-1',
+                level: seniorityType.JUNIOR,
+                technology: devLanguageType.JAVASCRIPT,
+                lang: languageType.SPANISH,
+                deletedAt: new Date(), // Simular que está eliminado
+            };
+
+            tvModel.findOne = jest.fn().mockReturnValue({
+                populate: jest.fn().mockReturnValue({
+                    exec: jest.fn().mockResolvedValue(mockTv),
+                }),
+            });
+
+            await expect(service.findTvByApikey(apikey)).rejects.toThrow(
+                new NotFoundException(`The tv suscription with the apikey: ${apikey} is already deleted`)
             );
         });
     });

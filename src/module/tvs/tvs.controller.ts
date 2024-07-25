@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, NotFoundException } from '@nestjs/common';
 import { TvsService } from './tvs.service';
 import { CreateTvDto } from './dto/create-tv.dto';
 import { UpdateTvDto } from './dto/update-tv.dto';
@@ -200,15 +200,14 @@ export class TvsController {
     },
   })
   @ApiResponse({ status: 404, description: 'TV subscription not found.' })
-  async findOneByApikey(
-    @Param('apikey') apikey: string,
-  ): Promise<TvSuscription | { message: string }> {
+  async findOneByApikey(@Param('apikey') apikey: string): Promise<TvSuscription> {
     try {
       return await this.tvsService.findTvByApikey(apikey);
     } catch (error) {
-      return {
-        message: `The TV subscription with the API key: ${apikey} wasn't found or is already deleted`,
-      };
+      if (error instanceof NotFoundException) {
+        throw new NotFoundException(`The TV subscription with the API key: ${apikey} wasn't found or is already deleted`);
+      }
+      throw error; // Rethrow unexpected errors
     }
   }
 
