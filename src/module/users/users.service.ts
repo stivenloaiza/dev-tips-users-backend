@@ -45,7 +45,7 @@ export class UsersService {
       const savedUser = await createdUser.save();
       const userIdString = savedUser._id.toString();
       await this.createSubscriptions(userIdString, createUserDto.subscriptions);
-      /* await this.sendWelcomeEmail(savedUser.name, savedUser.email); */
+      await this.sendWelcomeEmail(savedUser.name, savedUser.email);
       return savedUser;
     } catch (error) {
       if (error instanceof BadRequestException) {
