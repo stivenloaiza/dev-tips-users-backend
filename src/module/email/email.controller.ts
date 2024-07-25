@@ -161,6 +161,10 @@ export class EmailController {
   }
 
   @Patch('/update/:id')
+<<<<<<< HEAD
+  update(@Param('id') id: string, @Body() updateEmailDto: UpdateEmailDto) {
+    return this.emailService.update(id, updateEmailDto);
+=======
   @ApiOperation({ summary: 'Update an existing email subscription' })
   @ApiParam({
     name: 'id',
@@ -182,6 +186,7 @@ export class EmailController {
     @Body() updateEmailDto: UpdateEmailDto,
   ): Promise<EmailSubscription> {
     return this.emailService.update(+id, updateEmailDto);
+>>>>>>> origin
   }
 
   @Delete('/apikey/:apikey')
