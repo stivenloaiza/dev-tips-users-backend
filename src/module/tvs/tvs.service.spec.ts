@@ -7,6 +7,7 @@ import { ApiService } from '../../libs/auth/auth.service';
 import { CreateTvDto } from './dto/create-tv.dto';
 import { devLanguageType, languageType, seniorityType, SubscriptionType } from '../../libs/enums';
 import { User } from '../users/entities/user.entity';
+import { NotFoundException } from '@nestjs/common';
 
 describe('TvsService', () => {
     let service: TvsService;
@@ -23,6 +24,7 @@ describe('TvsService', () => {
             populate: jest.fn().mockReturnThis(),
             exec: jest.fn(),
             countDocuments: jest.fn(),
+            findById: jest.fn().mockReturnThis(),
         };
 
         const mockUserModel = {};
@@ -73,7 +75,7 @@ describe('TvsService', () => {
                 apikey: 'test-api-key',
             });
         });
-    })
+    });
 
     describe('findAll', () => {
         it('findAll should return paginated tv subscriptions', async () => {
@@ -115,5 +117,45 @@ describe('TvsService', () => {
                 currentPage: page,
             });
         });
-    })
+    });
+
+    describe('findOne', () => {
+        it('findOne should return a tv subscription if it exists', async () => {
+            const id = 'some-id';
+            const mockTv = {
+                userId: 'user-id-1',
+                type: 'type-1',
+                level: seniorityType.JUNIOR,
+                technology: devLanguageType.JAVASCRIPT,
+                lang: languageType.SPANISH,
+            };
+
+            tvModel.findById = jest.fn().mockReturnValue({
+                populate: jest.fn().mockReturnValue({
+                    exec: jest.fn().mockResolvedValue(mockTv),
+                }),
+            });
+
+            const result = await service.findOne(id);
+
+            expect(tvModel.findById).toHaveBeenCalledWith(id);
+            expect(tvModel.findById().populate).toHaveBeenCalledWith('userId');
+            expect(tvModel.findById().populate().exec).toHaveBeenCalled();
+            expect(result).toEqual(mockTv);
+        });
+
+        it('findOne should throw a NotFoundException if the tv subscription does not exist', async () => {
+            const id = 'some-id';
+
+            tvModel.findById = jest.fn().mockReturnValue({
+                populate: jest.fn().mockReturnValue({
+                    exec: jest.fn().mockResolvedValue(null),
+                }),
+            });
+
+            await expect(service.findOne(id)).rejects.toThrow(
+                new NotFoundException(`Tv Suscription with id ${id} not found`)
+            );
+        });
+    });
 });

@@ -2,11 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { TvsController } from './tvs.controller';
 import { TvsService } from './tvs.service';
 import { TvSuscription } from './entities/tv.entity';
-import { ApiService } from '../../libs/auth/auth.service';
-import { Model } from 'mongoose';
-import { getModelToken } from '@nestjs/mongoose';
-import { devLanguageType, languageType, seniorityType, SubscriptionType } from '../../libs/enums';
-import { User } from '../users/entities/user.entity';
+import { NotFoundException } from '@nestjs/common';
+import { devLanguageType, languageType, seniorityType } from '../../libs/enums';
 
 describe('TvsController', () => {
     let controller: TvsController;
@@ -14,16 +11,13 @@ describe('TvsController', () => {
 
     beforeEach(async () => {
         const mockTvsService = {
-            findAll: jest.fn(),
+            findOne: jest.fn(),
         };
 
         const module: TestingModule = await Test.createTestingModule({
             controllers: [TvsController],
             providers: [
                 { provide: TvsService, useValue: mockTvsService },
-                { provide: getModelToken(TvSuscription.name), useValue: {} },
-                { provide: getModelToken(User.name), useValue: {} },
-                { provide: ApiService, useValue: {} },
             ],
         }).compile();
 
@@ -35,30 +29,35 @@ describe('TvsController', () => {
         expect(controller).toBeDefined();
     });
 
-    it('findAll should return paginated tv subscriptions', async () => {
-        const mockItems = [
-            { userId: 'user-id-1', type: 'type-1', level: seniorityType.JUNIOR, technology: devLanguageType.JAVASCRIPT, lang: languageType.SPANISH },
-            { userId: 'user-id-2', type: 'type-2', level: seniorityType.SENIOR, technology: devLanguageType.PYTHON, lang: languageType.ENGLISH },
-        ];
+    describe('findOne', () => {
+        it('findOne should return a tv subscription if it exists', async () => {
+            const id = 'some-id';
+            const mockTv = {
+                userId: 'user-id-1',
+                type: 'type-1',
+                level: seniorityType.JUNIOR,
+                technology: devLanguageType.JAVASCRIPT,
+                lang: languageType.SPANISH,
+            };
 
-        const page = 1;
-        const limit = 10;
+            service.findOne = jest.fn().mockResolvedValue(mockTv);
 
-        jest.spyOn(service, 'findAll').mockResolvedValue({
-            items: mockItems,
-            totalItems: 10,
-            totalPages: 1,
-            currentPage: page,
+            const result = await controller.findOne(id);
+
+            expect(service.findOne).toHaveBeenCalledWith(id);
+            expect(result).toEqual(mockTv);
         });
 
-        const result = await controller.findAll(page, limit);
+        it('findOne should throw a NotFoundException if the tv subscription does not exist', async () => {
+            const id = 'some-id';
 
-        expect(service.findAll).toHaveBeenCalledWith(page, limit);
-        expect(result).toEqual({
-            items: mockItems,
-            totalItems: 10,
-            totalPages: 1,
-            currentPage: page,
+            service.findOne = jest.fn().mockRejectedValue(
+                new NotFoundException(`Tv Suscription with id ${id} not found`)
+            );
+
+            await expect(controller.findOne(id)).rejects.toThrow(
+                new NotFoundException(`Tv Suscription with id ${id} not found`)
+            );
         });
     });
 });
