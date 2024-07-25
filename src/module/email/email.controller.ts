@@ -30,6 +30,6 @@ export class EmailController {
 
   @Patch('/update/:id')
   update(@Param('id') id: string, @Body() updateEmailDto: UpdateEmailDto) {
-    return this.emailService.update(+id, updateEmailDto);
+    return this.emailService.update(id, updateEmailDto);
   }
 }

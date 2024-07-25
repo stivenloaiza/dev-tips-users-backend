@@ -21,7 +21,8 @@ export class EmailService {
     const apiKey = await this.apiService.getApiKey(SubscriptionType.email);
     createEmailDto.apikey = apiKey;
 
-    const createdEmailSubscription = await this.emailModel.create(createEmailDto);
+    const createdEmailSubscription =
+      await this.emailModel.create(createEmailDto);
     return createdEmailSubscription;
   }
 
@@ -55,14 +56,13 @@ export class EmailService {
     return emailFound;
   }
 
-  async update(id: number, updateEmailDto: UpdateEmailDto) {
+  async update(id: string, updateEmailDto: UpdateEmailDto) {
     if (!Types.ObjectId.isValid(id)) {
       throw new Error(`Object id ${id} isn't valid`);
     }
 
-    const email = await this.emailModel.findByIdAndUpdate({
-      id,
-      updateEmailDto,
+    const email = await this.emailModel.findByIdAndUpdate(id, updateEmailDto, {
+      new: true,
     });
 
     if (!email) {

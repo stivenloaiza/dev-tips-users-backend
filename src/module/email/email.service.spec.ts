@@ -11,7 +11,8 @@ import {
   seniorityType,
   SubscriptionType,
 } from '../../libs/enums/index';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
+import { UpdateEmailDto } from './dto/update-email.dto';
 
 describe('EmailService', () => {
   let service: EmailService;
@@ -192,4 +193,61 @@ describe('EmailService', () => {
       expect(result).toEqual([]);
     });
   });
+
+  describe('update', () => {
+    it('should update an email subscription', async () => {
+      const id = new Types.ObjectId().toHexString();
+      const updateEmailDto: UpdateEmailDto = {
+        frequency: 'daily',
+        level: seniorityType.JUNIOR,
+        technology: devLanguageType.JAVASCRIPT,
+        lang: languageType.SPANISH,
+        type: 'updatedType',
+      };
+
+      const updatedEmailSubscription = {
+        _id: id,
+        ...updateEmailDto,
+      };
+
+      jest.spyOn(emailModel, 'findByIdAndUpdate').mockResolvedValue(updatedEmailSubscription as any);
+
+      const result = await service.update(id, updateEmailDto);
+      expect(result).toEqual(updatedEmailSubscription);
+      expect(emailModel.findByIdAndUpdate).toHaveBeenCalledWith(id, updateEmailDto, { new: true });
+    });
+
+    it('should throw an error if id is not valid', async () => {
+      const invalidId = 'invalidObjectId';
+      const updateEmailDto: UpdateEmailDto = {
+        frequency: 'daily',
+        level: seniorityType.JUNIOR,
+        technology: devLanguageType.JAVASCRIPT,
+        lang: languageType.SPANISH,
+        type: 'updatedType',
+      };
+
+      await expect(service.update(invalidId, updateEmailDto)).rejects.toThrowError(
+        `Object id ${invalidId} isn't valid`
+      );
+    });
+
+    it('should throw an error if update fails', async () => {
+      const id = new Types.ObjectId().toHexString();
+      const updateEmailDto: UpdateEmailDto = {
+        frequency: 'daily',
+        level: seniorityType.JUNIOR,
+        technology: devLanguageType.JAVASCRIPT,
+        lang: languageType.SPANISH,
+        type: 'updatedType',
+      };
+
+      jest.spyOn(emailModel, 'findByIdAndUpdate').mockResolvedValue(null);
+
+      await expect(service.update(id, updateEmailDto)).rejects.toThrowError(
+        'Problem with the updating process'
+      );
+    });
+  });
+  
 });

@@ -5,9 +5,14 @@ import { CreateEmailDto } from './dto/create-email.dto';
 import { EmailSubscription } from './entities/email.entity';
 import { getModelToken } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { devLanguageType, languageType, seniorityType } from '../../libs/enums/index';
+import {
+  devLanguageType,
+  languageType,
+  seniorityType,
+} from '../../libs/enums/index';
 import { User } from '../users/entities/user.entity';
 import { ApiService } from '../../libs/auth/auth.service';
+import { UpdateEmailDto } from './dto/update-email.dto';
 
 describe('EmailController', () => {
   let controller: EmailController;
@@ -49,7 +54,9 @@ describe('EmailController', () => {
 
     controller = module.get<EmailController>(EmailController);
     service = module.get<EmailService>(EmailService);
-    emailModel = module.get<Model<EmailSubscription>>(getModelToken(EmailSubscription.name));
+    emailModel = module.get<Model<EmailSubscription>>(
+      getModelToken(EmailSubscription.name),
+    );
   });
 
   it('should be defined', () => {
@@ -85,7 +92,9 @@ describe('EmailController', () => {
         deletedBy: null,
       };
 
-      jest.spyOn(service, 'create').mockResolvedValue(createdEmailSubscription as any);
+      jest
+        .spyOn(service, 'create')
+        .mockResolvedValue(createdEmailSubscription as any);
 
       const result = await controller.create(createEmailDto);
       expect(result).toEqual(createdEmailSubscription);
@@ -99,8 +108,24 @@ describe('EmailController', () => {
       const limit = 10;
 
       const emailSubscriptions = [
-        { _id: 'id1', userId: 'userId1', type: 'email', frequency: 'weekly', level: seniorityType.JUNIOR, technology: devLanguageType.JAVASCRIPT, lang: languageType.SPANISH },
-        { _id: 'id2', userId: 'userId2', type: 'email', frequency: 'monthly', level: seniorityType.SENIOR, technology: devLanguageType.PYTHON, lang: languageType.ENGLISH },
+        {
+          _id: 'id1',
+          userId: 'userId1',
+          type: 'email',
+          frequency: 'weekly',
+          level: seniorityType.JUNIOR,
+          technology: devLanguageType.JAVASCRIPT,
+          lang: languageType.SPANISH,
+        },
+        {
+          _id: 'id2',
+          userId: 'userId2',
+          type: 'email',
+          frequency: 'monthly',
+          level: seniorityType.SENIOR,
+          technology: devLanguageType.PYTHON,
+          lang: languageType.ENGLISH,
+        },
       ];
 
       const result = {
@@ -122,9 +147,15 @@ describe('EmailController', () => {
     it('should find an email subscription by field', async () => {
       const field = 'type';
       const value = 'email';
-      const emailSubscription = { _id: 'id', type: 'email', frequency: 'weekly' };
+      const emailSubscription = {
+        _id: 'id',
+        type: 'email',
+        frequency: 'weekly',
+      };
 
-      jest.spyOn(service, 'findOneByField').mockResolvedValue([emailSubscription] as any);
+      jest
+        .spyOn(service, 'findOneByField')
+        .mockResolvedValue([emailSubscription] as any);
 
       const result = await controller.findOne(field, value);
       expect(result).toEqual([emailSubscription]);
@@ -142,5 +173,29 @@ describe('EmailController', () => {
     });
   });
 
-  
+  describe('update', () => {
+    it('should update an email subscription', async () => {
+      const id = 'validObjectId';
+      const updateEmailDto: UpdateEmailDto = {
+        type: 'updatedType',
+        frequency: 'daily',
+        level: seniorityType.MID,
+        technology: devLanguageType.PYTHON,
+        lang: languageType.ENGLISH,
+      };
+
+      const updatedEmailSubscription = {
+        _id: id,
+        ...updateEmailDto,
+      };
+
+      jest
+        .spyOn(service, 'update')
+        .mockResolvedValue(updatedEmailSubscription as any);
+
+      const result = await controller.update(id, updateEmailDto);
+      expect(result).toEqual(updatedEmailSubscription);
+      expect(service.update).toHaveBeenCalledWith(id, updateEmailDto);
+    });
+  });
 });
