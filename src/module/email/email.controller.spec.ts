@@ -29,6 +29,7 @@ describe('EmailController', () => {
             findByIdAndUpdate: jest.fn(),
             save: jest.fn().mockResolvedValue({}),
             exec: jest.fn(),
+            countDocuments: jest.fn(),
           },
         },
         {
@@ -89,6 +90,31 @@ describe('EmailController', () => {
       const result = await controller.create(createEmailDto);
       expect(result).toEqual(createdEmailSubscription);
       expect(service.create).toHaveBeenCalledWith(createEmailDto);
+    });
+  });
+
+  describe('findAll', () => {
+    it('should return paginated email subscriptions', async () => {
+      const page = 1;
+      const limit = 10;
+
+      const emailSubscriptions = [
+        { _id: 'id1', userId: 'userId1', type: 'email', frequency: 'weekly', level: seniorityType.JUNIOR, technology: devLanguageType.JAVASCRIPT, lang: languageType.SPANISH },
+        { _id: 'id2', userId: 'userId2', type: 'email', frequency: 'monthly', level: seniorityType.SENIOR, technology: devLanguageType.PYTHON, lang: languageType.ENGLISH },
+      ];
+
+      const result = {
+        items: emailSubscriptions,
+        totalItems: 20,
+        totalPages: 2,
+        currentPage: 1,
+      };
+
+      jest.spyOn(service, 'findAll').mockResolvedValue(result as any);
+
+      const response = await controller.findAll(page, limit);
+      expect(response).toEqual(result);
+      expect(service.findAll).toHaveBeenCalledWith(page, limit);
     });
   });
 });
