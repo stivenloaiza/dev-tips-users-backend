@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsEnum, IsNotEmpty } from 'class-validator';
-import { devLanguageType, languageType, seniorityType } from 'src/libs/enums';
+import { devLanguageType, languageType, seniorityType } from '../../../libs/enums';
 
 export class CreateTvDto {
   @ApiProperty({ description: 'API key for the TV subscription' })

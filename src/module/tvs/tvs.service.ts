@@ -4,9 +4,9 @@ import { UpdateTvDto } from './dto/update-tv.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from '../users/entities/user.entity';
 import { Model } from 'mongoose';
-import { TvSuscription } from './entities/tv.entity';
-import { ApiService } from 'src/libs/auth/auth.service';
-import { SubscriptionType } from 'src/libs/enums';
+import { TvSuscription } from '../tvs/entities/tv.entity';
+import { ApiService } from '../../libs/auth/auth.service';
+import { SubscriptionType } from '../../libs/enums';
 
 @Injectable()
 export class TvsService {
@@ -18,11 +18,10 @@ export class TvsService {
   ) {}
 
   async create(createTvDto: CreateTvDto): Promise<TvSuscription> {
-    const apiKey = await this.apiService.getApiKey(SubscriptionType.tv);
-    createTvDto.apikey = apiKey;
-    const createdTvSubscription = new this.tvModel(createTvDto);
-    createdTvSubscription.save();
-    return;
+      const apiKey = await this.apiService.getApiKey(SubscriptionType.tv);
+      createTvDto.apikey = apiKey;
+      const createdTvSubscription = await this.tvModel.create(createTvDto);
+      return createdTvSubscription;
   }
 
   async findAll(page: number, limit: number): Promise<any> {
