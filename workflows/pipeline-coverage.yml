@@ -1,0 +1,43 @@
+name: 🚀 Unit Tests Pipeline | Coverage Analysis 🛡️
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  coverage:
+    name: 🧪 Coverage Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📂 Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Ensure all history for accurate coverage
+
+      - name: 🛠️ Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20.10.0'
+
+      - name: 📦 Install Dependencies
+        run: npm install
+
+      - name: 📄 Read Skip-Tests Configuration
+        id: read_config
+        run: |
+          skip_tests=$(jq '.skipTests' skip-tests.config.json)
+          echo "RUN_TESTS=${skip_tests}" >> $GITHUB_ENV
+
+      - name: 🐛 Debug RUN_TESTS Value
+        run: echo "RUN_TESTS is set to $RUN_TESTS"
+
+      - name: 🧪 Run Tests with Coverage
+        if: env.RUN_TESTS == 'true'
+        run: npm run test:cov
