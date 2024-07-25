@@ -17,7 +17,6 @@ import { UpdateEmailDto } from './dto/update-email.dto';
 describe('EmailService', () => {
   let service: EmailService;
   let emailModel: Model<EmailSubscription>;
-  let userModel: Model<User>;
   let apiService: ApiService;
 
   beforeEach(async () => {
@@ -61,7 +60,6 @@ describe('EmailService', () => {
     emailModel = module.get<Model<EmailSubscription>>(
       getModelToken(EmailSubscription.name),
     );
-    userModel = module.get<Model<User>>(getModelToken(User.name));
     apiService = module.get<ApiService>(ApiService);
   });
 
@@ -210,11 +208,17 @@ describe('EmailService', () => {
         ...updateEmailDto,
       };
 
-      jest.spyOn(emailModel, 'findByIdAndUpdate').mockResolvedValue(updatedEmailSubscription as any);
+      jest
+        .spyOn(emailModel, 'findByIdAndUpdate')
+        .mockResolvedValue(updatedEmailSubscription as any);
 
       const result = await service.update(id, updateEmailDto);
       expect(result).toEqual(updatedEmailSubscription);
-      expect(emailModel.findByIdAndUpdate).toHaveBeenCalledWith(id, updateEmailDto, { new: true });
+      expect(emailModel.findByIdAndUpdate).toHaveBeenCalledWith(
+        id,
+        updateEmailDto,
+        { new: true },
+      );
     });
 
     it('should throw an error if id is not valid', async () => {
@@ -227,9 +231,9 @@ describe('EmailService', () => {
         type: 'updatedType',
       };
 
-      await expect(service.update(invalidId, updateEmailDto)).rejects.toThrowError(
-        `Object id ${invalidId} isn't valid`
-      );
+      await expect(
+        service.update(invalidId, updateEmailDto),
+      ).rejects.toThrowError(`Object id ${invalidId} isn't valid`);
     });
 
     it('should throw an error if update fails', async () => {
@@ -245,9 +249,8 @@ describe('EmailService', () => {
       jest.spyOn(emailModel, 'findByIdAndUpdate').mockResolvedValue(null);
 
       await expect(service.update(id, updateEmailDto)).rejects.toThrowError(
-        'Problem with the updating process'
+        'Problem with the updating process',
       );
     });
   });
-  
 });

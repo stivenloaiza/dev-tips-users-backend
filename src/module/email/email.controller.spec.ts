@@ -4,7 +4,6 @@ import { EmailService } from './email.service';
 import { CreateEmailDto } from './dto/create-email.dto';
 import { EmailSubscription } from './entities/email.entity';
 import { getModelToken } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import {
   devLanguageType,
   languageType,
@@ -17,7 +16,6 @@ import { UpdateEmailDto } from './dto/update-email.dto';
 describe('EmailController', () => {
   let controller: EmailController;
   let service: EmailService;
-  let emailModel: Model<EmailSubscription>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -54,9 +52,6 @@ describe('EmailController', () => {
 
     controller = module.get<EmailController>(EmailController);
     service = module.get<EmailService>(EmailService);
-    emailModel = module.get<Model<EmailSubscription>>(
-      getModelToken(EmailSubscription.name),
-    );
   });
 
   it('should be defined', () => {

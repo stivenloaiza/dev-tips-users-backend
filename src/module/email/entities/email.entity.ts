@@ -1,5 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { languageType, seniorityType , devLanguageType} from '../../../libs/enums/index';
+import {
+  languageType,
+  seniorityType,
+  devLanguageType,
+} from '../../../libs/enums/index';
 import { frecuencyType } from '../../../libs/enums/frecuency.enum';
 import { User } from '../../users/entities/user.entity';
 import { Document, Schema as MongooseSchema } from 'mongoose';

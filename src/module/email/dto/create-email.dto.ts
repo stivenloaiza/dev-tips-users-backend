@@ -1,6 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
-import { devLanguageType, languageType, seniorityType } from '../../../libs/enums/index';
+import {
+  devLanguageType,
+  languageType,
+  seniorityType,
+} from '../../../libs/enums/index';
 
 export class CreateEmailDto {
   @ApiProperty({
