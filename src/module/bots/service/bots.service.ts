@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { BotsSubscription } from '../entities/bots.entity';
@@ -31,8 +36,13 @@ export class BotsSubscriptionService {
       );
       return createdBotSubscription;
     } catch (error) {
-      console.error('ISSUE GETTING THE APIKEY WITH BOT', error);
-      throw new BotsSubscriptionBadRequestException();
+      throw new HttpException(
+        {
+          status: HttpStatus.BAD_REQUEST,
+          error: 'Failed to create bot subscription',
+        },
+        HttpStatus.BAD_REQUEST,
+      );
     }
   }
 
