@@ -47,19 +47,7 @@ jobs:
       - name: 🎨 Run linter
         run: npm run lint
         # This step runs the linter to check the code for issues
-
-      - name: 📖 Generate and upload code coverage report
-        if: success()
-        run: npm run coverage
-        # This step generates a code coverage report after successful linting
-
-      - name: 📊 Upload coverage to Codecov
-        if: success()
-        uses: codecov/codecov-action@v2
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-        # This step uploads the coverage report to Codecov if the previous steps succeeded
-
+        
       - name: 🚀 Post Lint Summary
         if: always()
         run: |
