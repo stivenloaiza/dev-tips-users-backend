@@ -1,4 +1,4 @@
-name: Lint and Format
+name: 🧹 Lint and Format Pipeline
 
 on:
   push:
@@ -12,19 +12,51 @@ on:
 
 jobs:
   lint:
+    name: 🔍 Lint and Format
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: 📂 Checkout Repository
         uses: actions/checkout@v2
+        # This step checks out the repository to the runner for the job
 
-      - name: Use Node.js
+      - name: 🎯 Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '20.14'
+        # This step sets up the specified version of Node.js for use in the job
 
-      - name: Install dependencies
-        run: npm install
+      - name: 📦 Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+        # This step caches npm dependencies to speed up subsequent runs
 
-      - name: Run linter
+      - name: 📦 Install dependencies
+        run: npm ci
+        # This step installs the npm dependencies required for the project
+        # Using npm ci ensures a clean install based on the lock file
+
+      - name: 🛡️ Verify code formatting
+        run: npm run format:check
+        # This step verifies the code formatting without making changes
+
+      - name: 🎨 Run linter
         run: npm run lint
+        # This step runs the linter to check the code for issues
+        
+      - name: 🚀 Post Lint Summary
+        if: always()
+        run: |
+          echo "### Lint Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f lint-results.txt ]; then
+            cat lint-results.txt >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No lint issues found." >> $GITHUB_STEP_SUMMARY
+          fi
+        shell: /usr/bin/bash -e {0}
+      
