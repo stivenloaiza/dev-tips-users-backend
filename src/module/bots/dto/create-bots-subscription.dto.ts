@@ -5,7 +5,7 @@ import {
   devLanguageType,
   languageType,
   seniorityType,
-} from 'src/libs/enums';
+} from '../../../libs/enums/index';
 
 export class CreateBotsSubscriptionDto {
   @ApiProperty({

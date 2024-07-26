@@ -1,4 +1,4 @@
 export enum channelType {
-  TELEGRAM = 'Telegram',
-  DISCORD = 'Discord',
+  TELEGRAM = 'TELEGRAM',
+  DISCORD = 'DISCORD',
 }

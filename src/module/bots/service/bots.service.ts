@@ -8,8 +8,8 @@ import {
   BotsSubscriptionNotFoundException,
   BotsSubscriptionBadRequestException,
 } from '../exception/bots-suscription.exceptions';
-import { ApiService } from 'src/libs/auth/auth.service';
-import { SubscriptionType } from 'src/libs/enums';
+import { ApiService } from '../../../libs/auth/auth.service';
+import { SubscriptionType } from '../../../libs/enums/index';
 
 @Injectable()
 export class BotsSubscriptionService {
@@ -26,12 +26,13 @@ export class BotsSubscriptionService {
       const apiKey = await this.apiService.getApiKey(SubscriptionType.bot);
       createBotsSubscriptionDto.apikey = apiKey;
 
-      const createdBotSubscription = new this.botsSubscriptionModel(
+      const createdBotSubscription = await this.botsSubscriptionModel.create(
         createBotsSubscriptionDto,
       );
-      return await createdBotSubscription.save();
+      return createdBotSubscription;
     } catch (error) {
       console.error('ISSUE GETTING THE APIKEY WITH BOT', error);
+      throw new BotsSubscriptionBadRequestException();
     }
   }
 
