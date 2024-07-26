@@ -1,8 +1,11 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
-import { channelType, seniorityType } from 'src/libs/enums';
-import { frecuencyType } from 'src/libs/enums/frecuency.enum';
-import { User } from 'src/module/users/entities/user.entity';
+import {
+  channelType,
+  devLanguageType,
+  seniorityType,
+} from '../../../libs/enums/index';
+import { frecuencyType } from '../../../libs/enums/frecuency.enum';
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class BotsSubscription extends Document {
@@ -10,7 +13,7 @@ export class BotsSubscription extends Document {
   apikey: string;
 
   @Prop({ type: MongooseSchema.Types.ObjectId, ref: 'User', required: true })
-  userId: User;
+  userId: string;
 
   @Prop({})
   type: string;
@@ -24,8 +27,8 @@ export class BotsSubscription extends Document {
   @Prop({ required: true, enum: seniorityType })
   level: seniorityType;
 
-  @Prop({ type: MongooseSchema.Types.Mixed, required: true })
-  technology: Record<string, any>;
+  @Prop({ enum: devLanguageType, required: true })
+  technology: devLanguageType;
 
   @Prop({ required: true })
   lang: string;
@@ -44,6 +47,12 @@ export class BotsSubscription extends Document {
 
   @Prop({ default: null })
   deletedBy?: string;
+
+  @Prop()
+  createdAt: Date;
+
+  @Prop()
+  updatedAt: Date;
 }
 
 export const BotsSubscriptionSchema =
