@@ -20,24 +20,62 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0  # Ensure all history for accurate coverage
+        # This step checks out the repository to the runner for the job
 
       - name: 🛠️ Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '20.10.0'
+        # This step sets up the specified version of Node.js for use in the job
+
+      - name: 📦 Cache Node.js modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+        # This step caches npm dependencies to speed up subsequent runs
 
       - name: 📦 Install Dependencies
-        run: npm install
+        run: npm ci
+        # This step installs the npm dependencies required for the project
+        # Using npm ci ensures a clean install based on the lock file
 
       - name: 📄 Read Skip-Tests Configuration
         id: read_config
         run: |
-          skip_tests=$(jq '.skipTests' skip-tests.config.json)
-          echo "RUN_TESTS=${skip_tests}" >> $GITHUB_ENV
+          skip_tests=$(jq -r '.skipTests' skip-tests.config.json)
+          if [ "$skip_tests" == "true" ]; then
+            echo "RUN_TESTS=false" >> $GITHUB_ENV
+          else
+            echo "RUN_TESTS=true" >> $GITHUB_ENV
+          fi
+        # This step reads the 'skipTests' configuration from the skip-tests.config.json file
+        # and sets the environment variable 'RUN_TESTS' to 'false' if 'skipTests' is 'true', 
+        # otherwise sets 'RUN_TESTS' to 'true'
 
       - name: 🐛 Debug RUN_TESTS Value
-        run: echo "RUN_TESTS is set to $RUN_TESTS"
+        run: echo "RUN_TESTS is set to ${{ env.RUN_TESTS }}"
+        # This step prints the value of 'RUN_TESTS' for debugging purposes
 
       - name: 🧪 Run Tests with Coverage
-        if: env.RUN_TESTS == 'true'
+        if: ${{ env.RUN_TESTS == 'true' }}
         run: npm run test:cov
+        # This step runs the tests with coverage if 'RUN_TESTS' is 'true'
+
+      - name: 📝 Report Execution Results
+        run: |
+          if [ "${{ env.RUN_TESTS }}" == "true" ]; then
+            echo "Tests were executed."
+          else
+            echo "Tests were skipped based on configuration."
+          fi
+        # This step reports whether the tests were executed or skipped based on the value of 'RUN_TESTS'
+
+      - name: 📊 Upload coverage to Codecov
+        if: ${{ env.RUN_TESTS == 'true' }}
+        uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+        # This step uploads the coverage report to Codecov if the tests were executed
