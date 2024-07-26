@@ -69,4 +69,6 @@ jobs:
             cat lint-results.txt >> $GITHUB_STEP_SUMMARY
           else
             echo "No lint issues found." >> $GITHUB_STEP_SUMMARY
-        # This step posts a summary of the linting results to the GitHub Actions summary
+          fi
+        shell: /usr/bin/bash -e {0}
+      
