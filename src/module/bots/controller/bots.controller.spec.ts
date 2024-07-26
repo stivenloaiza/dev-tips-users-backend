@@ -32,7 +32,7 @@ describe('BotsController', () => {
     service = module.get<BotsSubscriptionService>(BotsSubscriptionService);
   });
 
-  describe('create', () => {
+  describe('create', () => Add unit tests for create method in Bots module; update service, DTOs, and entities{
     it('should create a new bots subscription', async () => {
       const createBotsSubscritionDto: CreateBotsSubscriptionDto = {
         apikey: '12345-abcde',
